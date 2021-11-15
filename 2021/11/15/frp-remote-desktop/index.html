@@ -9,7 +9,7 @@
   <meta name="description" content="1 你为什么需要配置frp一般来说，你的主机并不会被分配到一个外网ip，而是一个局域网的内网ip，访问外网是通过路由器的NAT实现的。当你的其他设备想要连接这台主机时，如果不在同一局域网下，将无法连接成功。 为了打破空间的限制，让你在任何互联网接入点上都可以远程连接自己的那台主机，你可以通过配置frp来实现，这也就所谓的内网穿透。 2 配置frpfrp需要两类主机： 一台充当frp服务器（你需要有">
 <meta property="og:type" content="article">
 <meta property="og:title" content="连接内网远程桌面教程-frp配置">
-<meta property="og:url" content="http://example.com/2021/11/15/mac%E8%BF%9E%E6%8E%A5%E5%86%85%E7%BD%91%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%95%99%E7%A8%8B-frp%E9%85%8D%E7%BD%AE/index.html">
+<meta property="og:url" content="http://example.com/2021/11/15/frp-remote-desktop/index.html">
 <meta property="og:site_name" content="Hexo">
 <meta property="og:description" content="1 你为什么需要配置frp一般来说，你的主机并不会被分配到一个外网ip，而是一个局域网的内网ip，访问外网是通过路由器的NAT实现的。当你的其他设备想要连接这台主机时，如果不在同一局域网下，将无法连接成功。 为了打破空间的限制，让你在任何互联网接入点上都可以远程连接自己的那台主机，你可以通过配置frp来实现，这也就所谓的内网穿透。 2 配置frpfrp需要两类主机： 一台充当frp服务器（你需要有">
 <meta property="og:locale" content="zh_CN">
@@ -23,8 +23,8 @@
 <meta property="og:image" content="http://example.com/Users/pengkairan/myBlog/source/_posts/frp-remote-desktop/QQ%E6%88%AA%E5%9B%BE20210926112559.png">
 <meta property="og:image" content="http://example.com/Users/pengkairan/myBlog/source/_posts/frp-remote-desktop/QQ%E6%88%AA%E5%9B%BE20210926112631.png">
 <meta property="og:image" content="http://example.com/Users/pengkairan/myBlog/source/_posts/frp-remote-desktop/QQ%E6%88%AA%E5%9B%BE20210926114125.png">
-<meta property="article:published_time" content="2021-11-15T11:53:14.946Z">
-<meta property="article:modified_time" content="2021-11-15T12:37:56.679Z">
+<meta property="article:published_time" content="2021-11-15T12:34:42.000Z">
+<meta property="article:modified_time" content="2021-11-15T12:38:29.624Z">
 <meta property="article:author" content="John Doe">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:image" content="http://example.com/Users/pengkairan/myBlog/source/_posts/frp-remote-desktop/image-20211115163925303.png">
@@ -84,10 +84,10 @@
 </header>
 
       <div class="outer">
-        <section id="main"><article id="post-mac连接内网远程桌面教程-frp配置" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
+        <section id="main"><article id="post-frp-remote-desktop" class="h-entry article article-type-post" itemprop="blogPost" itemscope itemtype="https://schema.org/BlogPosting">
   <div class="article-meta">
-    <a href="/2021/11/15/mac%E8%BF%9E%E6%8E%A5%E5%86%85%E7%BD%91%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%95%99%E7%A8%8B-frp%E9%85%8D%E7%BD%AE/" class="article-date">
-  <time class="dt-published" datetime="2021-11-15T11:53:14.946Z" itemprop="datePublished">2021-11-15</time>
+    <a href="/2021/11/15/frp-remote-desktop/" class="article-date">
+  <time class="dt-published" datetime="2021-11-15T12:34:42.000Z" itemprop="datePublished">2021-11-15</time>
 </a>
     
   </div>
@@ -177,7 +177,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://example.com/2021/11/15/mac%E8%BF%9E%E6%8E%A5%E5%86%85%E7%BD%91%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%95%99%E7%A8%8B-frp%E9%85%8D%E7%BD%AE/" data-id="ckw0nld5o0002z6pi1fgtbfp4" data-title="连接内网远程桌面教程-frp配置" class="article-share-link">分享</a>
+      <a data-url="http://example.com/2021/11/15/frp-remote-desktop/" data-id="ckw0nld5m0001z6pifkj26t01" data-title="连接内网远程桌面教程-frp配置" class="article-share-link">分享</a>
       
       
       
@@ -187,19 +187,10 @@
     
 <nav id="article-nav">
   
-    <a href="/2021/11/15/frp-remote-desktop/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">前一篇</strong>
-      <div class="article-nav-title">
-        
-          连接内网远程桌面教程-frp配置
-        
-      </div>
-    </a>
   
-  
-    <a href="/2021/10/02/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2021/11/15/mac%E8%BF%9E%E6%8E%A5%E5%86%85%E7%BD%91%E8%BF%9C%E7%A8%8B%E6%A1%8C%E9%9D%A2%E6%95%99%E7%A8%8B-frp%E9%85%8D%E7%BD%AE/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">后一篇</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">连接内网远程桌面教程-frp配置</div>
     </a>
   
 </nav>
