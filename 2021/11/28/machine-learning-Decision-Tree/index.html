@@ -1,0 +1,318 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>机器学习-决策树 | 你刚刚打开了这个博客</title><meta name="keywords" content="machine-learning"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 简介1.1 什么是决策树决策树（Decision Tree）是一种描述对实例进行分类的树状结构。  决策节点：代表一个问题或者决策。 有向边：代表决策节点的不同取值。 叶子节点：代表可能的分类结果。    在沿着决策树从上到下的遍历过程中，在每个结点都有一个测试。对每个结点上问题的不同测试输出导致不同的分枝，最后会达到一个叶子结点。这一过程就是利用决策树进行分类的过程，利用若干个变量来判断属性">
+<meta property="og:type" content="article">
+<meta property="og:title" content="机器学习-决策树">
+<meta property="og:url" content="http://110.42.233.207/2021/11/28/machine-learning-Decision-Tree/index.html">
+<meta property="og:site_name" content="你刚刚打开了这个博客">
+<meta property="og:description" content="1 简介1.1 什么是决策树决策树（Decision Tree）是一种描述对实例进行分类的树状结构。  决策节点：代表一个问题或者决策。 有向边：代表决策节点的不同取值。 叶子节点：代表可能的分类结果。    在沿着决策树从上到下的遍历过程中，在每个结点都有一个测试。对每个结点上问题的不同测试输出导致不同的分枝，最后会达到一个叶子结点。这一过程就是利用决策树进行分类的过程，利用若干个变量来判断属性">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg">
+<meta property="article:published_time" content="2021-11-28T11:17:57.000Z">
+<meta property="article:modified_time" content="2021-11-28T13:15:57.940Z">
+<meta property="article:author" content="Kevin Parker">
+<meta property="article:tag" content="machine-learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://110.42.233.207/2021/11/28/machine-learning-Decision-Tree/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '机器学习-决策树',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-11-28 21:15:57'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">机器学习-决策树</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-11-28T11:17:57.000Z" title="发表于 2021-11-28 19:17:57">2021-11-28</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-11-28T13:15:57.940Z" title="更新于 2021-11-28 21:15:57">2021-11-28</time></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器学习-决策树"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h1><h2 id="1-1-什么是决策树"><a href="#1-1-什么是决策树" class="headerlink" title="1.1 什么是决策树"></a>1.1 什么是决策树</h2><p><strong>决策树（Decision Tree）</strong>是一种描述对实例进行分类的树状结构。</p>
+<ul>
+<li>决策节点：代表一个问题或者决策。</li>
+<li>有向边：代表决策节点的不同取值。</li>
+<li>叶子节点：代表可能的分类结果。</li>
+</ul>
+<img src="/2021/11/28/machine-learning-Decision-Tree/image-20211128192738406.png" alt="image-20211128192738406" style="zoom:50%;">
+
+<p>在沿着决策树从上到下的遍历过程中，在每个结点都有一个测试。对每个结点上问题的不同测试输出导致不同的分枝，最后会达到一个叶子结点。这一过程就是利用决策树进行分类的过程，利用若干个变量来判断属性的类别。</p>
+<p>决策树学习本质上是从训练数据集中归纳出一组分类规则，与训练数据集不相矛盾的决策树。</p>
+<p>能对训练数据进行正确分类的决策树可能有多个，也可能 一个也没有。</p>
+<p>需要的是一个与训练数据矛盾较小的决策树，同时具有很好的泛化能力。 </p>
+<p>决策树技术发现数据模式和规则的核心是<strong>归纳算法</strong>。</p>
+<h2 id="1-2-决策树与条件概率分布"><a href="#1-2-决策树与条件概率分布" class="headerlink" title="1.2 决策树与条件概率分布"></a>1.2 决策树与条件概率分布</h2><p>决策树表示给定特征条件下类的条件概率分布，决策树的一条路径对应于划分中的一个单元，决策树所表示的条件概率分布由各个单元给定条件下类的条件概率分布组成。（条件概率分布定义在特征空间的一个划分(partition)上，将特征空间划分为互不相交的单元(cell)或区域(region)，并在每个单元定义一个类的概率分布就构成了一个条件概率分布。）</p>
+<p>决策树学习是由训练数据集估计条件概率模型，基于特征空间划分的类的条件概率模型有无穷多个。</p>
+<p>选择的条件概率模型应该不仅对训练数据有很好的拟合，而且对未知数据有很好的预测。</p>
+<h2 id="1-3-决策树的优点"><a href="#1-3-决策树的优点" class="headerlink" title="1.3 决策树的优点"></a>1.3 决策树的优点</h2><ul>
+<li>推理过程容易理解，决策推理过程可以表示成If Then形式</li>
+<li>推理过程完全依赖于属性变量的取值特点</li>
+<li>可自动忽略目标变量没有贡献的属性变量，也为判断属性变量的重要性、减少变量的数目提供参考。</li>
+</ul>
+<h2 id="1-4-归纳算法"><a href="#1-4-归纳算法" class="headerlink" title="1.4 归纳算法"></a>1.4 归纳算法</h2><p>归纳过程就是在描述空间中进行搜索的过程。</p>
+<p>归纳可分为自顶向下，自底向上和双向搜索三种方式：</p>
+<ul>
+<li><p>自底向上法一次处理一个输入对象。将描述逐步一般化。直到最终的一般化描述。</p>
+</li>
+<li><p>自顶向下法对可能的一般性描述集进行搜索，试图找到一些满足一定要求的最优的描述。</p>
+</li>
+</ul>
+<p>归纳是从特殊到一般的过程。归纳推理从若干个事实中表征出的特征、特性和属性中，通过比较、总结、概括而得出一个规律性的结论。归纳推理试图从对象的一部分或整体的特定的观察中获得一个完备且正确的描述。即从特殊事实到普遍性规律的结论。归纳对于认识的发展和完善具有重要的意义。人类知识的增长主要来源于归纳学习。</p>
+<p>归纳学习由于依赖于检验数据，因此又称为检验学习，其在一个<strong>基本假设</strong>：</p>
+<p>任一假设如果能够在足够大的训练样本集中很好的逼近目标函数，则它也能在未见样本中很好地逼近目标函数。</p>
+<p>该假定是归纳学习的有效性的前提条件。</p>
+<h2 id="1-5-决策树学习"><a href="#1-5-决策树学习" class="headerlink" title="1.5 决策树学习"></a>1.5 决策树学习</h2><p>假定数据集 $ D={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)} $ ，其中 $ x_i\in X\subseteq R^n $ 为实例特征向量， $ y_i\in Y={c_1,c_2,..,c_k} $ 为实例类别， $ i=1,2,…,N $ 。</p>
+<p>学习目标是根据给定的训练数据集构建一个决策树模型，使它能够对实例正确的分类。</p>
+<p>构建的决策树模型有很多种，尽可能建立一个与训练数据矛盾较小，又具有很好泛化能力的决策树。</p>
+<p><strong>决策树模型构建</strong>的关键就是<u>非叶子节点的决定</u>，也就是<strong>特征选择</strong>的问题。</p>
+<h1 id="2-决策树生成算法"><a href="#2-决策树生成算法" class="headerlink" title="2 决策树生成算法"></a>2 决策树生成算法</h1><h2 id="2-1-预备知识"><a href="#2-1-预备知识" class="headerlink" title="2.1 预备知识"></a>2.1 预备知识</h2><h3 id="2-1-1-熵"><a href="#2-1-1-熵" class="headerlink" title="2.1.1 熵"></a>2.1.1 熵</h3><p><strong>熵</strong>是随机变量<u>不确定性</u>的度量方法。</p>
+<p>设 $X$ 是有限取值的离散变量，其概率分布为 $P(X=x_i) = p_i, \ \ i=1,2,…,n$ ，</p>
+<p>则随机变量 $X$ 的熵定义为：</p>
+<p>$H(X) = H(p) = -\sum_{i=1}^n p_i \log p_i$ （定义 $0 \log 0 = 0$ ）。</p>
+<p>熵越大，事件的不确定性越大，信息量也就越大。</p>
+<p>（ $X$ 的取值越多， $H(X)$ 越大）</p>
+<h3 id="2-1-2-条件熵"><a href="#2-1-2-条件熵" class="headerlink" title="2.1.2 条件熵"></a>2.1.2 条件熵</h3><p>设有随机变量 $(X,Y)$ ， $ x_i\in X\subseteq R^n $ ，$ y_i\in Y={c_1,c_2,..,c_k} $ ，<strong>条件熵</strong>表示在已知随机变量 $X$ 的情况下随机变量 $Y$ 的不确定性，用$H(Y|X)$表示：</p>
+<p>$H(Y|X) = -\sum_{j=1}^k P(Y=c_j) \sum_{i=1}^n P(Y=c_j|X=x_i)$</p>
+<h3 id="2-1-3-信息增益"><a href="#2-1-3-信息增益" class="headerlink" title="2.1.3 信息增益"></a>2.1.3 信息增益</h3><p><strong>信息增益</strong>表示得知特征𝑋的信息而使得类𝑌的信息不确定性减少的程度。</p>
+<p>设特征 $A$ 对训练数据集 $D$ 的信息增益 $g(D,A)$ ，定义为 $g(D,A) = H(D) - H(D|A)$ 。</p>
+<p>信息增益越大，表示该特征越有利于减少分类的不确定性。</p>
+<h3 id="2-1-4-信息增益比"><a href="#2-1-4-信息增益比" class="headerlink" title="2.1.4 信息增益比"></a>2.1.4 信息增益比</h3><p>在以信息增益作为划分训练数据集的特征，存在偏向于选择取值较多的特征问题，使用信息增益比可以对这一问题进行矫正。</p>
+<p>设特征 $A$ 对训练数据集 $D$ 的信息增益比 $g_R(D,A)$ ，定义为:</p>
+<p>$g_R(D,A) = \frac{g(D,A)}{H(A)}$</p>
+<h2 id="2-2-ID3算法"><a href="#2-2-ID3算法" class="headerlink" title="2.2 ID3算法"></a>2.2 ID3算法</h2><ul>
+<li>输入：训练数据集 $D$ 和特征集 $A$ ，阀值 $\epsilon$ </li>
+<li>输出：决策树 $T$ </li>
+</ul>
+<ol>
+<li>若 $D$ 中所有实例属于同一类 $C_k$ ，则 $T$ 为单节点树，并将 $C_k$ 作为该节点的标记，返回 $T$ </li>
+<li>若 $A$ 是空集，则 $T$ 为单节点树，并将 $D$ 中实例数最大的类 $C_k$ 作为该节点的类标记，返回 $T$ </li>
+<li>否则，按照前面的信息增益算法计算 $A$ 中各特征对 $D$ 的信息增益，选择**==信息增益最大==**的特征 $A_g$ <ol>
+<li>如果 $A_g$ 的信息增益小于阀值 $\epsilon$ ，则 $T$ 为单节点树，并将 $D$ 中实例数最大的类 $C_k$ 作为该节点的类标记，返回 $T$ </li>
+<li>否则，对 $A_g$ 的每一个可能值 $a_i$ ，按照 $A_g = a_i$ 将 $D$ 分割为若干非空子集 $D_i$ ，将 $D_i$ 中实例最大的类作为标记，构建子节点，由节点和其子节点构成树 $T$ ，返回 $T$ </li>
+</ol>
+</li>
+<li>对第 $i$ 个子节点，以 $D_i$ 为训练集， $A-{A_g}$ 为特征集，递归的调用1~3步，得到子树 $T_i$ ，返回 $T_i$ </li>
+</ol>
+<h2 id="2-3-C4-5算法"><a href="#2-3-C4-5算法" class="headerlink" title="2.3 C4.5算法"></a>2.3 C4.5算法</h2><ul>
+<li>输入：训练数据集 $D$ 和特征集 $A$ ，阀值 $\epsilon$ </li>
+<li>输出：决策树 $T$ </li>
+</ul>
+<ol>
+<li>若 $D$ 中所有实例属于同一类 $C_k$ ，则 $T$ 为单节点树，并将 $C_k$ 作为该节点的标记，返回 $T$ </li>
+<li>若 $A$ 是空集，则 $T$ 为单节点树，并将 $D$ 中实例数最大的类 $C_k$ 作为该节点的类标记，返回 $T$ </li>
+<li>否则，按照前面的信息增益算法计算 $A$ 中各特征对 $D$ 的信息增益比，选择**==信息增益比最大==**的特征 $A_g$ <ol>
+<li>如果 $A_g$ 的信息增益小于阀值 $\epsilon$ ，则 $T$ 为单节点树，并将 $D$ 中实例数最大的类 $C_k$ 作为该节点的类标记，返回 $T$ </li>
+<li>否则，对 $A_g$ 的每一个可能值 $a_i$ ，按照 $A_g = a_i$ 将 $D$ 分割为若干非空子集 $D_i$ ，将 $D_i$ 中实例最大的类作为标记，构建子节点，由节点和其子节点构成树 $T$ ，返回 $T$ </li>
+</ol>
+</li>
+<li>对第 $i$ 个子节点，以 $D_i$ 为训练集， $A-{A_g}$ 为特征集，递归的调用1~3步，得到子树 $T_i$ ，返回 $T_i$ </li>
+</ol>
+<h2 id="2-4-CART算法"><a href="#2-4-CART算法" class="headerlink" title="2.4 CART算法"></a>2.4 CART算法</h2><p><strong>分类回归树CART（Classification and Regression Trees）</strong>与ID3的区别：</p>
+<ul>
+<li>二元划分：二叉树不易产生数据碎片，精确度往往也会高于多叉树</li>
+<li>不同的损失函数：<ul>
+<li>分类目标：Gini指数、Towing、order Towing</li>
+<li>连续目标：最小平方残差、最小绝对残差</li>
+</ul>
+</li>
+<li>支持连续的目标变量：目标变量是连续的，则CART算法找出一组基于树的回归方程来预测目标变量。</li>
+</ul>
+<p>CART一个最主要的问题是，如何对输入空间进行划分：</p>
+<p>以某个特征变量为例，对连续的目标变量而言，遍历得到一个划分点 $s$ ，使得预测值到划分范围的平均值之间的损失最小。</p>
+<h1 id="3-剪枝"><a href="#3-剪枝" class="headerlink" title="3 剪枝"></a>3 剪枝</h1><h2 id="3-1-介绍"><a href="#3-1-介绍" class="headerlink" title="3.1 介绍"></a>3.1 介绍</h2><p>决策树生成算法递归地产生决策树，直到不能继续下去，容易产生过拟合。</p>
+<p>决策树的<strong>剪枝</strong>就是为了防止决策树的过拟合。通过简化决策树模型，使其有更好的泛化能力。</p>
+<p>决策树剪枝通过极小化决策树的损失函数来实现。</p>
+<p>设树 $T$ 的叶节点个数为 $|T|$ ， $t$ 是树 $T$ 的叶节点，该节点有 $N_t$ 个样本点，其中 $k$ 类的样本点有 $N_{t_k}$ 个，$k=1,2,…,K$ ，$H_t(T)$ 为叶节点 $t$ 上的经验熵，$\alpha &gt; 0$为参数。</p>
+<ul>
+<li>经验熵（代表叶节点的不确定性）：$H_t(T) = -\sum_k \frac{N_{t_k}}{N_t} \log \frac{N_{t_k}}{N_t}$</li>
+<li>模型对训练数据的误差：$C(T) = \sum_{t=1}^{|T|} N_t H_t(T)$</li>
+<li><strong>损失函数</strong>： $C_\alpha(T) = C(T) + \alpha|T|$</li>
+</ul>
+<p>$C(T)$ 表示模型对训练数据的误差，即模型与训练数据的拟合程度， $T$ 表示模型的复杂度，$\alpha$ 控制两者之间的权重。$\alpha$ 较大促使选择较简单的模型， $\alpha$ 较小促使选择较复杂的模型。</p>
+<p>决策树生成与剪枝的对比：</p>
+<ul>
+<li><p>决策树生成只考虑了提高信息增益（或者信息增益比）对训练数据进行更好的拟合，从局部来考虑的。</p>
+</li>
+<li><p>决策树剪枝通过优化损失函数还考虑了减小模型复杂度（防止过拟合），从全局的角度来考虑的。</p>
+</li>
+</ul>
+<h2 id="3-2-剪枝算法"><a href="#3-2-剪枝算法" class="headerlink" title="3.2 剪枝算法"></a>3.2 剪枝算法</h2><ul>
+<li><p>输入：生成算法产生的整个树 $T$ ，参数 $\alpha$ </p>
+</li>
+<li><p>输出：修剪后的子树 $T_\alpha$</p>
+</li>
+</ul>
+<ol>
+<li><p>计算每个节点的经验熵</p>
+</li>
+<li><p>递归地从树的叶节点向上回缩：</p>
+<p> 设一组叶节点回缩到父节点之前到之后的整体树分别为 $T_{old}$ 和 $T_{new}$ ，其对应的损失函数分别是 $C_\alpha(T_{old})$ 和 $C_\alpha(T_{new})$ ，如果 $C_\alpha(T_{new}) \le C_\alpha(T_{old})$ ，则进行剪枝</p>
+</li>
+<li><p>返回2，直到不能继续为止</p>
+</li>
+</ol>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/2021/11/28/machine-learning-Decision-Tree/">http://110.42.233.207/2021/11/28/machine-learning-Decision-Tree/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a></div><div class="post_share"><div class="social-share" data-image="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/2021/11/28/machine-learning-Naive-Bayesian-Model/"><img class="next-cover" src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习-朴素贝叶斯</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/2021/11/27/machine-learning-K-Nearest-Neighbors/" title="机器学习-k近邻算法"><img class="cover" src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">机器学习-k近邻算法</div></div></a></div><div><a href="/2021/11/28/machine-learning-Naive-Bayesian-Model/" title="机器学习-朴素贝叶斯"><img class="cover" src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">机器学习-朴素贝叶斯</div></div></a></div><div><a href="/2021/11/27/machine-learning-Perceptron/" title="机器学习-感知机"><img class="cover" src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">机器学习-感知机</div></div></a></div><div><a href="/2021/11/26/machine-learning-overview/" title="机器学习-概述"><img class="cover" src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">机器学习-概述</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">记点笔记，以证时光</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">9</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">7</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="card-widget card-announcement"><div class="item-headline"><i class="fas fa-bullhorn card-announcement-animation"></i><span>公告</span></div><div class="announcement_content">一只菜鸟的学习笔记</div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E4%BB%80%E4%B9%88%E6%98%AF%E5%86%B3%E7%AD%96%E6%A0%91"><span class="toc-text">1.1 什么是决策树</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E5%86%B3%E7%AD%96%E6%A0%91%E4%B8%8E%E6%9D%A1%E4%BB%B6%E6%A6%82%E7%8E%87%E5%88%86%E5%B8%83"><span class="toc-text">1.2 决策树与条件概率分布</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%86%B3%E7%AD%96%E6%A0%91%E7%9A%84%E4%BC%98%E7%82%B9"><span class="toc-text">1.3 决策树的优点</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E5%BD%92%E7%BA%B3%E7%AE%97%E6%B3%95"><span class="toc-text">1.4 归纳算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E5%86%B3%E7%AD%96%E6%A0%91%E5%AD%A6%E4%B9%A0"><span class="toc-text">1.5 决策树学习</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%86%B3%E7%AD%96%E6%A0%91%E7%94%9F%E6%88%90%E7%AE%97%E6%B3%95"><span class="toc-text">2 决策树生成算法</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-text">2.1 预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-1-%E7%86%B5"><span class="toc-text">2.1.1 熵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-2-%E6%9D%A1%E4%BB%B6%E7%86%B5"><span class="toc-text">2.1.2 条件熵</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-3-%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A"><span class="toc-text">2.1.3 信息增益</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-1-4-%E4%BF%A1%E6%81%AF%E5%A2%9E%E7%9B%8A%E6%AF%94"><span class="toc-text">2.1.4 信息增益比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-ID3%E7%AE%97%E6%B3%95"><span class="toc-text">2.2 ID3算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-C4-5%E7%AE%97%E6%B3%95"><span class="toc-text">2.3 C4.5算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-CART%E7%AE%97%E6%B3%95"><span class="toc-text">2.4 CART算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E5%89%AA%E6%9E%9D"><span class="toc-text">3 剪枝</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E4%BB%8B%E7%BB%8D"><span class="toc-text">3.1 介绍</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%89%AA%E6%9E%9D%E7%AE%97%E6%B3%95"><span class="toc-text">3.2 剪枝算法</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/2021/11/28/machine-learning-Decision-Tree/" title="机器学习-决策树"><img src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-决策树"/></a><div class="content"><a class="title" href="/2021/11/28/machine-learning-Decision-Tree/" title="机器学习-决策树">机器学习-决策树</a><time datetime="2021-11-28T11:17:57.000Z" title="发表于 2021-11-28 19:17:57">2021-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/28/machine-learning-Naive-Bayesian-Model/" title="机器学习-朴素贝叶斯"><img src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-朴素贝叶斯"/></a><div class="content"><a class="title" href="/2021/11/28/machine-learning-Naive-Bayesian-Model/" title="机器学习-朴素贝叶斯">机器学习-朴素贝叶斯</a><time datetime="2021-11-28T07:38:49.000Z" title="发表于 2021-11-28 15:38:49">2021-11-28</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/27/machine-learning-K-Nearest-Neighbors/" title="机器学习-k近邻算法"><img src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-k近邻算法"/></a><div class="content"><a class="title" href="/2021/11/27/machine-learning-K-Nearest-Neighbors/" title="机器学习-k近邻算法">机器学习-k近邻算法</a><time datetime="2021-11-27T12:05:35.000Z" title="发表于 2021-11-27 20:05:35">2021-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/27/machine-learning-Perceptron/" title="机器学习-感知机"><img src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-感知机"/></a><div class="content"><a class="title" href="/2021/11/27/machine-learning-Perceptron/" title="机器学习-感知机">机器学习-感知机</a><time datetime="2021-11-27T07:07:14.000Z" title="发表于 2021-11-27 15:07:14">2021-11-27</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/2021/11/26/machine-learning-overview/" title="机器学习-概述"><img src="http://110.42.233.207/2021/11/26/machine-learning-overview/shutterstock_161925818-768x431.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-概述"/></a><div class="content"><a class="title" href="/2021/11/26/machine-learning-overview/" title="机器学习-概述">机器学习-概述</a><time datetime="2021-11-26T02:46:04.000Z" title="发表于 2021-11-26 10:46:04">2021-11-26</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
