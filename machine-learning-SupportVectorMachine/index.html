@@ -1,13 +1,13 @@
-<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>机器学习-支持向量机SVM | 你刚刚打开了这个博客</title><meta name="keywords" content="machine-learning,SVM"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 简介 支持向量机（Support Vector Machine. SVM）是二类分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机。  与感知机的区别：感知机的分类的超平面结果是多个的，没有给出一个最优解。  支持向量机的学习策略就是间隔最大化，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的">
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>机器学习-支持向量机SVM | 你刚刚打开了这个博客</title><meta name="keywords" content="machine-learning,SVM"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 简介 支持向量机（Support Vector Machine. SVM）是二类分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机。  与感知机的区别：感知机的分类的超平面结果是多个的，没有给出一个最优解。  支持向量机的学习策略就是{\star}{\star}间隔最大化{\star}{\star}，可形式化为一个求解凸二次规划（convex quadra">
 <meta property="og:type" content="article">
 <meta property="og:title" content="机器学习-支持向量机SVM">
 <meta property="og:url" content="http://110.42.233.207/machine-learning-SupportVectorMachine/index.html">
 <meta property="og:site_name" content="你刚刚打开了这个博客">
-<meta property="og:description" content="1 简介 支持向量机（Support Vector Machine. SVM）是二类分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机。  与感知机的区别：感知机的分类的超平面结果是多个的，没有给出一个最优解。  支持向量机的学习策略就是间隔最大化，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的">
+<meta property="og:description" content="1 简介 支持向量机（Support Vector Machine. SVM）是二类分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机。  与感知机的区别：感知机的分类的超平面结果是多个的，没有给出一个最优解。  支持向量机的学习策略就是{\star}{\star}间隔最大化{\star}{\star}，可形式化为一个求解凸二次规划（convex quadra">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://110.42.233.207/machine-learning-SupportVectorMachine/machine-learning.jpg">
 <meta property="article:published_time" content="2021-12-04T06:11:25.000Z">
-<meta property="article:modified_time" content="2021-12-04T12:30:04.066Z">
+<meta property="article:modified_time" content="2021-12-04T13:42:17.727Z">
 <meta property="article:author" content="Kevin Parker">
 <meta property="article:tag" content="machine-learning">
 <meta property="article:tag" content="SVM">
@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2021-12-04 20:30:04'
+  postUpdate: '2021-12-04 21:42:17'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -148,11 +148,11 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/machine-learning-SupportVectorMachine/machine-learning.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">机器学习-支持向量机SVM</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-04T06:11:25.000Z" title="发表于 2021-12-04 14:11:25">2021-12-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-04T12:30:04.066Z" title="更新于 2021-12-04 20:30:04">2021-12-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器学习-支持向量机SVM"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h1><p> 支持向量机（Support Vector Machine. SVM）是二类分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机。</p>
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/machine-learning-SupportVectorMachine/machine-learning.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">机器学习-支持向量机SVM</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-04T06:11:25.000Z" title="发表于 2021-12-04 14:11:25">2021-12-04</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-04T13:42:17.727Z" title="更新于 2021-12-04 21:42:17">2021-12-04</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="机器学习-支持向量机SVM"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-简介"><a href="#1-简介" class="headerlink" title="1 简介"></a>1 简介</h1><p> 支持向量机（Support Vector Machine. SVM）是二类分类模型。它的基本模型是定义在特征空间上的间隔最大的线性分类器，间隔最大使它有别于感知机。</p>
 <ul>
 <li>与感知机的区别：感知机的分类的超平面结果是多个的，没有给出一个最优解。</li>
 </ul>
-<p>支持向量机的学习策略就是<strong>间隔最大化</strong>，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的合页损失函数的最小化问题。</p>
+<p>支持向量机的学习策略就是{\star}{\star}间隔最大化{\star}{\star}，可形式化为一个求解凸二次规划（convex quadratic programming）的问题，也等价于正则化的合页损失函数的最小化问题。</p>
 <p>支持向量机的学习算法是求解凸二次规划的最优化算法。</p>
 <h2 id="1-1-SVM分类"><a href="#1-1-SVM分类" class="headerlink" title="1.1 SVM分类"></a>1.1 SVM分类</h2><ul>
 <li><p>线性可分支持向量机（linear support vector machine in linearly separable case ）：硬间隔最大化（hard margin maximization）。</p>
@@ -164,11 +164,11 @@
 </ul>
 <h2 id="1-2-核方法"><a href="#1-2-核方法" class="headerlink" title="1.2 核方法"></a>1.2 核方法</h2><p>当输入空间为欧氏空间或离散集合、特征空间为希尔伯特空间时，核函数(kernel function)表示将输入从输入空间映射到特征空间得到的特征向量之间的内积。通过使用核函数可以学习非线性支持向量机，等价于隐式地在高维的特征空间中学习线性支持向量机，这样的方法称为核方法(kernel method)。</p>
 <p>核方法是比支持向量机更为一般的机器学习方法。</p>
-<h1 id="2-线性可分支持向量机"><a href="#2-线性可分支持向量机" class="headerlink" title="2 线性可分支持向量机"></a>2 线性可分支持向量机</h1><h2 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h2><p>给定数据集 $ T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y={+1,-1} $ ， $ i=1,2,…,N $ 。</p>
+<h1 id="2-线性可分支持向量机"><a href="#2-线性可分支持向量机" class="headerlink" title="2 线性可分支持向量机"></a>2 线性可分支持向量机</h1><h2 id="2-1-概述"><a href="#2-1-概述" class="headerlink" title="2.1 概述"></a>2.1 概述</h2><p>给定数据集 $ T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y=\{+1,-1\} $ ， $ i=1,2,…,N $ 。</p>
 <p>假定数据集是线性可分的。</p>
 <ol>
 <li>运用超平面方程 $w·x + b = 0$ 把特征空间划分成两个部分，</li>
-<li>通过<strong>间隔最大化</strong>求得的超平面 $w^<em>·x + b = 0$ ，以及分类决策函数 $f(x) = sign(w^</em>·x + b)$ 称为支持向量机。</li>
+<li>通过{\star}{\star}间隔最大化{\star}{\star}求得的超平面 $w^{\star}·x + b = 0$ ，以及分类决策函数 $f(x) = sign(w^{\star}·x + b)$ 称为支持向量机。</li>
 </ol>
 <h2 id="2-2-间隔"><a href="#2-2-间隔" class="headerlink" title="2.2 间隔"></a>2.2 间隔</h2><ul>
 <li><p>样本点的函数间隔：</p>
@@ -184,14 +184,22 @@
 <p>  $\gamma = \frac{\hat \gamma}{||w||}$</p>
 </li>
 </ul>
-<p><strong>模型的求解目标</strong>：几何意义上的最大间隔 $\max_{w,b} \gamma$</p>
-<img src="/machine-learning-SupportVectorMachine/image-20211204145440156.png" alt="image-20211204145440156" style="zoom:50%;">
-
-<h2 id="2-3-目标函数"><a href="#2-3-目标函数" class="headerlink" title="2.3 目标函数"></a>2.3 目标函数</h2><p>由于是线性可分的，而且最小间隔是 $\gamma$ ，其他的间隔都大于等于这个最小间隔，所以有 $\gamma_i \ge \gamma$ 。所以，得到约束优化问题：<br>$$<br>\max_{w,b} ( \min_i \frac{y_i(w·x_i + b)}{||w||} )\<br>s.t. \ \ \frac{y_i(w·x_i + b)}{||w||} \ge \gamma<br>$$<br>转换一下：<br>$$<br>\max_{w,b} \frac{\hat \gamma}{||w||}\<br>s.t. \ \ y_i(w·x_i + b) \ge \hat \gamma<br>$$<br>求 $\max_{w,b} \frac{\hat \gamma}{||w||}$ 可以转换为求 $\min_{w,b} \frac{||w||}{\hat \gamma}$</p>
-<p>对于上面的式子，由于 $w,b$ 成比例变化的时候，$\gamma$ 也会成比例变化，也就是说 $\gamma$ 的改变对 $w,b$ 的比例没有影响。所以令 $\gamma = 1$ ，于是<strong>目标函数</strong>等价于：<br>$$<br>\min_{w,b} \frac12 ||w||^2 \<br>s.t. \ \ y_i(w·x_i + b) - 1 \ge 0 \ , \ i=1,2,…,N<br>$$</p>
-<ul>
+<p>{\star}{\star}模型的求解目标{\star}{\star}：几何意义上的最大间隔 $\max_{w,b} \gamma$</p>
+<p><img src="/machine-learning-SupportVectorMachine/image-20211204145440156.png" alt="image-20211204145440156" style="zoom:50%;"></p>
+<h2 id="2-3-目标函数"><a href="#2-3-目标函数" class="headerlink" title="2.3 目标函数"></a>2.3 目标函数</h2><p>由于是线性可分的，而且最小间隔是 $\gamma$ ，其他的间隔都大于等于这个最小间隔，所以有 $\gamma_i \ge \gamma$ 。所以，得到约束优化问题：</p>
+<script type="math/tex; mode=display">
+\max_{w,b} ( \min_i \frac{y_i(w·x_i + b)}{||w||} )</script><script type="math/tex; mode=display">
+s.t. \ \ \frac{y_i(w·x_i + b)}{||w||} \ge \gamma</script><p>转换一下：</p>
+<script type="math/tex; mode=display">
+\max_{w,b} \frac{\hat \gamma}{||w||}</script><script type="math/tex; mode=display">
+s.t. \ \ y_i(w·x_i + b) \ge \hat \gamma</script><p>求 $\max_{w,b} \frac{\hat \gamma}{||w||}$ 可以转换为求 $\min_{w,b} \frac{||w||}{\hat \gamma}$</p>
+<p>对于上面的式子，由于 $w,b$ 成比例变化的时候，$\gamma$ 也会成比例变化，也就是说 $\gamma$ 的改变对 $w,b$ 的比例没有影响。所以令 $\gamma = 1$ ，于是{\star}{\star}目标函数{\star}{\star}等价于：</p>
+<script type="math/tex; mode=display">
+\min_{w,b} \frac12 ||w||^2</script><script type="math/tex; mode=display">
+s.t. \ \ y_i(w·x_i + b) - 1 \ge 0 \ , \ i=1,2,...,N</script><ul>
 <li><p>一个例子：</p>
-  <img src="/machine-learning-SupportVectorMachine/image-20211204150827669.png" alt="image-20211204150827669" style="zoom:50%;"></li>
+<p>  <img src="/machine-learning-SupportVectorMachine/image-20211204150827669.png" alt="image-20211204150827669" style="zoom:50%;"></p>
+</li>
 </ul>
 <h2 id="2-4-求解目标函数"><a href="#2-4-求解目标函数" class="headerlink" title="2.4 求解目标函数"></a>2.4 求解目标函数</h2><p>这是一个凸优化问题，它在空间中有唯一解。</p>
 <p>求解方法：拉格朗日对偶性求解。最终求得分类决策函数。</p>
@@ -201,42 +209,56 @@
 <p>$\max_\alpha\min_{w,b}L(w,b,\alpha)$</p>
 <p>先求 $L(w,b,\alpha)$ 对 $w,b$ 的极小，再求对 $\alpha$ 的极大：</p>
 <ol>
-<li><p>求 $\min_{w,b}L(w,b,\alpha)$ ，分别对 $w,b$ 求偏导并令偏导数值为0：<br> $$<br> \frac{\partial L}{\partial w} = w - \sum_{i=1}^N \alpha_i y_i x_i = 0 &amp; \rightarrow &amp; w = \sum_{i=1}^N \alpha_i y_i x_i \<br> \frac{\partial L}{\partial b} = \sum_{i=1}^N \alpha_i y_i = 0 &amp; \rightarrow &amp; \sum_{i=1}^N \alpha_i y_i = 0<br> $$<br> 得：</p>
+<li><p>求 $\min_{w,b}L(w,b,\alpha)$ ，分别对 $w,b$ 求偏导并令偏导数值为0：</p>
+<script type="math/tex; mode=display">
+ \frac{\partial L}{\partial w} = w - \sum_{i=1}^N \alpha_i y_i x_i = 0  \rightarrow  w = \sum_{i=1}^N \alpha_i y_i x_i</script><script type="math/tex; mode=display">
+ \frac{\partial L}{\partial b} = \sum_{i=1}^N \alpha_i y_i = 0  \rightarrow  \sum_{i=1}^N \alpha_i y_i = 0</script><p> 得：</p>
 <p> $L(w,b,\alpha) = -\frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) + \sum_{i=1}^N \alpha_i$</p>
 </li>
-<li><p>求 $\min_{w,b}L(w,b,\alpha)$ 对 $\alpha$ 的极大，即是对偶问题：<br> $$<br> \max_\alpha &amp; -\frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) + \sum_{i=1}^N \alpha_i\<br> s.t.  &amp; \sum_{i=1}^N \alpha_i y_i = 0 \<br> &amp; \alpha_i \ge 0 , \ \ i=1,2,…,N<br> $$<br> 转换一下：<br> $$<br> \min_\alpha &amp; \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i\<br> s.t.  &amp; \sum_{i=1}^N \alpha_i y_i = 0 \<br> &amp; \alpha_i \ge 0 , \ \ i=1,2,…,N<br> $$</p>
-</li>
-<li><p>设 $\alpha^* = (\alpha^*_1,\alpha^*_2,…,\alpha^*<em>N)^T$ 是对偶对最优化问题，则存在下标 $j$ ，使得 $\alpha^*<em>j \gt 0$ （对应的实例点 $(x_j,y_j)$ 就是所说的<strong>支持向量</strong>），并可以按照下式求得原始的最优化问题：<br> $$<br> w^* = \sum</em>{i=1}^N \alpha_i^* y_i x_i \<br> b^* = y_j - \sum</em>{i=1}^N \alpha_i^* y_i( x_i·x_j )<br> $$<br> 这样, 我们就解出了最优化的 $w^*,b^*$。</p>
+<li><p>求 $\min_{w,b}L(w,b,\alpha)$ 对 $\alpha$ 的极大，即是对偶问题：</p>
+<script type="math/tex; mode=display">
+ \max_\alpha  -\frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) + \sum_{i=1}^N \alpha_i</script><script type="math/tex; mode=display">
+ s.t.  \sum_{i=1}^N \alpha_i y_i = 0</script><script type="math/tex; mode=display">
+  \alpha_i \ge 0 , \ \ i=1,2,...,N</script><p> 转换一下：</p>
+<script type="math/tex; mode=display">
+ \min_\alpha \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i</script><script type="math/tex; mode=display">
+ s.t.   \sum_{i=1}^N \alpha_i y_i = 0</script><script type="math/tex; mode=display">
+  \alpha_i \ge 0 , \ \ i=1,2,...,N</script></li>
+<li><p>设 $\alpha^{\star} = (\alpha^{\star}_1,\alpha^{\star}_2,…,\alpha^{\star}_N)^T$ 是对偶对最优化问题，则存在下标 $j$ ，使得 $\alpha^{\star}_j \gt 0$ （对应的实例点 $(x_j,y_j)$ 就是所说的{\star}{\star}支持向量{\star}{\star}），并可以按照下式求得原始的最优化问题：</p>
+<script type="math/tex; mode=display">
+ w^{\star} = \sum_{i=1}^N \alpha_i^{\star} y_i x_i</script><script type="math/tex; mode=display">
+ b^{\star} = y_j - \sum_{i=1}^N \alpha_i^{\star} y_i( x_i·x_j )</script><p> 这样, 我们就解出了最优化的 $w^{\star},b^{\star}$。</p>
 </li>
 </ol>
-<p><strong>分离超平面</strong>可以写成：$\sum_{i=1}^N \alpha_i^* y_i(x_i · x) + b^* = 0$</p>
-<p><strong>分类决策函数</strong>可以写成：$f(x) = sign(\sum_{i=1}^N \alpha_i^* y_i(x_i · x) + b^*)$</p>
+<p>{\star}{\star}分离超平面{\star}{\star}可以写成：$\sum_{i=1}^N \alpha_i^{\star} y_i(x_i · x) + b^{\star} = 0$</p>
+<p>{\star}{\star}分类决策函数{\star}{\star}可以写成：$f(x) = sign(\sum_{i=1}^N \alpha_i^{\star} y_i(x_i · x) + b^{\star})$</p>
 <p>这就是说，分类决策函数只依赖于输入 $x$ 和训练样本输入的内积，上式称为线性可分支持向量机的对偶形式。</p>
 <h2 id="2-5-线性支持向量机（硬间隔）学习方法"><a href="#2-5-线性支持向量机（硬间隔）学习方法" class="headerlink" title="2.5 线性支持向量机（硬间隔）学习方法"></a>2.5 线性支持向量机（硬间隔）学习方法</h2><ul>
-<li>输入：线性可分数据集 $ T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y={+1,-1} $ 。</li>
+<li>输入：线性可分数据集 $ T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y=\{+1,-1\} $ 。</li>
 <li>输出：分离超平面和分类函数</li>
 </ul>
 <ol>
-<li><p>构造并求解约束最优化问题：<br> $$<br> \min_\alpha &amp; \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i\<br> s.t.  &amp; \sum_{i=1}^N \alpha_i y_i = 0 \<br> &amp; \alpha_i \ge 0 , \ \ i=1,2,…,N<br> $$<br> 求解得到最优解 $\alpha^* = (\alpha^*_1,\alpha^*_2,…,\alpha^*_N)^T$ </p>
+<li><p>构造并求解约束最优化问题：</p>
+<script type="math/tex; mode=display">
+ \min_\alpha  \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i</script><script type="math/tex; mode=display">
+ s.t.   \sum_{i=1}^N \alpha_i y_i = 0</script><script type="math/tex; mode=display">
+ \alpha_i \ge 0 , \ \ i=1,2,...,N</script><p> 求解得到最优解 $\alpha^{\star} = (\alpha^{\star}_1,\alpha^{\star}_2,…,\alpha^{\star}_N)^T$ </p>
 </li>
-<li><p>计算 $w^* = \sum_{i=1}^N \alpha_i^* y_i x_i$</p>
-<p> 选择一个 $\alpha^*$ 的一个正分量 $\alpha^*<em>j \gt 0$ ，计算 $b^* = y_j - \sum</em>{i=1}^N \alpha_i^* y_i( x_i·x_j )$ </p>
+<li><p>计算 $w^{\star} = \sum_{i=1}^N \alpha_i^{\star} y_i x_i$</p>
+<p> 选择一个 $\alpha^{\star}$ 的一个正分量 $\alpha^{\star}_j \gt 0$ ，计算 $b^{\star} = y_j - \sum_{i=1}^N \alpha_i^{\star} y_i( x_i·x_j )$ </p>
 </li>
-<li><p>求得分离超平面：$w^<em>x+b^</em>=0$</p>
-<p> 分类决策函数：$f(x) = sign(w^<em>x+b^</em>)$</p>
+<li><p>求得分离超平面：$w^{\star}x+b^{\star}=0$</p>
+<p> 分类决策函数：$f(x) = sign(w^{\star}x+b^{\star})$</p>
 </li>
 </ol>
 <p>一个例子：</p>
-<img src="/machine-learning-SupportVectorMachine/image-20211204155046027.png" alt="image-20211204155046027" style="zoom:50%;">
-
+<p><img src="/machine-learning-SupportVectorMachine/image-20211204155046027.png" alt="image-20211204155046027" style="zoom:50%;"></p>
 <h2 id="2-6-线性支持向量机（软间隔）"><a href="#2-6-线性支持向量机（软间隔）" class="headerlink" title="2.6 线性支持向量机（软间隔）"></a>2.6 线性支持向量机（软间隔）</h2><p>条件 $y_i(w·x_i + b) \ge \hat \gamma$ 表示被分类的点都在最小间隔之外。</p>
 <p>当数据不能完全线性可分（数据重叠）时，我们设置一个松弛系数 $\xi$ 来表示对错分类点或者在最小间隔内的点的容忍。</p>
 <p>设 $\hat \gamma = 1$ ，有 $y_i(w·x_i + b) \ge 1- \xi_i$ </p>
-<img src="/machine-learning-SupportVectorMachine/image-20211204160720665.png" alt="image-20211204160720665" style="zoom:50%;">
-
+<p><img src="/machine-learning-SupportVectorMachine/image-20211204160720665.png" alt="image-20211204160720665" style="zoom:50%;"></p>
 <ul>
-<li><p>对于正确分类的点</p>
-<ul>
+<li>对于正确分类的点<ul>
 <li>在间隔外，有 $\xi_i = 0$</li>
 <li>在间隔内，有 $\xi_i \lt 1$</li>
 </ul>
@@ -246,107 +268,130 @@
 <li>有 $\xi_i = 1$ </li>
 </ul>
 </li>
-<li><p>对于错分类的点</p>
-<ul>
+<li>对于错分类的点<ul>
 <li>有 $\xi_i \gt 1$</li>
 </ul>
 </li>
 </ul>
 <p>如果松弛系数 $\xi$ 无限大的话，那么分类平面就退化成随机平面了，所以 $\xi$ 要尽量小。</p>
-<p>使用松弛系数 $\xi$ 后目标函数变成：<br>$$<br>\min_{w,b} &amp;\frac12 ||w||^2 +C\sum_{i=1}^N \xi_i \<br>s.t. &amp;\ \ y_i(w·x_i + b)  \ge 1-\xi_i \<br>&amp;\xi_i \ge 0, \ i=1,2,…,N<br>$$<br> $C$ 可以看成是调节因子，用来调节支持向量机函数的泛化能力。</p>
-<p>构造拉格朗日函数：<br>$$<br>&amp; L(w,b,\xi,\alpha,\mu)\<br>= &amp; \frac12||w||^2 + C\sum_{i=1}^N \xi_i -\sum_{i=1}^N \alpha_i(y_i(w·y_i+b)-1+\xi_i) - \sum_{i=1}^N \mu_i \xi_i \<br>&amp; 其中\ \alpha_i,\mu_i \ge 0<br>$$<br>转换成对偶问题<br>$$<br>\min_\alpha &amp; \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i\<br>s.t.  &amp; \sum_{i=1}^N \alpha_i y_i = 0 \<br>&amp; 0 \le \alpha_i \le C \<br>&amp;\ \ i=1,2,…,N<br>$$</p>
-<h2 id="2-7-线性支持向量机（软间隔）学习方法"><a href="#2-7-线性支持向量机（软间隔）学习方法" class="headerlink" title="2.7 线性支持向量机（软间隔）学习方法"></a>2.7 线性支持向量机（软间隔）学习方法</h2><ul>
-<li>输入：线性可分数据集 $ T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y={+1,-1} $ 。</li>
+<p>使用松弛系数 $\xi$ 后目标函数变成：</p>
+<script type="math/tex; mode=display">
+\min_{w,b} \frac12 ||w||^2 +C\sum_{i=1}^N \xi_i</script><script type="math/tex; mode=display">
+s.t. \ \ y_i(w·x_i + b)  \ge 1-\xi_i</script><script type="math/tex; mode=display">
+\xi_i \ge 0, \ i=1,2,...,N</script><p> $C$ 可以看成是调节因子，用来调节支持向量机函数的泛化能力。</p>
+<p>构造拉格朗日函数：</p>
+<script type="math/tex; mode=display">
+ L(w,b,\xi,\alpha,\mu)</script><script type="math/tex; mode=display">
+=  \frac12||w||^2 + C\sum_{i=1}^N \xi_i -\sum_{i=1}^N \alpha_i(y_i(w·y_i+b)-1+\xi_i) - \sum_{i=1}^N \mu_i \xi_i</script><script type="math/tex; mode=display">
+\text{其中}\ \alpha_i,\mu_i \ge 0</script><p>转换成对偶问题</p>
+<script type="math/tex; mode=display">
+\min_\alpha  \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i</script><script type="math/tex; mode=display">
+s.t.   \sum_{i=1}^N \alpha_i y_i = 0</script><script type="math/tex; mode=display">
+ 0 \le \alpha_i \le C</script><script type="math/tex; mode=display">
+\ \ i=1,2,...,N</script><h2 id="2-7-线性支持向量机（软间隔）学习方法"><a href="#2-7-线性支持向量机（软间隔）学习方法" class="headerlink" title="2.7 线性支持向量机（软间隔）学习方法"></a>2.7 线性支持向量机（软间隔）学习方法</h2><ul>
+<li>输入：线性可分数据集 $ T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y=\{+1,-1\} $ 。</li>
 <li>输出：分离超平面和分类函数</li>
 </ul>
 <ol>
-<li><p>构造并求解约束最优化问题：<br> $$<br> \min_\alpha &amp; \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i\<br> s.t.  &amp; \sum_{i=1}^N \alpha_i y_i = 0 \<br> &amp; 0 \le \alpha_i \le C \<br> &amp;\ \ i=1,2,…,N<br> $$<br> 求解得到最优解 $\alpha^* = (\alpha^*_1,\alpha^*_2,…,\alpha^*_N)^T$ </p>
+<li><p>构造并求解约束最优化问题：</p>
+<script type="math/tex; mode=display">
+ \min_\alpha  \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i</script><script type="math/tex; mode=display">
+ s.t.   \sum_{i=1}^N \alpha_i y_i = 0</script><script type="math/tex; mode=display">
+  0 \le \alpha_i \le C</script><script type="math/tex; mode=display">
+ \ \ i=1,2,...,N</script><p> 求解得到最优解 $\alpha^{\star} = (\alpha^{\star}_1,\alpha^{\star}_2,…,\alpha^{\star}_N)^T$ </p>
 </li>
 <li><p>计算</p>
-<p>  $w^* = \sum_{i=1}^N \alpha_i^* y_i x_i$</p>
-<p> 选择一个 $\alpha^*$ 的一个正分量 $0 \lt \alpha^*_j \lt C$ ，计算</p>
-<p>  $b^* = y_j - \sum_{i=1}^N \alpha_i^* y_i( x_i·x_j )$ </p>
+<p>  $w^{\star} = \sum_{i=1}^N \alpha_i^{\star} y_i x_i$</p>
+<p> 选择一个 $\alpha^{\star}$ 的一个正分量 $0 \lt \alpha^{\star}_j \lt C$ ，计算</p>
+<p>  $b^{\star} = y_j - \sum_{i=1}^N \alpha_i^{\star} y_i( x_i·x_j )$ </p>
 </li>
-<li><p>求得分离超平面：$w^<em>x+b^</em>=0$ </p>
-<p> 分类决策函数：$f(x) = sign(w^<em>x+b^</em>)$ </p>
+<li><p>求得分离超平面：$w^{\star}x+b^{\star}=0$ </p>
+<p> 分类决策函数：$f(x) = sign(w^{\star}x+b^{\star})$ </p>
 </li>
 </ol>
-<p>线性不可分割的情况下,对偶问题的解 $\alpha^* = (\alpha^*_1,\alpha^*_2,…,\alpha^*_N)^T$ 中对应 $\alpha^*_i \gt 0$ 的样本点 $(x_i,y_i)$ 的实例 $x_i$ 称为支持向量。</p>
+<p>线性不可分割的情况下,对偶问题的解 $\alpha^{\star} = (\alpha^{\star}_1,\alpha^{\star}_2,…,\alpha^{\star}_N)^T$ 中对应 $\alpha^{\star}_i \gt 0$ 的样本点 $(x_i,y_i)$ 的实例 $x_i$ 称为支持向量。</p>
 <ul>
-<li>若 $\alpha^*_i \lt C,\ \xi_i = 0$ ，支持向量 $x_i$ 刚好落在间隔边界上</li>
-<li>若 $\alpha^*_i = C,\ 0\lt \xi_i \lt 1$ ，支持向量 $x_i$ 刚好落在间隔边界与分离超平面之间</li>
-<li>若 $\alpha^*_i = C,\ \xi_i = 1$​ ，支持向量 $x_i$​ 刚好落在分离超平面上</li>
-<li>若 $\alpha^*_i = C,\ \xi_i \gt 1$ ，支持向量 $x_i$ 刚好落在分离超平面误分的一侧</li>
+<li>若 $\alpha^{\star}_i \lt C,\ \xi_i = 0$ ，支持向量 $x_i$ 刚好落在间隔边界上</li>
+<li>若 $\alpha^{\star}_i = C,\ 0\lt \xi_i \lt 1$ ，支持向量 $x_i$ 刚好落在间隔边界与分离超平面之间</li>
+<li>若 $\alpha^{\star}_i = C,\ \xi_i = 1$​ ，支持向量 $x_i$​ 刚好落在分离超平面上</li>
+<li>若 $\alpha^{\star}_i = C,\ \xi_i \gt 1$ ，支持向量 $x_i$ 刚好落在分离超平面误分的一侧</li>
 </ul>
-<img src="/machine-learning-SupportVectorMachine/image-20211204194412022.png" alt="image-20211204194412022" style="zoom:50%;">
-
+<p><img src="/machine-learning-SupportVectorMachine/image-20211204194412022.png" alt="image-20211204194412022" style="zoom:50%;"></p>
 <p>支持向量机误差函数为：</p>
 <p>$\sum_{i=1}^N [1-y_i(w·x_i + b)]_+$</p>
-<p>（合页函数定义：$[z]_+ = \begin{cases}z,\ z \gt 0 \ 0,\ z \le 0 \end{cases}$  ）</p>
+<p>（合页函数定义：$[z]_+ = \begin{cases}z,\ z \gt 0 \\ 0,\ z \le 0 \end{cases}$  ）</p>
 <p>为了防止过拟合, 使用𝐿2范数约束, 于是有误差函数：</p>
 <p>$\sum_{i=1}^N [1-y_i(w·x_i + b)]_+ + \lambda ||w||^2$</p>
 <p>我们的优化目标就是求得上述误差的最小值</p>
 <p>$\min_{w,b}\sum_{i=1}^N [1-y_i(w·x_i + b)]_+ + \lambda ||w||^2$</p>
-<p>上述就是支持向量机的<strong>合叶损失函数</strong>。</p>
-<p>这等价于：<br>$$<br>\min_{w,b} &amp;\frac12 ||w||^2 +C\sum_{i=1}^N \xi_i \<br>s.t. &amp;\ \ y_i(w·x_i + b)  \ge 1-\xi_i \<br>&amp;\xi_i \ge 0, \<br>&amp; i=1,2,…,N<br>$$<br><img src="/machine-learning-SupportVectorMachine/image-20211204200656884.png" alt="image-20211204200656884" style="zoom:50%;"></p>
+<p>上述就是支持向量机的{\star}{\star}合叶损失函数{\star}{\star}。</p>
+<p>这等价于：</p>
+<script type="math/tex; mode=display">
+\min_{w,b} \frac12 ||w||^2 +C\sum_{i=1}^N \xi_i</script><script type="math/tex; mode=display">
+s.t. \ \ y_i(w·x_i + b)  \ge 1-\xi_i</script><script type="math/tex; mode=display">
+\xi_i \ge 0,</script><script type="math/tex; mode=display">
+ i=1,2,...,N</script><p><img src="/machine-learning-SupportVectorMachine/image-20211204200656884.png" alt="image-20211204200656884" style="zoom:50%;"></p>
 <h1 id="3-非线性支持向量机"><a href="#3-非线性支持向量机" class="headerlink" title="3 非线性支持向量机"></a>3 非线性支持向量机</h1><h2 id="3-1-基本思想"><a href="#3-1-基本思想" class="headerlink" title="3.1 基本思想"></a>3.1 基本思想</h2><p>用线性分类方法求解非线性分类问题：</p>
 <ol>
 <li>首先使用一个变换将原空间的数据映射到新空间</li>
 <li>在新空间用线性分类学习方法从训练数据中学习分类模型</li>
 </ol>
-<h2 id="3-2-核方法"><a href="#3-2-核方法" class="headerlink" title="3.2 核方法"></a>3.2 核方法</h2><p><strong>核方法（Kernel Method）</strong>：</p>
+<h2 id="3-2-核方法"><a href="#3-2-核方法" class="headerlink" title="3.2 核方法"></a>3.2 核方法</h2><p>{\star}{\star}核方法（Kernel Method）{\star}{\star}：</p>
 <ul>
 <li><p>通过一个非线性变换将输入空间（欧式空间或离散集合）对应于一个特征空间（希尔伯特空间），使得在输入空间中的超曲面模型对应于特征空间中的超平面模型（支持向量机）。</p>
 </li>
 <li><p>分类问题的学习任务通过在特征空间中求解线性支持向量机就可以完成</p>
 </li>
 </ul>
-<p><strong>核函数（Kernel Function）</strong>：</p>
+<p>{\star}{\star}核函数（Kernel Function）{\star}{\star}：</p>
 <ul>
-<li> $X$ 是输入空间， $Η$ 为特征空间，有一个 $X$ 到 $H$ 的映射：$\phi(x) : X \rightarrow H$</li>
+<li>$X$ 是输入空间， $Η$ 为特征空间，有一个 $X$ 到 $H$ 的映射：$\phi(x) : X \rightarrow H$</li>
 <li>对所有的x,z,满足条件： $K(x,z) = \phi(x) · \phi(z)$ </li>
 <li>核技巧的思想是，在学习与预测中只定义核函数 $K(x,z)$ ，而不显示地定义映射函数 $\phi$ 。</li>
 </ul>
 <p>一个例子：</p>
-<img src="/machine-learning-SupportVectorMachine/image-20211204201527503.png" alt="image-20211204201527503" style="zoom:50%;">
-
-<p><strong>目标函数</strong>变换：</p>
+<p><img src="/machine-learning-SupportVectorMachine/image-20211204201527503.png" alt="image-20211204201527503" style="zoom:50%;"></p>
+<p>{\star}{\star}目标函数{\star}{\star}变换：</p>
 <ul>
 <li>$\min_\alpha \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(x_i·x_j) - \sum_{i=1}^N \alpha_i$</li>
 <li>$\min_\alpha \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(\phi(x_i)·\phi(x_j) - \sum_{i=1}^N \alpha_i$</li>
 <li>$\min_\alpha \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j(K(x_i,x_j) - \sum_{i=1}^N \alpha_i$</li>
 </ul>
-<p><strong>分类决策函数</strong>变化：</p>
+<p>{\star}{\star}分类决策函数{\star}{\star}变化：</p>
 <ul>
-<li>$f(x) = sign(\sum_{i=1}^N \alpha_i^* y_i(x_i · x) + b^*)$</li>
-<li>$f(x) = sign(\sum_{i=1}^N \alpha_i^* y_i(\phi(x_i) · \phi(x) + b^*)$</li>
-<li>$f(x) = sign(\sum_{i=1}^N \alpha_i^* y_i(K(x_i, x) + b^*)$</li>
+<li>$f(x) = sign(\sum_{i=1}^N \alpha_i^{\star} y_i(x_i · x) + b^{\star})$</li>
+<li>$f(x) = sign(\sum_{i=1}^N \alpha_i^{\star} y_i(\phi(x_i) · \phi(x) + b^{\star})$</li>
+<li>$f(x) = sign(\sum_{i=1}^N \alpha_i^{\star} y_i(K(x_i, x) + b^{\star})$</li>
 </ul>
-<p>只有<strong>正定核</strong>才可以用作支持向量机的核函数。</p>
-<p><strong>常用核函数</strong>：</p>
+<p>只有{\star}{\star}正定核{\star}{\star}才可以用作支持向量机的核函数。</p>
+<p>{\star}{\star}常用核函数{\star}{\star}：</p>
 <ul>
-<li><p>多项式核函数： $K(x,z) = (x·z +1)^P$</p>
-</li>
+<li>多项式核函数： $K(x,z) = (x·z +1)^P$</li>
 <li><p>高斯核函数（映射到N维，N为训练数据的数量）：$K(x,z) = \exp(-\frac{||x-z||^2}{2\sigma^2})$</p>
 </li>
 <li><p>字符串核函数（多用于文本处理方面）</p>
 </li>
 </ul>
 <h2 id="3-3-学习方法"><a href="#3-3-学习方法" class="headerlink" title="3.3 学习方法"></a>3.3 学习方法</h2><ul>
-<li>输入：线性可分数据集 $ T={(x_1,y_1),(x_2,y_2),…,(x_N,y_N)} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y={+1,-1} $ 。</li>
+<li>输入：线性可分数据集 $ T=\{(x_1,y_1),(x_2,y_2),…,(x_N,y_N)\} $ ，其中 $ x_i\in X\subseteq R^n $ ， $ y_i\in Y=\{+1,-1\} $ 。</li>
 <li>输出：分离超平面和分类函数</li>
 </ul>
 <ol>
-<li><p>构造并求解约束最优化问题：<br> $$<br> \min_\alpha &amp; \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j K(x_i,x_j) - \sum_{i=1}^N \alpha_i\<br> s.t.  &amp; \sum_{i=1}^N \alpha_i y_i = 0 \<br> &amp; 0 \le \alpha_i \le C \<br> &amp;\ \ i=1,2,…,N<br> $$<br> 求解得到最优解 $\alpha^* = (\alpha^*_1,\alpha^*_2,…,\alpha^*_N)^T$ </p>
+<li><p>构造并求解约束最优化问题：</p>
+<script type="math/tex; mode=display">
+ \min_\alpha  \frac12 \sum_{i=1}^N \sum_{j=1}^N \alpha_i \alpha_j y_i y_j K(x_i,x_j) - \sum_{i=1}^N \alpha_i</script><script type="math/tex; mode=display">
+ s.t.   \sum_{i=1}^N \alpha_i y_i = 0</script><script type="math/tex; mode=display">
+ 0 \le \alpha_i \le C</script><script type="math/tex; mode=display">
+ \ \ i=1,2,...,N</script><p> 求解得到最优解 $\alpha^{\star} = (\alpha^{\star}_1,\alpha^{\star}_2,…,\alpha^{\star}_N)^T$ </p>
 </li>
-<li><p>选择一个 $\alpha^*$ 的一个正分量 $0 \lt \alpha^*_j \lt C$ ，计算</p>
-<p>  $b^* = y_j - \sum_{i=1}^N \alpha_i^* y_i K( x_i,x_j )$ </p>
+<li><p>选择一个 $\alpha^{\star}$ 的一个正分量 $0 \lt \alpha^{\star}_j \lt C$ ，计算</p>
+<p>  $b^{\star} = y_j - \sum_{i=1}^N \alpha_i^{\star} y_i K( x_i,x_j )$ </p>
 </li>
-<li><p>求得分离超平面：$w^<em>x+b^</em>=0$ </p>
-<p> 分类决策函数：$f(x) = sign( \sum_{i=1}^N \alpha_i^* y_i K( x_i,x_j )+b^*)$ </p>
+<li><p>求得分离超平面：$w^{\star}x+b^{\star}=0$ </p>
+<p> 分类决策函数：$f(x) = sign( \sum_{i=1}^N \alpha_i^{\star} y_i K( x_i,x_j )+b^{\star})$ </p>
 </li>
 </ol>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/machine-learning-SupportVectorMachine/">http://110.42.233.207/machine-learning-SupportVectorMachine/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a><a class="post-meta__tags" href="/tags/SVM/">SVM</a></div><div class="post_share"><div class="social-share" data-image="/machine-learning-SupportVectorMachine/machine-learning.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-MaxEntropyModel/"><img class="next-cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习-最大熵模型</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/machine-learning-Decision-Tree/" title="机器学习-决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">机器学习-决策树</div></div></a></div><div><a href="/machine-learning-K-Nearest-Neighbors/" title="机器学习-k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">机器学习-k近邻算法</div></div></a></div><div><a href="/machine-learning-LogisticRegression/" title="机器学习- Logistic回归"><img class="cover" src="/machine-learning-LogisticRegression/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">机器学习- Logistic回归</div></div></a></div><div><a href="/machine-learning-MaxEntropyModel/" title="机器学习-最大熵模型"><img class="cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-04</div><div class="title">机器学习-最大熵模型</div></div></a></div><div><a href="/machine-learning-Naive-Bayesian-Model/" title="机器学习-朴素贝叶斯"><img class="cover" src="/machine-learning-Naive-Bayesian-Model/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">机器学习-朴素贝叶斯</div></div></a></div><div><a href="/machine-learning-Perceptron/" title="机器学习-感知机"><img class="cover" src="/machine-learning-Perceptron/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">机器学习-感知机</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-SVM%E5%88%86%E7%B1%BB"><span class="toc-text">1.1 SVM分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%A0%B8%E6%96%B9%E6%B3%95"><span class="toc-text">1.2 核方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%BA%BF%E6%80%A7%E5%8F%AF%E5%88%86%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-text">2 线性可分支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-text">2.1 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%97%B4%E9%9A%94"><span class="toc-text">2.2 间隔</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">2.3 目标函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%B1%82%E8%A7%A3%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">2.4 求解目标函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88%E7%A1%AC%E9%97%B4%E9%9A%94%EF%BC%89%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">2.5 线性支持向量机（硬间隔）学习方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88%E8%BD%AF%E9%97%B4%E9%9A%94%EF%BC%89"><span class="toc-text">2.6 线性支持向量机（软间隔）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88%E8%BD%AF%E9%97%B4%E9%9A%94%EF%BC%89%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">2.7 线性支持向量机（软间隔）学习方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-text">3 非线性支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">3.1 基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%A0%B8%E6%96%B9%E6%B3%95"><span class="toc-text">3.2 核方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">3.3 学习方法</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-SupportVectorMachine/" title="机器学习-支持向量机SVM"><img src="/machine-learning-SupportVectorMachine/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-支持向量机SVM"/></a><div class="content"><a class="title" href="/machine-learning-SupportVectorMachine/" title="机器学习-支持向量机SVM">机器学习-支持向量机SVM</a><time datetime="2021-12-04T06:11:25.000Z" title="发表于 2021-12-04 14:11:25">2021-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-MaxEntropyModel/" title="机器学习-最大熵模型"><img src="/machine-learning-MaxEntropyModel/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-最大熵模型"/></a><div class="content"><a class="title" href="/machine-learning-MaxEntropyModel/" title="机器学习-最大熵模型">机器学习-最大熵模型</a><time datetime="2021-12-04T04:38:53.000Z" title="发表于 2021-12-04 12:38:53">2021-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-LogisticRegression/" title="机器学习- Logistic回归"><img src="/machine-learning-LogisticRegression/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习- Logistic回归"/></a><div class="content"><a class="title" href="/machine-learning-LogisticRegression/" title="机器学习- Logistic回归">机器学习- Logistic回归</a><time datetime="2021-12-03T01:54:00.000Z" title="发表于 2021-12-03 09:54:00">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/cv-ImageProcessingExperiment/" title="计算机视觉-图像处理实验"><img src="/cv-ImageProcessingExperiment/cv.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机视觉-图像处理实验"/></a><div class="content"><a class="title" href="/cv-ImageProcessingExperiment/" title="计算机视觉-图像处理实验">计算机视觉-图像处理实验</a><time datetime="2021-12-02T05:01:01.000Z" title="发表于 2021-12-02 13:01:01">2021-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/cv-image-Denoising-and-Restoration/" title="计算机视觉-图像去噪与图像复原"><img src="/cv-image-Denoising-and-Restoration/cv.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机视觉-图像去噪与图像复原"/></a><div class="content"><a class="title" href="/cv-image-Denoising-and-Restoration/" title="计算机视觉-图像去噪与图像复原">计算机视觉-图像去噪与图像复原</a><time datetime="2021-12-01T09:10:16.000Z" title="发表于 2021-12-01 17:10:16">2021-12-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/machine-learning-SupportVectorMachine/">http://110.42.233.207/machine-learning-SupportVectorMachine/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a><a class="post-meta__tags" href="/tags/SVM/">SVM</a></div><div class="post_share"><div class="social-share" data-image="/machine-learning-SupportVectorMachine/machine-learning.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-MaxEntropyModel/"><img class="next-cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">机器学习-最大熵模型</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/machine-learning-Decision-Tree/" title="机器学习-决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">机器学习-决策树</div></div></a></div><div><a href="/machine-learning-MaxEntropyModel/" title="机器学习-最大熵模型"><img class="cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-04</div><div class="title">机器学习-最大熵模型</div></div></a></div><div><a href="/machine-learning-Naive-Bayesian-Model/" title="机器学习-朴素贝叶斯"><img class="cover" src="/machine-learning-Naive-Bayesian-Model/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">机器学习-朴素贝叶斯</div></div></a></div><div><a href="/machine-learning-Perceptron/" title="机器学习-感知机"><img class="cover" src="/machine-learning-Perceptron/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">机器学习-感知机</div></div></a></div><div><a href="/machine-learning-overview/" title="机器学习-概述"><img class="cover" src="/machine-learning-overview/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-26</div><div class="title">机器学习-概述</div></div></a></div><div><a href="/machine-learning-K-Nearest-Neighbors/" title="机器学习-k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">机器学习-k近邻算法</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">14</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">11</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E7%AE%80%E4%BB%8B"><span class="toc-text">1 简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-SVM%E5%88%86%E7%B1%BB"><span class="toc-text">1.1 SVM分类</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E6%A0%B8%E6%96%B9%E6%B3%95"><span class="toc-text">1.2 核方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%BA%BF%E6%80%A7%E5%8F%AF%E5%88%86%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-text">2 线性可分支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A6%82%E8%BF%B0"><span class="toc-text">2.1 概述</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E9%97%B4%E9%9A%94"><span class="toc-text">2.2 间隔</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">2.3 目标函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%B1%82%E8%A7%A3%E7%9B%AE%E6%A0%87%E5%87%BD%E6%95%B0"><span class="toc-text">2.4 求解目标函数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88%E7%A1%AC%E9%97%B4%E9%9A%94%EF%BC%89%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">2.5 线性支持向量机（硬间隔）学习方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88%E8%BD%AF%E9%97%B4%E9%9A%94%EF%BC%89"><span class="toc-text">2.6 线性支持向量机（软间隔）</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA%EF%BC%88%E8%BD%AF%E9%97%B4%E9%9A%94%EF%BC%89%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">2.7 线性支持向量机（软间隔）学习方法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E9%9D%9E%E7%BA%BF%E6%80%A7%E6%94%AF%E6%8C%81%E5%90%91%E9%87%8F%E6%9C%BA"><span class="toc-text">3 非线性支持向量机</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%9F%BA%E6%9C%AC%E6%80%9D%E6%83%B3"><span class="toc-text">3.1 基本思想</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E6%A0%B8%E6%96%B9%E6%B3%95"><span class="toc-text">3.2 核方法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E5%AD%A6%E4%B9%A0%E6%96%B9%E6%B3%95"><span class="toc-text">3.3 学习方法</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-SupportVectorMachine/" title="机器学习-支持向量机SVM"><img src="/machine-learning-SupportVectorMachine/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-支持向量机SVM"/></a><div class="content"><a class="title" href="/machine-learning-SupportVectorMachine/" title="机器学习-支持向量机SVM">机器学习-支持向量机SVM</a><time datetime="2021-12-04T06:11:25.000Z" title="发表于 2021-12-04 14:11:25">2021-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-MaxEntropyModel/" title="机器学习-最大熵模型"><img src="/machine-learning-MaxEntropyModel/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习-最大熵模型"/></a><div class="content"><a class="title" href="/machine-learning-MaxEntropyModel/" title="机器学习-最大熵模型">机器学习-最大熵模型</a><time datetime="2021-12-04T04:38:53.000Z" title="发表于 2021-12-04 12:38:53">2021-12-04</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-LogisticRegression/" title="机器学习- Logistic回归"><img src="/machine-learning-LogisticRegression/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="机器学习- Logistic回归"/></a><div class="content"><a class="title" href="/machine-learning-LogisticRegression/" title="机器学习- Logistic回归">机器学习- Logistic回归</a><time datetime="2021-12-03T01:54:00.000Z" title="发表于 2021-12-03 09:54:00">2021-12-03</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/cv-ImageProcessingExperiment/" title="计算机视觉-图像处理实验"><img src="/cv-ImageProcessingExperiment/cv.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机视觉-图像处理实验"/></a><div class="content"><a class="title" href="/cv-ImageProcessingExperiment/" title="计算机视觉-图像处理实验">计算机视觉-图像处理实验</a><time datetime="2021-12-02T05:01:01.000Z" title="发表于 2021-12-02 13:01:01">2021-12-02</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/cv-image-Denoising-and-Restoration/" title="计算机视觉-图像去噪与图像复原"><img src="/cv-image-Denoising-and-Restoration/cv.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="计算机视觉-图像去噪与图像复原"/></a><div class="content"><a class="title" href="/cv-image-Denoising-and-Restoration/" title="计算机视觉-图像去噪与图像复原">计算机视觉-图像去噪与图像复原</a><time datetime="2021-12-01T09:10:16.000Z" title="发表于 2021-12-01 17:10:16">2021-12-01</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
   window.MathJax = {
     tex: {
       inlineMath: [ ['$','$'], ["\\(","\\)"]],
