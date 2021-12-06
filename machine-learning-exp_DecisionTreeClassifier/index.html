@@ -1,0 +1,267 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【机器学习】实践-使用决策树来预测Titanic幸存者 | 你刚刚打开了这个博客</title><meta name="keywords" content="machine-learning,decision-tree,experiment"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 数据准备1.1 数据集下载在kaggle上下载Titanic数据集。 1.2 读取数据并预处理12345678910111213141516171819202122232425import pandas as pdimport numpy as npfrom sklearn.model_selection import train_test_splitfrom sklearn.tree imp">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【机器学习】实践-使用决策树来预测Titanic幸存者">
+<meta property="og:url" content="http://110.42.233.207/machine-learning-exp_DecisionTreeClassifier/index.html">
+<meta property="og:site_name" content="你刚刚打开了这个博客">
+<meta property="og:description" content="1 数据准备1.1 数据集下载在kaggle上下载Titanic数据集。 1.2 读取数据并预处理12345678910111213141516171819202122232425import pandas as pdimport numpy as npfrom sklearn.model_selection import train_test_splitfrom sklearn.tree imp">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://110.42.233.207/machine-learning-exp_DecisionTreeClassifier/machine-learning.jpg">
+<meta property="article:published_time" content="2021-12-06T11:53:00.000Z">
+<meta property="article:modified_time" content="2021-12-06T12:28:34.150Z">
+<meta property="article:author" content="Kevin Parker">
+<meta property="article:tag" content="machine-learning">
+<meta property="article:tag" content="decision-tree">
+<meta property="article:tag" content="experiment">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://110.42.233.207/machine-learning-exp_DecisionTreeClassifier/machine-learning.jpg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://110.42.233.207/machine-learning-exp_DecisionTreeClassifier/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【机器学习】实践-使用决策树来预测Titanic幸存者',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-06 20:28:34'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/machine-learning-exp_DecisionTreeClassifier/machine-learning.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【机器学习】实践-使用决策树来预测Titanic幸存者</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-06T11:53:00.000Z" title="发表于 2021-12-06 19:53:00">2021-12-06</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-06T12:28:34.150Z" title="更新于 2021-12-06 20:28:34">2021-12-06</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【机器学习】实践-使用决策树来预测Titanic幸存者"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-数据准备"><a href="#1-数据准备" class="headerlink" title="1 数据准备"></a>1 数据准备</h1><h2 id="1-1-数据集下载"><a href="#1-1-数据集下载" class="headerlink" title="1.1 数据集下载"></a>1.1 数据集下载</h2><p><a target="_blank" rel="noopener" href="https://www.kaggle.com/c/titanic">在kaggle上下载Titanic数据集</a>。</p>
+<h2 id="1-2-读取数据并预处理"><a href="#1-2-读取数据并预处理" class="headerlink" title="1.2 读取数据并预处理"></a>1.2 读取数据并预处理</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> pandas <span class="keyword">as</span> pd</span><br><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> train_test_split</span><br><span class="line"><span class="keyword">from</span> sklearn.tree <span class="keyword">import</span> DecisionTreeClassifier</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">read_dataset</span>(<span class="params">fname</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    读取数据并预处理</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    <span class="comment"># 读取数据，指定第一列为索引列</span></span><br><span class="line">    data = pd.read_csv(fname, index_col=<span class="number">0</span>)</span><br><span class="line">    <span class="built_in">print</span>(data.shape)</span><br><span class="line">    <span class="built_in">print</span>(data.columns)</span><br><span class="line">    <span class="comment"># 丢弃无用的数据</span></span><br><span class="line">    data.drop([<span class="string">&#x27;Name&#x27;</span>, <span class="string">&#x27;Ticket&#x27;</span>, <span class="string">&#x27;Cabin&#x27;</span>], axis=<span class="number">1</span>, inplace=<span class="literal">True</span>)</span><br><span class="line">    <span class="comment"># 处理性别数据：将性别转为(0,1)表示</span></span><br><span class="line">    data[<span class="string">&#x27;Sex&#x27;</span>] = (data[<span class="string">&#x27;Sex&#x27;</span>] == <span class="string">&#x27;male&#x27;</span>).astype(<span class="string">&#x27;int&#x27;</span>)</span><br><span class="line">    <span class="comment"># 处理登船口数据：将其转为离散数字表示</span></span><br><span class="line">    labels = data[<span class="string">&#x27;Embarked&#x27;</span>].unique().tolist()</span><br><span class="line">    data[<span class="string">&#x27;Embarked&#x27;</span>] = data[<span class="string">&#x27;Embarked&#x27;</span>].apply(<span class="keyword">lambda</span> n: labels.index(n))</span><br><span class="line">    <span class="comment"># 处理缺失的数据：补0</span></span><br><span class="line">    data = data.fillna(<span class="number">0</span>)</span><br><span class="line">    <span class="keyword">return</span> data</span><br><span class="line"></span><br><span class="line">data = read_dataset(<span class="string">&#x27;../Datasets/Titanic/train.csv&#x27;</span>)</span><br></pre></td></tr></table></figure>
+<p>输出数据集的形状和列名：</p>
+<pre><code>(891, 11)
+Index([&#39;Survived&#39;, &#39;Pclass&#39;, &#39;Name&#39;, &#39;Sex&#39;, &#39;Age&#39;, &#39;SibSp&#39;, &#39;Parch&#39;, &#39;Ticket&#39;,
+       &#39;Fare&#39;, &#39;Cabin&#39;, &#39;Embarked&#39;],
+      dtype=&#39;object&#39;)
+</code></pre><h2 id="1-3-划分训练集和验证集"><a href="#1-3-划分训练集和验证集" class="headerlink" title="1.3 划分训练集和验证集"></a>1.3 划分训练集和验证集</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">X = data.drop(<span class="string">&#x27;Survived&#x27;</span>, axis=<span class="number">1</span>).values <span class="comment"># 注意.values，不加则返回一个pandas对象，包含列名的表</span></span><br><span class="line">y = data[<span class="string">&#x27;Survived&#x27;</span>].values</span><br><span class="line"><span class="comment"># print(X[0])</span></span><br><span class="line">X_train, X_test, y_train, y_test = train_test_split(X, y, test_size= <span class="number">0.2</span>)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;train dataset: &#123;&#125;, test dataset: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(X_train.shape, X_test.shape))</span><br></pre></td></tr></table></figure>
+<p>输出训练集和验证集的大小：</p>
+<pre><code>train dataset: (712, 7), test dataset: (179, 7)
+</code></pre><h1 id="2-模型训练"><a href="#2-模型训练" class="headerlink" title="2 模型训练"></a>2 模型训练</h1><h2 id="2-1-模型训练和评估"><a href="#2-1-模型训练和评估" class="headerlink" title="2.1 模型训练和评估"></a>2.1 模型训练和评估</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">model = DecisionTreeClassifier()</span><br><span class="line">model.fit(X_train, y_train)</span><br><span class="line">train_score = model.score(X_train, y_train)</span><br><span class="line">test_score = model.score(X_test, y_test)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;train_score: &#123;&#125;\ntest_score: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(train_score, test_score))</span><br></pre></td></tr></table></figure>
+<p>输出训练集和验证集的得分：</p>
+<pre><code>train_score: 0.9859550561797753
+test_score: 0.8212290502793296
+</code></pre><p>训练集的得分远高于测试集的得分，可以看出模型过拟合了。</p>
+<h1 id="3-模型优化"><a href="#3-模型优化" class="headerlink" title="3 模型优化"></a>3 模型优化</h1><h2 id="3-1-参数max-depth优化"><a href="#3-1-参数max-depth优化" class="headerlink" title="3.1 参数max_depth优化"></a>3.1 参数max_depth优化</h2><p><strong>max_depth: 生成决策树的最大深度。</strong></p>
+<h3 id="3-1-1-构造不同max-depth的决策树模型，分别计算评分"><a href="#3-1-1-构造不同max-depth的决策树模型，分别计算评分" class="headerlink" title="3.1.1 构造不同max_depth的决策树模型，分别计算评分"></a>3.1.1 构造不同max_depth的决策树模型，分别计算评分</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">depth_score</span>(<span class="params">max_depth</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    获得指定深度模型的分数</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    model = DecisionTreeClassifier(max_depth=max_depth)</span><br><span class="line">    model.fit(X_train, y_train)</span><br><span class="line">    train_score = model.score(X_train, y_train)</span><br><span class="line">    test_score = model.score(X_test, y_test)</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;max_depth: &#123;&#125;, train_score: &#123;&#125;, test_score: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(max_depth, train_score, test_score))</span><br><span class="line">    <span class="keyword">return</span> train_score, test_score</span><br><span class="line"></span><br><span class="line">depths = <span class="built_in">range</span>(<span class="number">2</span>, <span class="number">15</span>)</span><br><span class="line">depth_scores = [depth_score(d) <span class="keyword">for</span> d <span class="keyword">in</span> depths]</span><br><span class="line">depth_train_scores = [s[<span class="number">0</span>] <span class="keyword">for</span> s <span class="keyword">in</span> depth_scores]</span><br><span class="line">depth_test_scores = [s[<span class="number">1</span>] <span class="keyword">for</span> s <span class="keyword">in</span> depth_scores]</span><br><span class="line">best_depth_score_index = np.argmax(depth_test_scores)</span><br><span class="line">best_depth_score = depth_test_scores[best_depth_score_index]</span><br><span class="line">best_depth = depths[best_depth_score_index]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;best max_depth: &#123;&#125;, best score: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(best_depth, best_depth_score))</span><br></pre></td></tr></table></figure>
+<p>输出不同max_depth下模型的训练结果：</p>
+<pre><code>max_depth: 2, train_score: 0.7893258426966292, test_score: 0.776536312849162
+max_depth: 3, train_score: 0.8146067415730337, test_score: 0.7932960893854749
+max_depth: 4, train_score: 0.8258426966292135, test_score: 0.8435754189944135
+max_depth: 5, train_score: 0.8497191011235955, test_score: 0.8212290502793296
+max_depth: 6, train_score: 0.8637640449438202, test_score: 0.8212290502793296
+max_depth: 7, train_score: 0.875, test_score: 0.8156424581005587
+max_depth: 8, train_score: 0.8946629213483146, test_score: 0.8100558659217877
+max_depth: 9, train_score: 0.9213483146067416, test_score: 0.7932960893854749
+max_depth: 10, train_score: 0.9339887640449438, test_score: 0.8044692737430168
+max_depth: 11, train_score: 0.9550561797752809, test_score: 0.7821229050279329
+max_depth: 12, train_score: 0.9648876404494382, test_score: 0.7877094972067039
+max_depth: 13, train_score: 0.9719101123595506, test_score: 0.7877094972067039
+max_depth: 14, train_score: 0.9817415730337079, test_score: 0.7988826815642458
+best max_depth: 4, best score: 0.8435754189944135
+</code></pre><p>随着max_depth的增加，模型对训练集的得分也越来越高，说明决策树层数越高，决策树的学习能力越强，也越容易发生过拟合。</p>
+<p>所以限制max_depth能增加模型的泛化能力。</p>
+<h3 id="3-1-2-引入交叉验证来计算评分"><a href="#3-1-2-引入交叉验证来计算评分" class="headerlink" title="3.1.2 引入交叉验证来计算评分"></a>3.1.2 引入交叉验证来计算评分</h3><p>多次运行之前的全部代码会发现：每次得到的最好的max_depth都不相同，这是因为每次随机划分的数据集不同，所以引入交叉验证来判断最优的max_depth。</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> KFold, cross_val_score</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">def</span> <span class="title">depth_cv_score</span>(<span class="params">max_depth</span>):</span></span><br><span class="line">    <span class="string">&quot;&quot;&quot;</span></span><br><span class="line"><span class="string">    使用k折交叉验证来获得指定深度模型的分数</span></span><br><span class="line"><span class="string">    数据集891个实例，按 “K=logn, n/K &gt; 3d”，最后k取10</span></span><br><span class="line"><span class="string">    &quot;&quot;&quot;</span></span><br><span class="line">    model = DecisionTreeClassifier(max_depth=max_depth)</span><br><span class="line">    kfold = KFold(n_splits=<span class="number">10</span>)</span><br><span class="line">    cv_score = cross_val_score(model, X, y, cv=kfold).mean()</span><br><span class="line">    <span class="built_in">print</span>(<span class="string">&#x27;max_depth: &#123;&#125;, cv_score: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(max_depth, cv_score))</span><br><span class="line">    <span class="keyword">return</span> cv_score</span><br><span class="line"></span><br><span class="line">depth_cv_scores = [depth_cv_score(d) <span class="keyword">for</span> d <span class="keyword">in</span> depths]</span><br><span class="line">best_depth_score_index = np.argmax(depth_cv_scores)</span><br><span class="line">best_depth_score = depth_cv_scores[best_depth_score_index]</span><br><span class="line">best_depth = depths[best_depth_score_index]</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;best max_depth: &#123;&#125;, best score: &#123;&#125;&#x27;</span>.<span class="built_in">format</span>(best_depth, best_depth_score))</span><br></pre></td></tr></table></figure>
+<p>输出不同max_depth下模型的交叉验证平均的训练结果：</p>
+<pre><code>max_depth: 2, cv_score: 0.7710986267166042
+max_depth: 3, cv_score: 0.8080774032459426
+max_depth: 4, cv_score: 0.8081148564294631
+max_depth: 5, cv_score: 0.8115230961298376
+max_depth: 6, cv_score: 0.8171785268414482
+max_depth: 7, cv_score: 0.8227715355805243
+max_depth: 8, cv_score: 0.8003495630461922
+max_depth: 9, cv_score: 0.7935830212234707
+max_depth: 10, cv_score: 0.8025967540574281
+max_depth: 11, cv_score: 0.7936079900124844
+max_depth: 12, cv_score: 0.7935830212234707
+max_depth: 13, cv_score: 0.7778901373283394
+max_depth: 14, cv_score: 0.7868664169787765
+best max_depth: 7, best score: 0.8227715355805243
+</code></pre><p>在模型其他参数都使用默认值时，max_depth参数为7时模型能获得最好的预测效果</p>
+<h3 id="3-1-3-用-GridSearchCV-类进行参数优化"><a href="#3-1-3-用-GridSearchCV-类进行参数优化" class="headerlink" title="3.1.3 用 GridSearchCV 类进行参数优化"></a>3.1.3 用 GridSearchCV 类进行参数优化</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">from</span> sklearn.model_selection <span class="keyword">import</span> GridSearchCV</span><br><span class="line"></span><br><span class="line"><span class="comment"># max_depth</span></span><br><span class="line">thresholds = np.arange(<span class="number">2</span>,<span class="number">15</span>)</span><br><span class="line"><span class="comment"># 设置参数矩阵</span></span><br><span class="line">param_grid = &#123;<span class="string">&#x27;max_depth&#x27;</span>: thresholds&#125;</span><br><span class="line">model = GridSearchCV(DecisionTreeClassifier(), param_grid=param_grid, cv=<span class="number">10</span>)</span><br><span class="line">model.fit(X, y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;best max_depth:&#123;&#125;\nbest score:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(model.best_params_, model.best_score_))</span><br></pre></td></tr></table></figure>
+<p>输出最优的max_depth参数和对应的最优评分：</p>
+<pre><code>best max_depth:&#123;&#39;max_depth&#39;: 6&#125;
+best score:0.8137827715355807
+</code></pre><p>使用GridSearchCV获得的结果和直接用k折交叉验证获得的结果不同。<br>为什么呢？</p>
+<h2 id="3-2-参数min-impurity-decrease优化"><a href="#3-2-参数min-impurity-decrease优化" class="headerlink" title="3.2 参数min_impurity_decrease优化"></a>3.2 参数min_impurity_decrease优化</h2><p><strong>min_impurity_decrease: 打算划分一个内部结点时，只有当该结点上的不纯度不小于该参数指定的值时，才会对该结点进行划分。</strong></p>
+<p>用 GridSearchCV 类进行参数min_impurity_decrease的优化（这里没有限制max_depth）</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> matplotlib.pyplot <span class="keyword">as</span> plt</span><br><span class="line"></span><br><span class="line">thresholds = np.linspace(start=<span class="number">0</span>, stop=<span class="number">0.5</span>, num=<span class="number">50</span>)</span><br><span class="line"><span class="comment"># 设置参数矩阵</span></span><br><span class="line">param_grid = &#123;<span class="string">&#x27;min_impurity_decrease&#x27;</span>: thresholds&#125;</span><br><span class="line">model = GridSearchCV(DecisionTreeClassifier(), param_grid=param_grid, cv=<span class="number">10</span>)</span><br><span class="line">model.fit(X, y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;best min_impurity_decrease:&#123;&#125;\nbest score:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(model.best_params_, model.best_score_))</span><br><span class="line"><span class="comment"># print(model.cv_results_[&#x27;mean_test_score&#x27;])</span></span><br><span class="line">plt.figure(<span class="number">1</span>)</span><br><span class="line">plt.plot(thresholds, model.cv_results_[<span class="string">&#x27;mean_test_score&#x27;</span>])</span><br><span class="line">plt.xlabel=<span class="string">&#x27;min_impurity_decrease&#x27;</span></span><br><span class="line">plt.show()</span><br></pre></td></tr></table></figure>
+<p>输出最优的min_impurity_decrease参数和对应的最优评分：</p>
+<pre><code>best min_impurity_decrease:&#123;&#39;min_impurity_decrease&#39;: 0.01020408163265306&#125;
+best score:0.7990886392009988
+</code></pre><p>输出模型mean_test_score关于min_impurity_decrease的折线图：</p>
+<p><img src="/machine-learning-exp_DecisionTreeClassifier/output.png" alt="output"></p>
+<h2 id="3-3-用GridSearchCV类从多组参数之间选择最优的参数"><a href="#3-3-用GridSearchCV类从多组参数之间选择最优的参数" class="headerlink" title="3.3 用GridSearchCV类从多组参数之间选择最优的参数"></a>3.3 用GridSearchCV类从多组参数之间选择最优的参数</h2><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">entropy_thresholds = np.linspace(<span class="number">0</span>, <span class="number">1</span>, <span class="number">50</span>)</span><br><span class="line">gini_thresholds = np.linspace(<span class="number">0</span>, <span class="number">0.5</span>, <span class="number">50</span>)</span><br><span class="line">param_grid = [</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;criterion&#x27;</span>: [<span class="string">&#x27;entropy&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;min_impurity_decrease&#x27;</span>: entropy_thresholds</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">        <span class="string">&#x27;criterion&#x27;</span>: [<span class="string">&#x27;gini&#x27;</span>],</span><br><span class="line">        <span class="string">&#x27;min_impurity_decrease&#x27;</span>: gini_thresholds</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="comment"># &#123;</span></span><br><span class="line">    <span class="comment">#     &#x27;min_samples_split&#x27;: range(2, 30, 2)</span></span><br><span class="line">    <span class="comment"># &#125;</span></span><br><span class="line">]</span><br><span class="line">model = GridSearchCV(DecisionTreeClassifier(max_depth=<span class="literal">None</span>), param_grid=param_grid, cv=<span class="number">5</span>)</span><br><span class="line">model.fit(X, y)</span><br><span class="line"><span class="built_in">print</span>(<span class="string">&#x27;best param:&#123;&#125;\nbest score:&#123;&#125;&#x27;</span>.<span class="built_in">format</span>(model.best_params_, model.best_score_))</span><br></pre></td></tr></table></figure>
+<p>输出param_grid中能得到best score的参数组合，输出对应的best score：</p>
+<pre><code>best param:&#123;&#39;criterion&#39;: &#39;gini&#39;, &#39;min_impurity_decrease&#39;: 0.01020408163265306&#125;
+best score:0.794589165777415
+</code></pre><h1 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h1><p><a href="/machine-learning-Decision-Tree">【机器学习】决策树</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/machine-learning-exp_DecisionTreeClassifier/">http://110.42.233.207/machine-learning-exp_DecisionTreeClassifier/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a><a class="post-meta__tags" href="/tags/decision-tree/">decision-tree</a><a class="post-meta__tags" href="/tags/experiment/">experiment</a></div><div class="post_share"><div class="social-share" data-image="/machine-learning-exp_DecisionTreeClassifier/machine-learning.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-exp-KNN/"><img class="next-cover" src="/machine-learning-exp-KNN/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【机器学习】实践-使用k近邻算法及其变种预测的糖尿病</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/machine-learning-Decision-Tree/" title="【机器学习】决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】决策树</div></div></a></div><div><a href="/machine-learning-exp-KNN/" title="【机器学习】实践-使用k近邻算法及其变种预测的糖尿病"><img class="cover" src="/machine-learning-exp-KNN/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-05</div><div class="title">【机器学习】实践-使用k近邻算法及其变种预测的糖尿病</div></div></a></div><div><a href="/machine-learning-LogisticRegression/" title="【机器学习】Logistic回归"><img class="cover" src="/machine-learning-LogisticRegression/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">【机器学习】Logistic回归</div></div></a></div><div><a href="/machine-learning-MaxEntropyModel/" title="【机器学习】最大熵模型"><img class="cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-04</div><div class="title">【机器学习】最大熵模型</div></div></a></div><div><a href="/machine-learning-K-Nearest-Neighbors/" title="【机器学习】k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">【机器学习】k近邻算法</div></div></a></div><div><a href="/machine-learning-Naive-Bayesian-Model/" title="【机器学习】朴素贝叶斯"><img class="cover" src="/machine-learning-Naive-Bayesian-Model/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】朴素贝叶斯</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">16</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E6%95%B0%E6%8D%AE%E5%87%86%E5%A4%87"><span class="toc-text">1 数据准备</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E6%95%B0%E6%8D%AE%E9%9B%86%E4%B8%8B%E8%BD%BD"><span class="toc-text">1.1 数据集下载</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E8%AF%BB%E5%8F%96%E6%95%B0%E6%8D%AE%E5%B9%B6%E9%A2%84%E5%A4%84%E7%90%86"><span class="toc-text">1.2 读取数据并预处理</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E5%88%92%E5%88%86%E8%AE%AD%E7%BB%83%E9%9B%86%E5%92%8C%E9%AA%8C%E8%AF%81%E9%9B%86"><span class="toc-text">1.3 划分训练集和验证集</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83"><span class="toc-text">2 模型训练</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E6%A8%A1%E5%9E%8B%E8%AE%AD%E7%BB%83%E5%92%8C%E8%AF%84%E4%BC%B0"><span class="toc-text">2.1 模型训练和评估</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%A8%A1%E5%9E%8B%E4%BC%98%E5%8C%96"><span class="toc-text">3 模型优化</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%8F%82%E6%95%B0max-depth%E4%BC%98%E5%8C%96"><span class="toc-text">3.1 参数max_depth优化</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-1-%E6%9E%84%E9%80%A0%E4%B8%8D%E5%90%8Cmax-depth%E7%9A%84%E5%86%B3%E7%AD%96%E6%A0%91%E6%A8%A1%E5%9E%8B%EF%BC%8C%E5%88%86%E5%88%AB%E8%AE%A1%E7%AE%97%E8%AF%84%E5%88%86"><span class="toc-text">3.1.1 构造不同max_depth的决策树模型，分别计算评分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-2-%E5%BC%95%E5%85%A5%E4%BA%A4%E5%8F%89%E9%AA%8C%E8%AF%81%E6%9D%A5%E8%AE%A1%E7%AE%97%E8%AF%84%E5%88%86"><span class="toc-text">3.1.2 引入交叉验证来计算评分</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#3-1-3-%E7%94%A8-GridSearchCV-%E7%B1%BB%E8%BF%9B%E8%A1%8C%E5%8F%82%E6%95%B0%E4%BC%98%E5%8C%96"><span class="toc-text">3.1.3 用 GridSearchCV 类进行参数优化</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E5%8F%82%E6%95%B0min-impurity-decrease%E4%BC%98%E5%8C%96"><span class="toc-text">3.2 参数min_impurity_decrease优化</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E7%94%A8GridSearchCV%E7%B1%BB%E4%BB%8E%E5%A4%9A%E7%BB%84%E5%8F%82%E6%95%B0%E4%B9%8B%E9%97%B4%E9%80%89%E6%8B%A9%E6%9C%80%E4%BC%98%E7%9A%84%E5%8F%82%E6%95%B0"><span class="toc-text">3.3 用GridSearchCV类从多组参数之间选择最优的参数</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0"><span class="toc-text">相关文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
