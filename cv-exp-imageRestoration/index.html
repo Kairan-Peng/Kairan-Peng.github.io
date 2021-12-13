@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【计算机视觉】加有高斯白噪声的运动模糊图像复原 | 你刚刚打开了这个博客</title><meta name="keywords" content="computer-vision,exp"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="1 实验目标复原下面的图像：  该图像是加有高斯白噪声的移动模糊图像，运动模糊参数为：长度为30，逆时针方向角度为11。 2 实验步骤与结果分析2.1 图像降质分析采用图像降质模型如下：  其中，噪声信号为高斯白噪声，方差未知，信号强度未知。 退化系统的点扩展函数PSF的类型为’motion’，长度为30，方向角为11。 降质和复原过程用下图表示：  其中 $H(u,v)$ 表示退化系统的转移函数">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【计算机视觉】加有高斯白噪声的运动模糊图像复原">
+<meta property="og:url" content="http://110.42.233.207/cv-exp-imageRestoration/index.html">
+<meta property="og:site_name" content="你刚刚打开了这个博客">
+<meta property="og:description" content="1 实验目标复原下面的图像：  该图像是加有高斯白噪声的移动模糊图像，运动模糊参数为：长度为30，逆时针方向角度为11。 2 实验步骤与结果分析2.1 图像降质分析采用图像降质模型如下：  其中，噪声信号为高斯白噪声，方差未知，信号强度未知。 退化系统的点扩展函数PSF的类型为’motion’，长度为30，方向角为11。 降质和复原过程用下图表示：  其中 $H(u,v)$ 表示退化系统的转移函数">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://110.42.233.207/cv-exp-imageRestoration/cv.jpeg">
+<meta property="article:published_time" content="2021-12-11T03:30:23.000Z">
+<meta property="article:modified_time" content="2021-12-13T04:36:59.354Z">
+<meta property="article:author" content="Kevin Parker">
+<meta property="article:tag" content="computer-vision">
+<meta property="article:tag" content="exp">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://110.42.233.207/cv-exp-imageRestoration/cv.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://110.42.233.207/cv-exp-imageRestoration/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【计算机视觉】加有高斯白噪声的运动模糊图像复原',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-13 12:36:59'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/cv-exp-imageRestoration/cv.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【计算机视觉】加有高斯白噪声的运动模糊图像复原</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-11T03:30:23.000Z" title="发表于 2021-12-11 11:30:23">2021-12-11</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-13T04:36:59.354Z" title="更新于 2021-12-13 12:36:59">2021-12-13</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/computer-vision/">computer-vision</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【计算机视觉】加有高斯白噪声的运动模糊图像复原"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-实验目标"><a href="#1-实验目标" class="headerlink" title="1 实验目标"></a>1 实验目标</h1><p>复原下面的图像：</p>
+<p><img src="/cv-exp-imageRestoration/monkey.png" alt="monkey"></p>
+<p>该图像是加有高斯白噪声的移动模糊图像，运动模糊参数为：长度为30，逆时针方向角度为11。</p>
+<h1 id="2-实验步骤与结果分析"><a href="#2-实验步骤与结果分析" class="headerlink" title="2 实验步骤与结果分析"></a>2 实验步骤与结果分析</h1><h2 id="2-1-图像降质分析"><a href="#2-1-图像降质分析" class="headerlink" title="2.1 图像降质分析"></a>2.1 图像降质分析</h2><p>采用图像降质模型如下：</p>
+<p><img src="/cv-exp-imageRestoration/image-20211209130331349-9194271.png" alt="image-20211209130331349" style="zoom:20%;"></p>
+<p>其中，噪声信号为高斯白噪声，方差未知，信号强度未知。</p>
+<p>退化系统的点扩展函数PSF的类型为’motion’，长度为30，方向角为11。</p>
+<p>降质和复原过程用下图表示：</p>
+<p><img src="/cv-exp-imageRestoration/image-20211209204637416.png" alt="image-20211209204637416" style="zoom:30%;"></p>
+<p>其中 $H(u,v)$ 表示退化系统的转移函数， $G(u,v)$ 表示恢复系统的转移函数。</p>
+<p>对于运动模糊图像，其退化函数为：</p>
+<script type="math/tex; mode=display">
+H(u,v) = \frac{T}{\pi (ua+vb)}  \sin \left[ \pi (ua+vb) \right] \mathrm{e}^{-j\pi(ua+vb)}</script><h2 id="2-2-维纳滤波"><a href="#2-2-维纳滤波" class="headerlink" title="2.2 维纳滤波"></a>2.2 维纳滤波</h2><p>因为高斯白噪声的存在，而逆滤波不太适合用来恢复含有噪声的图像，所以选择使用维纳（Wiener）滤波。</p>
+<p>维纳滤波寻找一个使统计误差函数</p>
+<script type="math/tex; mode=display">
+e^2 = E\left [(f - \hat f)^2\right ]</script><p>最小的估计 $\hat f$ 。维纳滤波在频域上可表示为：</p>
+<script type="math/tex; mode=display">
+\tag{1}\label{1}
+\hat F(u,v) = \left [ 
+\frac1{H(u,v)} \frac{|H(u,v)|^2}{|H(u,v)|^2 + S_n(u,v)/S_f(u,v)} 
+\right ] G(u,v)</script><p>其中，$S_n(u,v) = |N(u,v)|^2$ 为噪声的功率谱，$S_f(u,v) = |F(u,v)|^2$ 为图像的功率谱。由于 $S_n(u,v)$ 和 $S_f(u,v)$ 都是难以估计的，所以我们用常数 $K$ 来替代参数 $S_n(u,v)/S_f(u,v)$ ，式 $\eqref{1}$ 也就变成了：</p>
+<script type="math/tex; mode=display">
+\tag{2}\label{2}
+\hat F(u,v) = \left [ 
+\frac1{H(u,v)} \frac{|H(u,v)|^2}{|H(u,v)|^2 + K} 
+\right ] G(u,v)</script><p>其中 $K$ 代表了图像的噪信比（NSR）。逆滤波可以看作是维纳滤波的一个特例，其中 $K = 0$ 。</p>
+<p>当 $K\gt 0$ 时，虽然能抑制噪声的增大，但是会导致恢复图像的失真。 $K$ 越大，抑制噪声的效果越好，但恢复越不准确。 $K$ 越小，恢复得越准确，但噪声的抑制效果越不好。 $K$ 的选取原则是：噪声大则适当增加，噪声小则适当减小，一般在0.001~0.1之间，具体视情况而定。</p>
+<p>以下使用两种简单方法对参数 $K$ 进行选取，以期获得最优的维纳滤波的恢复结果。</p>
+<h3 id="2-2-1-K参数估计"><a href="#2-2-1-K参数估计" class="headerlink" title="2.2.1 K参数估计"></a>2.2.1 K参数估计</h3><p>首先创建点扩展函数，Matlab代码如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 定义二维滤波器PSF</span></span><br><span class="line">Len = <span class="number">30</span>;</span><br><span class="line">Theta = <span class="number">11</span>;</span><br><span class="line">PSF = fspecial(<span class="string">&#x27;motion&#x27;</span>, len=Len, thera=Theta);</span><br></pre></td></tr></table></figure>
+<p>根据模糊图像 $g(x,y)$ 的噪声情况估计一个 $K$ 值，使用维纳滤波获得的恢复图像 $\hat f(x,y)$ ，则：</p>
+<script type="math/tex; mode=display">
+S_n(u,v) = \left| G(u,v)-\hat F(u,v) \right|^2</script><p>对应Matlab代码为：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S_n = <span class="built_in">abs</span>(fftshift(fft2(g-f))).^<span class="number">2</span>;</span><br><span class="line">S_n = sum(S_n(:));</span><br></pre></td></tr></table></figure>
+<p>然后用模糊图像来近似原图像，则：</p>
+<script type="math/tex; mode=display">
+S_f(u,v) = \left| G(u,v)\right|^2</script><p>对应Matlab代码为：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">S_f = <span class="built_in">abs</span>(fftshift(fft2(g))).^<span class="number">2</span>;</span><br><span class="line">S_f = sum(S_f(:));</span><br></pre></td></tr></table></figure>
+<p>使用 $K=0.02$ 来预估 $K$ 值，并得到恢复图像，完整Matlab代码如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 读取图片并灰度化</span></span><br><span class="line">Blur = imread(<span class="string">&#x27;monkey.png&#x27;</span>);</span><br><span class="line">Blur = rgb2gray(Blur);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 定义二维滤波器PSF</span></span><br><span class="line">Len = <span class="number">30</span>;</span><br><span class="line">Theta = <span class="number">11</span>;</span><br><span class="line">PSF = fspecial(<span class="string">&#x27;motion&#x27;</span>, len=Len, thera=Theta);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 使用K=0.02维纳滤波来估计K值</span></span><br><span class="line">wnrl = deconvwnr(Blur, PSF, <span class="number">0.02</span>);</span><br><span class="line">S_n = <span class="built_in">abs</span>(fftshift(fft2(Blur-wnrl))).^<span class="number">2</span>;</span><br><span class="line">S_n = sum(S_n(:));</span><br><span class="line">S_f = <span class="built_in">abs</span>(fftshift(fft2(Blur))).^<span class="number">2</span>;</span><br><span class="line">S_f = sum(S_f(:));</span><br><span class="line">K = S_n/S_f;</span><br><span class="line"></span><br><span class="line"><span class="comment">% 使用估计的K值重新滤波并展示</span></span><br><span class="line">wnrl = deconvwnr(Blur, PSF, K);</span><br><span class="line">imshow(wnrl);title([<span class="string">&#x27;维纳滤波，K=&#x27;</span>,num2str(K)]);</span><br></pre></td></tr></table></figure>
+<p>得到 $K=0.012473$ ，最终的恢复图像如下：</p>
+<p><img src="/cv-exp-imageRestoration/k=0.012473.png" alt="k=0.012473" style="zoom:40%;"></p>
+<p>对比原图感觉效果很不错，但可能不是最好的 $K$ 值选择，因此需要遍历一下，并选择一个评估函数对结果进行评估。</p>
+<h3 id="2-2-2-K参数搜索"><a href="#2-2-2-K参数搜索" class="headerlink" title="2.2.2 K参数搜索"></a>2.2.2 K参数搜索</h3><p>对 $K$ 值进行参数搜索，使用能量梯度函数（Energy of Gradient, EOG）对复原的图像进行清晰度评估，将 $x$ 方向和 $y$ 方向的相邻像素的灰度值之差的平方和作为每个像素点的梯度值，对所有像素梯度值累加作为清晰度评价函数值，表达式如下所示：</p>
+<script type="math/tex; mode=display">
+F = \sum_x \sum_y 
+\left \{
+\left[ f(x+1,y)-f(x,y) \right] ^2 
++ \left[ f(x,y+1)-f(x,y) \right] ^2
+\right\}</script><p>EOG的Matlab代码如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% EOG(Energy of Gradient)</span></span><br><span class="line"><span class="function"><span class="keyword">function</span> <span class="title">FI</span>=<span class="title">EOG</span><span class="params">(I)</span></span></span><br><span class="line">[M,N] = <span class="built_in">size</span>(I);</span><br><span class="line">A = I(<span class="number">1</span>:M<span class="number">-1</span>, <span class="number">1</span>:N<span class="number">-1</span>);</span><br><span class="line">B = I(<span class="number">1</span>:M<span class="number">-1</span>, <span class="number">2</span>:N);</span><br><span class="line">C = I(<span class="number">2</span>:M, <span class="number">1</span>:N<span class="number">-1</span>);</span><br><span class="line">FI = (B-A).^<span class="number">2</span> + (C-A).^<span class="number">2</span>;</span><br><span class="line">FI = sum(FI(:));</span><br><span class="line"><span class="comment">% 归一化</span></span><br><span class="line">FI = (FI-double(<span class="built_in">min</span>(I(:)))/(double(<span class="built_in">max</span>(I(:)))-double(<span class="built_in">min</span>(I(:)));</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>整个参数搜索的Matlab代码如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 参数搜索</span></span><br><span class="line"><span class="keyword">for</span> <span class="built_in">i</span> = <span class="number">1</span>:<span class="number">18</span></span><br><span class="line">	K = <span class="number">0.002</span>*<span class="built_in">i</span><span class="number">-0.001</span></span><br><span class="line">	wnrl = deconvwnr(Blur, PSF, K);</span><br><span class="line">	eog = EOG(wnrl);</span><br><span class="line">	t = [<span class="string">&#x27;K=&#x27;</span>, num2str(K), <span class="string">&#x27;, EOG=&#x27;</span>, num2str(eog)];</span><br><span class="line">	subplot(<span class="number">3</span>,<span class="number">6</span>,<span class="built_in">i</span>);imshow(wnrl);title(t);</span><br><span class="line"><span class="keyword">end</span></span><br></pre></td></tr></table></figure>
+<p>最后运行的结果如下图所示：</p>
+<p><img src="/cv-exp-imageRestoration/searchK.png" alt="searchK"></p>
+<p>实验得出的现象是随着 $K$ 值选取的增大，EOG的值在逐步减小。从上图中可以看出，当 $K$ 的值取很小的时候，恢复出来的图像有很多冲激信号点，这会导致EOG值增大。而随着 $K$ 值选取的增大，对噪声的抑制也增大，恢复图像逐渐平滑，梯度逐渐减小，导致EOG的值减小。因此，使用EOG作为图像清晰度的评价函数会导致最后评估出来恢复图像是含有较大噪声的图像。所以最后得出结论，EOG不适合用于评估有噪声的运动图像恢复清晰度的评估。</p>
+<p>比较上图的各个子图，可以看到，当 $K$ 取0.011～0.015之间时，恢复图像既对噪声有较好的抑制效果，又保证了较好的图像清晰度，所以上一小节估计的 $K=0.012473$ 是一个较好的 $K$ 值选取。</p>
+<h3 id="2-2-3-与其他滤波对比"><a href="#2-2-3-与其他滤波对比" class="headerlink" title="2.2.3 与其他滤波对比"></a>2.2.3 与其他滤波对比</h3><p>使用最小二乘法、盲去卷积、Lucy-Richardson卷积，与维纳滤波进行对比。</p>
+<ul>
+<li><p><strong>最小二乘法</strong>：用于复原由于PSF以及可能的加性噪声退化的图像，在保持图像平滑的条件下，该算法在估计图像和实际图像间的最小二乘方误差的意义上来说是最佳的。</p>
+</li>
+<li><p><strong>盲去卷积</strong>：盲去卷积复原实在不知道PSF的情况下，利用原始模糊图像，同时顾及PSF和清晰图像的一种恢复方法。是以最大似然估计为基础的，即一种用被随机噪声所干扰的量进行估计的最优化策略。问题就变成了寻求最大似然函数。在盲去卷积中，最优化问题用规定的约束条件并假定收敛时通过迭代来求解，得到的最大 $f(x, y)$ 和 $h(x, y)$ 就是还原的图像和PSF。初始点扩散函数一般以值为1的数组作为一个合理的推测。</p>
+</li>
+<li><p><strong>Lucy-Richardson算法</strong>：当已知PSF，但对噪声的信息知道很少或者不知道噪声信息时，可以用Lucy-Richardson算法得到效果较好的复原图像。Lucy-Richardson采用迭代法，能够按照泊松噪声统计标准求出给定PSF卷积后，最有可能成为输入模糊图像的图像。</p>
+</li>
+</ul>
+<p>Matlab代码如下：</p>
+<figure class="highlight matlab"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">% 最小二乘法</span></span><br><span class="line"><span class="comment">% J=deconvreg(I,PSF,NOISEPOWER)</span></span><br><span class="line">V = <span class="number">0.001</span>;</span><br><span class="line">NP = V*<span class="built_in">numel</span>(Blur);</span><br><span class="line">J = deconvreg(Blur, PSF, NP);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 盲去卷积</span></span><br><span class="line"><span class="comment">% [J,DePSF]=deconvblind(I,PSF,NUMIT)</span></span><br><span class="line">initPSF = <span class="built_in">ones</span>(<span class="built_in">size</span>(PSF));</span><br><span class="line">[K, DePSF] = deconvblind(Blur, initPSF, <span class="number">10</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% Lucy-Richardson卷积</span></span><br><span class="line"><span class="comment">% J=deconvlucy（I,PSF,NUMIT）</span></span><br><span class="line">L = deconvlucy(Blur, PSF, <span class="number">12</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">% 展示结果</span></span><br><span class="line">subplot(<span class="string">&#x27;Position&#x27;</span>,[<span class="number">0</span>,<span class="number">0.5</span>,<span class="number">0.48</span>,<span class="number">0.45</span>]);imshow(wnrl);title(<span class="string">&#x27;维纳滤波修复图像&#x27;</span>);</span><br><span class="line">subplot(<span class="string">&#x27;Position&#x27;</span>, [<span class="number">0.52</span>,<span class="number">0.5</span>,<span class="number">0.48</span>,<span class="number">0.45</span>]);imshow(J);title(<span class="string">&#x27;最小二乘法修复图像&#x27;</span>)</span><br><span class="line">subplot(<span class="string">&#x27;Position&#x27;</span>, [<span class="number">0</span>,<span class="number">0</span>,<span class="number">0.48</span>,<span class="number">0.45</span>]);imshow(K);title(<span class="string">&#x27;盲去卷积修复图像&#x27;</span>);</span><br><span class="line">subplot(<span class="string">&#x27;Position&#x27;</span>, [<span class="number">0.52</span>,<span class="number">0</span>,<span class="number">0.48</span>,<span class="number">0.45</span>]);imshow(L);title(<span class="string">&#x27;LR卷积修复图像&#x27;</span>);</span><br></pre></td></tr></table></figure>
+<p>最后得到的恢复结果如下图所示：</p>
+<p><img src="/cv-exp-imageRestoration/contrast.png" alt="contrast" style="zoom:60%;"></p>
+<p>可以看出维纳滤波和LR滤波对于含有加性噪声的运动模糊图像恢复有着很好的效果。</p>
+<h2 id="2-3-结果展示"><a href="#2-3-结果展示" class="headerlink" title="2.3 结果展示"></a>2.3 结果展示</h2><p>使用 $K=0.012473$ 的维纳滤波对原模糊图像进行复原，模糊图像与复原图像如下图所示：</p>
+<p><img src="/cv-exp-imageRestoration/monkey.png" alt="monkey"></p>
+<p><img src="/cv-exp-imageRestoration/k=0.012473.png" alt="k=0.012473" style="zoom:40%;"></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/cv-exp-imageRestoration/">http://110.42.233.207/cv-exp-imageRestoration/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/computer-vision/">computer-vision</a><a class="post-meta__tags" href="/tags/exp/">exp</a></div><div class="post_share"><div class="social-share" data-image="/cv-exp-imageRestoration/cv.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-exp_LogisticRegression/"><img class="next-cover" src="/machine-learning-exp_LogisticRegression/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【机器学习】实践-使用Logistic回归模型来预测Breast Cancer</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/cv-ImageProcessingExperiment/" title="【计算机视觉】图像处理实验"><img class="cover" src="/cv-ImageProcessingExperiment/cv.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-02</div><div class="title">【计算机视觉】图像处理实验</div></div></a></div><div><a href="/cv-image-Denoising-and-Restoration/" title="【计算机视觉】图像去噪与图像复原"><img class="cover" src="/cv-image-Denoising-and-Restoration/cv.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-01</div><div class="title">【计算机视觉】图像去噪与图像复原</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">18</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%AE%9E%E9%AA%8C%E7%9B%AE%E6%A0%87"><span class="toc-text">1 实验目标</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E5%AE%9E%E9%AA%8C%E6%AD%A5%E9%AA%A4%E4%B8%8E%E7%BB%93%E6%9E%9C%E5%88%86%E6%9E%90"><span class="toc-text">2 实验步骤与结果分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%9B%BE%E5%83%8F%E9%99%8D%E8%B4%A8%E5%88%86%E6%9E%90"><span class="toc-text">2.1 图像降质分析</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%BB%B4%E7%BA%B3%E6%BB%A4%E6%B3%A2"><span class="toc-text">2.2 维纳滤波</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-K%E5%8F%82%E6%95%B0%E4%BC%B0%E8%AE%A1"><span class="toc-text">2.2.1 K参数估计</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-K%E5%8F%82%E6%95%B0%E6%90%9C%E7%B4%A2"><span class="toc-text">2.2.2 K参数搜索</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-3-%E4%B8%8E%E5%85%B6%E4%BB%96%E6%BB%A4%E6%B3%A2%E5%AF%B9%E6%AF%94"><span class="toc-text">2.2.3 与其他滤波对比</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%BB%93%E6%9E%9C%E5%B1%95%E7%A4%BA"><span class="toc-text">2.3 结果展示</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/cv-exp-imageRestoration/" title="【计算机视觉】加有高斯白噪声的运动模糊图像复原"><img src="/cv-exp-imageRestoration/cv.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【计算机视觉】加有高斯白噪声的运动模糊图像复原"/></a><div class="content"><a class="title" href="/cv-exp-imageRestoration/" title="【计算机视觉】加有高斯白噪声的运动模糊图像复原">【计算机视觉】加有高斯白噪声的运动模糊图像复原</a><time datetime="2021-12-11T03:30:23.000Z" title="发表于 2021-12-11 11:30:23">2021-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-exp_LogisticRegression/" title="【机器学习】实践-使用Logistic回归模型来预测Breast Cancer"><img src="/machine-learning-exp_LogisticRegression/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】实践-使用Logistic回归模型来预测Breast Cancer"/></a><div class="content"><a class="title" href="/machine-learning-exp_LogisticRegression/" title="【机器学习】实践-使用Logistic回归模型来预测Breast Cancer">【机器学习】实践-使用Logistic回归模型来预测Breast Cancer</a><time datetime="2021-12-07T08:53:00.000Z" title="发表于 2021-12-07 16:53:00">2021-12-07</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-exp_DecisionTreeClassifier/" title="【机器学习】实践-使用决策树来预测Titanic幸存者"><img src="/machine-learning-exp_DecisionTreeClassifier/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】实践-使用决策树来预测Titanic幸存者"/></a><div class="content"><a class="title" href="/machine-learning-exp_DecisionTreeClassifier/" title="【机器学习】实践-使用决策树来预测Titanic幸存者">【机器学习】实践-使用决策树来预测Titanic幸存者</a><time datetime="2021-12-06T11:53:00.000Z" title="发表于 2021-12-06 19:53:00">2021-12-06</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
