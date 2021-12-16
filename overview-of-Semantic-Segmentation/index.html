@@ -1,0 +1,307 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【语义分割】基于深度学习的语义图像分割综述 | 你刚刚打开了这个博客</title><meta name="keywords" content="computer-vision,machine-learning"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="摘   要：图像分割在深度学习网络的帮助下得到了长足的发展，本文主要介绍了语义图像分割的任务目标，然后通过对经典的基于深度学习的语义图像分割模型进行简述和分析，总结语义分割模型发展的大方向。关键词：深度学习；图像分割；语义分割 1 语义图像分割介绍一般来说，图像分割分为三种不同的任务类别。第一种是普通图像分割，它的任务是将分属不同物体的像素彼此分割开来，所谓分割，是根据图像特征，将图像划分为互不相">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【语义分割】基于深度学习的语义图像分割综述">
+<meta property="og:url" content="http://110.42.233.207/overview-of-Semantic-Segmentation/index.html">
+<meta property="og:site_name" content="你刚刚打开了这个博客">
+<meta property="og:description" content="摘   要：图像分割在深度学习网络的帮助下得到了长足的发展，本文主要介绍了语义图像分割的任务目标，然后通过对经典的基于深度学习的语义图像分割模型进行简述和分析，总结语义分割模型发展的大方向。关键词：深度学习；图像分割；语义分割 1 语义图像分割介绍一般来说，图像分割分为三种不同的任务类别。第一种是普通图像分割，它的任务是将分属不同物体的像素彼此分割开来，所谓分割，是根据图像特征，将图像划分为互不相">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://110.42.233.207/overview-of-Semantic-Segmentation/image-20211215214138921.png">
+<meta property="article:published_time" content="2021-12-15T13:33:14.000Z">
+<meta property="article:modified_time" content="2021-12-16T15:19:42.445Z">
+<meta property="article:author" content="Kevin Parker">
+<meta property="article:tag" content="computer-vision">
+<meta property="article:tag" content="machine-learning">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://110.42.233.207/overview-of-Semantic-Segmentation/image-20211215214138921.png"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://110.42.233.207/overview-of-Semantic-Segmentation/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【语义分割】基于深度学习的语义图像分割综述',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2021-12-16 23:19:42'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/overview-of-Semantic-Segmentation/image-20211215214138921.png')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【语义分割】基于深度学习的语义图像分割综述</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2021-12-15T13:33:14.000Z" title="发表于 2021-12-15 21:33:14">2021-12-15</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2021-12-16T15:19:42.445Z" title="更新于 2021-12-16 23:19:42">2021-12-16</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/computer-vision/">computer-vision</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【语义分割】基于深度学习的语义图像分割综述"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>摘   要</strong>：图像分割在深度学习网络的帮助下得到了长足的发展，本文主要介绍了语义图像分割的任务目标，然后通过对经典的基于深度学习的语义图像分割模型进行简述和分析，总结语义分割模型发展的大方向。<br><strong>关键词</strong>：深度学习；图像分割；语义分割</p>
+<h1 id="1-语义图像分割介绍"><a href="#1-语义图像分割介绍" class="headerlink" title="1 语义图像分割介绍"></a>1 语义图像分割介绍</h1><p>一般来说，图像分割分为三种不同的任务类别。第一种是普通图像分割，它的任务是将分属不同物体的像素彼此分割开来，所谓分割，是根据图像特征，将图像划分为互不相交的像素块，同一个块内的像素图像表现出某种一致性或相关性，不同块之间则表现出某种差异性。但普通图像分割并不知道分割出来的像素块分别都代表什么，有什么含义。第二种是语义分割(semantic segmentation)，它是在普通分割任务的基础上，知道分割出来的像素块的语义，也就是说像素块所代表的东西，但它只区分类别，不区分实体，比如画面中有两只猫，它只知道在这里的是猫，却无法区分两只猫哪只是哪只。第三种是实例分割(instance segmentation)，它是在语义分割的基础，给每个预测的像素块一个编号，这样它就能区分这只猫是cat A，那只猫是cat B。</p>
+<p>本文着重探讨的是图像分割任务中的语义分割任务。</p>
+<p>语义分割是指将图像的每一个像素进行分类(不同于之前的图像识别的分类任务objective classification，输出结果是整个图片的分类结果)，同一类的像素被聚类在一起，也就是像素级别的分类任务。</p>
+<p>语义分割输入是一张图片(灰度，或者RGB，或者拥有更多channal维度信息)，维度是 $H<em>W</em>C$ 。输出是与输入图片同尺寸的多分类预测结果，纬度是 $H<em>W</em>n$ （n为语义分割任务的分类总数），可以理解成输出了一个同尺寸的图，图的每一个像素的信息是一个n维向量，每一维上的数字代表该像素为该分类的概率。</p>
+<h1 id="2-语义图像分割模型介绍"><a href="#2-语义图像分割模型介绍" class="headerlink" title="2 语义图像分割模型介绍"></a>2 语义图像分割模型介绍</h1><h2 id="2-1-FCN-Fully-Convolution-Network-1"><a href="#2-1-FCN-Fully-Convolution-Network-1" class="headerlink" title="2.1 FCN ( Fully Convolution Network )[1]"></a>2.1 FCN ( Fully Convolution Network )<a target="_blank" rel="noopener" href="https://www.cv-foundation.org/openaccess/content_cvpr_2015/papers/Long_Fully_Convolutional_Networks_2015_CVPR_paper.pdf">[1]</a></h2><p>FCN在CVPR2015上提出，被视为是深度神经网络用于语义分割的开山之作，对之后语义分割网络的探索有着很深远的作用。</p>
+<p>与普通CNN(Convolution Neural Network)网络做比较，普通CNN网络做的是图像的级的分类任务，在特征提取层用的是CNN，然后分类器是全连接层。以经典CNN网络AlexNet为例，如图1上半部分所示，卷积层之后的全连接层是一个1000位的向量，每一位代表某一类的概率。全连接层也可以看作是卷积核覆盖整个输入区域的卷积，如此更改可使网络接受任何大小的输入。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsBeVpW9.jpg" alt="img" style="zoom:10%;"></p>
+<center>图1 将分类网络转换为粗输出映射的FCN</center>
+
+<p>FCN将普通CNN网络的全连接层用卷积层代替，如图1所示。</p>
+<p>FCN定义了一种skip架构，该架构将来自深层、粗糙层的语义信息与来自浅层、精细层的外观信息相结合，以生成准确而详细的分割。如图2所示，FCN-32s直接通过一个32倍的上采样还原到像素级，FCN-16s结合pool4层和2倍上采样conv7层，再16倍上采样还原到像素级，FCN-8s则是结合pool3层、2倍上采样pool4层和4倍上采样conv7层，再8倍上采样还原到像素级。FCN-8s得到的分割结果最好，但是再融合更多更浅的层带来的提升已经变得很小了。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wps05IpoO.jpg" alt="img" style="zoom:15%;"></p>
+<center>图2 FCN探讨的3种skip架构</center>
+
+<p>FCN相对于传统CNN网络来说有以下3个好处。</p>
+<p>1.用卷积层代替全连接层之后，网络可以接收任意尺寸的图片。因为全连接层对参数个数是敏感的，而卷积层并不在意参数个数，在输出的CWH纬度的中间结果中，C与卷积核个数相关，W和H与输入数据和卷积核大小、步长等参数相关。</p>
+<p>2.采用反卷积(up-convolution)层对最后一个卷积层输出的特征图(feature map)进行上采样，生成与原图尺寸相同的输出，可以对每一个像素进行预测。</p>
+<p>3.采用Skip Layers的方法，把不同层feature map进行融合，更好地同时保留了图像的位置信息和语义信息。随着卷积层数的加深，feature map的语义信息更加丰富，而位置信息因为下采样逐步丢失。所以这种方法能减少位置信息的丢失。FCN结构图如图3所示。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wps4eUQKv.jpg" alt="img" style="zoom:12%;"></p>
+<center>图3 FCN结构示意图</center>
+
+<p>FCN-8s在PASCAL VOC 2011数据集上比当时最先进的模型(R-CNN, SDS)在mIOU(mean Intersection over Union)上提升了至少10个百分点，达到了62.7%。同时推理速度也从之前的秒级提升到了约175毫秒。</p>
+<h2 id="2-2-U-Net-2"><a href="#2-2-U-Net-2" class="headerlink" title="2.2 U-Net[2]"></a>2.2 U-Net<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1505.04597">[2]</a></h2><p>U-Net在2015年被提出，顾名思义是一个U型的网络结构，如图4所示。它由两部分组成，左侧从上至下的由卷积层组成的部分为收缩路径(contracting path)，右侧从下至上由反卷积层组成的部分为扩展路径(expansive path)。每层包含两个无padding的3x3卷积层、ReLU激活层和2x2的最大池化层。收缩路径通道数每层增加一倍，扩展滤镜通道数每层减半。</p>
+<p>U-Net是一个优雅的对称结构，低层特征图边缘裁剪后直接与对应的高层特征图进行拼接，来获得更精准的像素级预测结果。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpskPx6mE.jpg" alt="img" style="zoom:15%;"></p>
+<center>图4 U-Net结构示意图</center>
+
+<p>该模型的提出是用于医学细胞分割。由于医学任务的训练图像数量较少，使用滑动窗口由一幅图像产生若干子图像，来获得大量的训练用图像数据。但这种策略有2个缺点，一是子图存在重叠的大量冗余，训练慢，二是较大的子图需要更多池化层而降低定位精度，较小的子图能看到的上下文信息又太少。将训练图像进行弹性形变，因为这种形变在生物组织中是十分常见的变化，这样可以有效地模拟真实的形变，增加训练的数据量，且保证了学习的不变性。</p>
+<p>U-Net做的是一个像素级的二分类任务，为了更好对预测图像缺失上下文信息的边界像素，对图像进行了镜像重复平铺操作(Overlay-tile Strategy)，通过感受野(receptive field)的大小推断增加分辨率的大小。Overlay-tile Strategy示意如图5所示，黄色区域的分割预测需要蓝色区域图像数据作为输入。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wps3u1v0r.jpg" alt="img" style="zoom:12%;"></p>
+<center>图5 Overlay-tile Strategy示意图</center>
+
+<p>U-Net在PhC-U373数据集和DIC-HeLa数据集比之前表现最好的模型在IOU上分别提高9和31个百分点，达到了92%和77.5%。</p>
+<h2 id="2-3-SegNet-3"><a href="#2-3-SegNet-3" class="headerlink" title="2.3 SegNet[3]"></a>2.3 SegNet<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1511.00561">[3]</a></h2><p>SegNet于2016年提出，初衷是应用在道路和室内场景理解上。如果把卷积池化下采样的过程称作编码器(encoder)，把反卷积反池化上采样的过程称作解码器(decoder)，SegNet与FCN和U-Net一样，也是编码器-解码器的结构。SegNet结构示意如图6所示。SegNet的编码器采用去掉全连接层的VGG-16网络中的前13个卷积层，编码器和解码器是对称的。VGG-16全连接层的参数占了整个网络参数的约90%，所以去掉VGG-16全连接层的SegNet网络结构是轻量的。每个解码器对输入的特征图进行上采样，并于相对应的编码器特征图进行拼接，生成下一个解码器的输入。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpspQLbuD.jpg" alt="img"> </p>
+<p>图6 SegNet结构示意图</p>
+<p>SegNet相对于FCN和U-Net的最核心的创新点在于，不同于FCN它们的decoder需要学习上采样层(或者反卷积层)，SegNet通过记录对等max pooling层的index索引，来反池化，减少了计算次数。该步骤SegNet与FCN的对比如图7所示。在解码器中重新使用编码器池化时的索引下标能改善边缘的情况，减少了模型的参数，且容易移植到其他encoder-decoder结构中去。虽然这样上采样得到的是一个稀疏的特征图，但是可以通过接下来的卷积来生成密集的特征图。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsDTbqBM.jpg" alt="img" style="zoom:15%;"></p>
+<center>图7 SegNet与FCN的上采样对比</center>
+
+<h2 id="2-4-DeepLab-v1-4"><a href="#2-4-DeepLab-v1-4" class="headerlink" title="2.4 DeepLab v1[4]"></a>2.4 DeepLab v1<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1412.7062">[4]</a></h2><p>该模型于2015年在名为Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs的文章中被提出。pooling操作可以增大感受野，但降低了分辨率，这对图像级的分类任务是好的，但是不利于像素级的分类任务。因为maxpooling层会损失图像的位置信息，而且与之对应的上采样层会增加更多的参数进而降低模型的效率，所以该模型引入了空洞卷积(hole algorithm，也叫带孔卷积，atrous/dilated convolution)，其一维示意图如图8所示。空洞卷积能够增大感受野(Field of View, FOV)的范围。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpszfNuEn.jpg" alt="img" style="zoom:10%;"></p>
+<center>图8 一维空洞算法示意图( kernel_size=3, input_stride=2, output_stride=1 )</center>
+
+<p>该模型的核心思想就是用空洞卷积增大感受野范围，再引入全连接的条件随机场(Fully Connected CRF, Fully Connected Conditional Random Field)来细化输出的图像边界，提升图像精度。</p>
+<p>该模型也是将VGG-16的全连接层改为卷积层后改出来的模型，整个模型的流程示意图如图9所示。该模型经过卷积后得到的目标的粗糙得分图(coarse score map)后用双线性差值将图像放大到输入图像的尺寸，然后通过全连接的条件随机场得到最终的掩膜输出。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsF3PZno.jpg" alt="img" style="zoom:12%;"></p>
+<center>图9 DeepLabv1模型示意图</center>
+
+<p>模型提出者发现使用全连接的条件随机场效果比仅使用跳层来获得多尺度特征(Multi-Scale features)的方法能获得更显著的性能提升。结合多尺度特征、大感受野、全连接条件随机场，在PASCAL VOC 2012数据集中能获得最好的mIOU结果71.6%，比当时其他最先进的模型(MSRA-CFM, FCN-8s, TTI-Zoomout-16)提高至少7个百分点。</p>
+<h2 id="2-5-PSPNet-5"><a href="#2-5-PSPNet-5" class="headerlink" title="2.5 PSPNet[5]"></a>2.5 PSPNet<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1612.01105">[5]</a></h2><p>PSPNet(Pyramid Scene Parsing Network)于2017年4月被提出，在ResNet基础上增加了一个金字塔池化模块(Pyramid Pooling Module)，整个网络示意如图10所示。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsLEYhoR.jpg" alt="img" style="zoom:20%;"></p>
+<center>图10 Pyramid Scene Parsing Network模型</center>
+
+<p>输入图像通过CNN后得到的特征图，对其通过不同大小的池化层(如图10(c)中，红色代表全局池化结果)获得中间结果，然后通过1x1卷积调整通道数以保持全局特征的权重优先，再经过双线性插值上采样和拼接得到一个输入图像大小的特征图，该图包含了全局信息以及不同尺度的局部信息，最后再通过卷积层得到最终的像素级预测结果。</p>
+<p>通过不同kernel_size的pooling层相当于整合了不同感受野大小的区域信息，同时兼顾了语义信息的提取和位置信息的提取。但pooling和upsample依旧丢失了位置信息和增加了训练量，在这一点上不如空洞卷积。</p>
+<p>PSPNet在PASCAL VOC 2012数据集上mIOU为85.4%，在Cityscapes数据集上mIOU为80.2%，创下了记录。</p>
+<h2 id="2-6-DeepLab-v2-6"><a href="#2-6-DeepLab-v2-6" class="headerlink" title="2.6 DeepLab v2[6]"></a>2.6 DeepLab v2<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1606.00915">[6]</a></h2><p>该模型于2017年5月在名为Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs的文章中被提出。</p>
+<p>该模型改自ResNet-101，相比DeepLab v1改自的VGG-16而言，实现来更好的语义分割性能。该模型与DeepLab v1模型一样，没有使用skip layers来提高输出精度，而是在卷积神经网络后用全连接条件随机场来细化输出。模型使用空洞卷积来有效地扩大卷积层的感受野，以在不增加参数数量或计算量的情况下合并更多的上下文信息。</p>
+<p>DeepLab v2提出了空洞空间金字塔池化(ASPP, Atrous Spatial Pyramid Pooling)，为了适应不同尺度的分类对象，它采用了不同膨胀系数(dilation rate)大小的多层并行的空洞卷积层，ASPP示意图如图11所示。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsAT5ncj.jpg" alt="img" style="zoom:15%;"></p>
+<center>图11 ASPP示意图</center>
+
+<p>空洞卷积能有效提升感受野的范围，但是却产生了一个问题，那就是空洞区域的信息没有被有效整合，导致使用空洞卷积的模型对于大尺寸的物体感知能力增强但对小尺寸物体对感知能力削弱，如图12所示。为了规避这一风险，该模型提出了ASPP来适应多尺寸对象的分类任务。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wps2Q775d.jpg" alt="img" style="zoom:12%;"></p>
+<center>图12 多次叠加dilation_rate为2，kernel_size为3的空洞卷积的信息整和示意图</center>
+
+<p>空洞卷积能避免降低分辨率。与标准卷积(downsampling2x, convolution, upsampling2x)比，标准卷积最终得到的特征图仅在图像的1/4部分获得了响应，而空洞卷积全尺寸的图像可以在全图像位置上获得响应。空洞卷积与标准卷积对比如图13所示。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsqicX4E.jpg" alt="img" style="zoom:15%;"></p>
+<center>图13 空洞卷积与标准卷积的响应对比</center>
+
+<p>DeepLab v2模型示意如图14所示，使用空洞卷积使信号下采样的倍率从32倍降低到了8倍，使用双线性插值将卷积神经网络输出的特征图放大到输入图像的分辨率，然后使用全连接CRF细化分割结果并更好地捕获对象边界。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsFQC4rB.jpg" alt="img" style="zoom:13%;"></p>
+<center>图14 DeepLab v2模型示意图</center>
+
+<p>在 Cityscapes数据集上，Adelaide Context获得了71.6%的mIOU，Dilation10获得了67.1%，DPN获得66.8%，Pixel-level Encoding获得64.3%，而DeepLab-CRF (ResNet-101)获得70.4%的mIOU。</p>
+<h2 id="2-7-DeepLab-v3-7"><a href="#2-7-DeepLab-v3-7" class="headerlink" title="2.7 DeepLab v3[7]"></a>2.7 DeepLab v3<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1802.02611">[7]</a></h2><p>该模型于2017年11月在名为Rethinking Atrous Convolution for Semantic Image Segmentation的文章中被提出，同样是基于ResNet-101。论文中讨论了两个级联结构的模型，如图15所示，stride表示图像分辨率缩小的倍数，stride越大表示特征图可捕获更深层区块中的远程信息。随着stride的增加和图像分辨率的减小，可以在最后一个小分辨率图中总结整个图像特征，如图15中的上图a所示。但是不断增加的stride是对语义分割有害的，因为有关位置细节的信息逐渐丢失了，因此使用空洞卷积，在不增加stride的情况下能让特征图上每一点捕获更多远程信息。stride没有增大，这样能保证位置信息不被牺牲，如图中的下图b所示。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wpsu625gi.jpg" alt="img" style="zoom:15%;"></p>
+<center>图15 带与不带空洞卷积的两个级联模型的对比</center>
+
+<p>ASPP可以有效地捕获多尺寸的信息。但是当dilation_rate增大到一定程度，33的卷积核会退化成11的卷积核，无法捕获感受野的上下文信息，因此该模型对ASPP提出了改进，改进后的级联模型如图16所示。ASPP新增了一个11的卷积核，还增加了一个image-level feature层做图像级的池化，来获得更好的结果。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wps1E8GCl.jpg" alt="img" style="zoom:15%;"></p>
+<center>图16 改进ASPP后的级联模型</center>
+
+<p>DeepLab v3在没有使用DenseCRF(全连接CRF)的后处理方法的情况下，在PASCAL VOC 2012数据集上实现了与其他最先进模型(PSPNet等)相当的性能。</p>
+<h2 id="2-8-DeepLab-v3-8"><a href="#2-8-DeepLab-v3-8" class="headerlink" title="2.8 DeepLab v3+[8]"></a>2.8 DeepLab v3+<a target="_blank" rel="noopener" href="http://arxiv.org/abs/1706.05587">[8]</a></h2><p>该模型于2018年8月在名为Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation的文章中被提出。</p>
+<p>空间金字塔池化模块可以使用不同的rate和不同大小的感受野，来编码不同尺度上下文信息，而编解码器结构可以通过逐渐恢复空间信息来捕获更清晰的对象边界。DeepLab v3+结合了两个方法，以DeepLab v3为编码器，增加了解码器结构。并在ASPP和解码器上使用了深度可分离卷积(depthwise separable convolution, 或group convolution)。深度可分离卷积被证明可以在保持甚至略微提高性能的同时，降低参数数量和计算成本。</p>
+<p>模型结构示意如图17所示。解码器将包含低层特征的CNN输出通过11的卷积降低通道数，然后与ASPP输出的包含不同大小感受野的中间结果经过双线性差值放大4倍的结果进行拼接，再经过卷积和上采样得到像素级预测结果。</p>
+<p><img src="/overview-of-Semantic-Segmentation/wps8rG5wQ.jpg" alt="img" style="zoom:15%;"></p>
+<center>图17 DeepLab v3+模型</center>
+
+<p>文章还探讨了使用Xception的情况，能获得更高的性能。</p>
+<p>在不使用后处理的情况下，DeepLab v3+在PASCAL VOC 2012和Cityscapes数据集上mIOU分别达到了89.0%和82.1%。</p>
+<h1 id="3-总结"><a href="#3-总结" class="headerlink" title="3 总结"></a>3 总结</h1><p>为了适应不同尺寸的物体的识别，使用FCN替代全连接层，这可以说是深度神经网络成功应用到图像语义分割的开始。</p>
+<p>语义分割的图像识别任务总的来说有几个改进方向。</p>
+<p>随着卷积池化层数的增加，不可避免的会出现位置特征信息降低的现象。于是出现了编码器-解码器这样的模型结构，通过skip layer来实现高层与低层特征的融合，可以细化分割边界。</p>
+<p>或者重新设计池化层，用金字塔形式的多kernel_size来获得不同尺度的信息的融合，提升分割结果准确度。</p>
+<p>或使用空洞卷积改进池化层，在不缩小特征图分辨率的情况下，获得有更大的感受野。</p>
+<p>为了使空洞卷积能更好的适配不同尺度的图像，用金字塔形式的多dilation_rate来改进单空洞卷积，提升小尺寸物体的识别效果。</p>
+<p>当然还有图像预处理和后处理，考虑到相邻像素之间的关系，可以用全局CRF提升分割精度。</p>
+<p>在模型训练上，可以使用用于图像分类的ImageNet或JFT等数据集进行预训练，能有效提升模型的性能。</p>
+<p>如何保证模型效率的基础上，更好的融合语义特征信息和位置特征信息，提升模型的判断准确度，这是每一个研究者需要权衡和考虑的问题。</p>
+<h1 id="References"><a href="#References" class="headerlink" title="References"></a>References</h1><p>[1]J. Long, E. Shelhamer, and T. Darrell, “Fully Convolutional Networks for Semantic Segmentation,” p. 10.</p>
+<p>[2]O. Ronneberger, P. Fischer, and T. Brox, “U-Net: Convolutional Networks for Biomedical Image Segmentation,” arXiv:1505.04597 [cs], May 2015, Accessed: Nov. 02, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1505.04597">http://arxiv.org/abs/1505.04597</a></p>
+<p>[3]V. Badrinarayanan, A. Kendall, and R. Cipolla, “SegNet: A Deep Convolutional Encoder-Decoder Architecture for Image Segmentation,” arXiv:1511.00561 [cs], Oct. 2016, Accessed: Nov. 02, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1511.00561">http://arxiv.org/abs/1511.00561</a></p>
+<p>[4]L.-C. Chen, G. Papandreou, I. Kokkinos, K. Murphy, and A. L. Yuille, “Semantic Image Segmentation with Deep Convolutional Nets and Fully Connected CRFs,” arXiv:1412.7062 [cs], Jun. 2016, Accessed: Nov. 02, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1412.7062">http://arxiv.org/abs/1412.7062</a></p>
+<p>[5]H. Zhao, J. Shi, X. Qi, X. Wang, and J. Jia, “Pyramid Scene Parsing Network,” arXiv:1612.01105 [cs], Apr. 2017, Accessed: Nov. 03, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1612.01105">http://arxiv.org/abs/1612.01105</a></p>
+<p>[6]L.-C. Chen, G. Papandreou, I. Kokkinos, K. Murphy, and A. L. Yuille, “DeepLab: Semantic Image Segmentation with Deep Convolutional Nets, Atrous Convolution, and Fully Connected CRFs,” arXiv:1606.00915 [cs], May 2017, Accessed: Nov. 03, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1606.00915">http://arxiv.org/abs/1606.00915</a></p>
+<p>[7]L.-C. Chen, Y. Zhu, G. Papandreou, F. Schroff, and H. Adam, “Encoder-Decoder with Atrous Separable Convolution for Semantic Image Segmentation,” arXiv:1802.02611 [cs], Aug. 2018, Accessed: Nov. 03, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1802.02611">http://arxiv.org/abs/1802.02611</a></p>
+<p>[8]L.-C. Chen, G. Papandreou, F. Schroff, and H. Adam, “Rethinking Atrous Convolution for Semantic Image Segmentation,” arXiv:1706.05587 [cs], Dec. 2017, Accessed: Nov. 03, 2021. [Online]. Available: <a target="_blank" rel="noopener" href="http://arxiv.org/abs/1706.05587">http://arxiv.org/abs/1706.05587</a></p>
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/overview-of-Semantic-Segmentation/">http://110.42.233.207/overview-of-Semantic-Segmentation/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/computer-vision/">computer-vision</a><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a></div><div class="post_share"><div class="social-share" data-image="/overview-of-Semantic-Segmentation/image-20211215214138921.png" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/cv-exp-imageRestoration/"><img class="next-cover" src="/cv-exp-imageRestoration/cv.jpeg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【计算机视觉】加有高斯白噪声的运动模糊图像复原</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/cv-exp-imageRestoration/" title="【计算机视觉】加有高斯白噪声的运动模糊图像复原"><img class="cover" src="/cv-exp-imageRestoration/cv.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-11</div><div class="title">【计算机视觉】加有高斯白噪声的运动模糊图像复原</div></div></a></div><div><a href="/cv-ImageProcessingExperiment/" title="【计算机视觉】图像处理实验-高斯噪声，椒盐噪声，均值滤波，高斯滤波，中值滤波"><img class="cover" src="/cv-ImageProcessingExperiment/cv.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-02</div><div class="title">【计算机视觉】图像处理实验-高斯噪声，椒盐噪声，均值滤波，高斯滤波，中值滤波</div></div></a></div><div><a href="/cv-image-Denoising-and-Restoration/" title="【计算机视觉】图像去噪与图像复原概述"><img class="cover" src="/cv-image-Denoising-and-Restoration/cv.jpeg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-01</div><div class="title">【计算机视觉】图像去噪与图像复原概述</div></div></a></div><div><a href="/machine-learning-Decision-Tree/" title="【机器学习】决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】决策树</div></div></a></div><div><a href="/machine-learning-K-Nearest-Neighbors/" title="【机器学习】k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">【机器学习】k近邻算法</div></div></a></div><div><a href="/machine-learning-LogisticRegression/" title="【机器学习】Logistic回归"><img class="cover" src="/machine-learning-LogisticRegression/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">【机器学习】Logistic回归</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">19</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">17</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E8%AF%AD%E4%B9%89%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2%E4%BB%8B%E7%BB%8D"><span class="toc-text">1 语义图像分割介绍</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E8%AF%AD%E4%B9%89%E5%9B%BE%E5%83%8F%E5%88%86%E5%89%B2%E6%A8%A1%E5%9E%8B%E4%BB%8B%E7%BB%8D"><span class="toc-text">2 语义图像分割模型介绍</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-FCN-Fully-Convolution-Network-1"><span class="toc-text">2.1 FCN ( Fully Convolution Network )[1]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-U-Net-2"><span class="toc-text">2.2 U-Net[2]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-SegNet-3"><span class="toc-text">2.3 SegNet[3]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-DeepLab-v1-4"><span class="toc-text">2.4 DeepLab v1[4]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-5-PSPNet-5"><span class="toc-text">2.5 PSPNet[5]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-6-DeepLab-v2-6"><span class="toc-text">2.6 DeepLab v2[6]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-7-DeepLab-v3-7"><span class="toc-text">2.7 DeepLab v3[7]</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-8-DeepLab-v3-8"><span class="toc-text">2.8 DeepLab v3+[8]</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%80%BB%E7%BB%93"><span class="toc-text">3 总结</span></a></li><li class="toc-item toc-level-1"><a class="toc-link" href="#References"><span class="toc-text">References</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/overview-of-Semantic-Segmentation/" title="【语义分割】基于深度学习的语义图像分割综述"><img src="/overview-of-Semantic-Segmentation/image-20211215214138921.png" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【语义分割】基于深度学习的语义图像分割综述"/></a><div class="content"><a class="title" href="/overview-of-Semantic-Segmentation/" title="【语义分割】基于深度学习的语义图像分割综述">【语义分割】基于深度学习的语义图像分割综述</a><time datetime="2021-12-15T13:33:14.000Z" title="发表于 2021-12-15 21:33:14">2021-12-15</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/cv-exp-imageRestoration/" title="【计算机视觉】加有高斯白噪声的运动模糊图像复原"><img src="/cv-exp-imageRestoration/cv.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【计算机视觉】加有高斯白噪声的运动模糊图像复原"/></a><div class="content"><a class="title" href="/cv-exp-imageRestoration/" title="【计算机视觉】加有高斯白噪声的运动模糊图像复原">【计算机视觉】加有高斯白噪声的运动模糊图像复原</a><time datetime="2021-12-11T03:30:23.000Z" title="发表于 2021-12-11 11:30:23">2021-12-11</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-exp_LogisticRegression/" title="【机器学习】实践-使用Logistic回归模型来预测Breast Cancer"><img src="/machine-learning-exp_LogisticRegression/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】实践-使用Logistic回归模型来预测Breast Cancer"/></a><div class="content"><a class="title" href="/machine-learning-exp_LogisticRegression/" title="【机器学习】实践-使用Logistic回归模型来预测Breast Cancer">【机器学习】实践-使用Logistic回归模型来预测Breast Cancer</a><time datetime="2021-12-07T08:53:00.000Z" title="发表于 2021-12-07 16:53:00">2021-12-07</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2021 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
