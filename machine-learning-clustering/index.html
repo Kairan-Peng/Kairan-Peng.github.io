@@ -1,0 +1,316 @@
+<!DOCTYPE html><html lang="zh-CN" data-theme="light"><head><meta charset="UTF-8"><meta http-equiv="X-UA-Compatible" content="IE=edge"><meta name="viewport" content="width=device-width,initial-scale=1"><title>【机器学习】聚类方法 | 你刚刚打开了这个博客</title><meta name="keywords" content="machine-learning,clustering"><meta name="author" content="Kevin Parker"><meta name="copyright" content="Kevin Parker"><meta name="format-detection" content="telephone=no"><meta name="theme-color" content="#ffffff"><meta name="description" content="聚类（clustering）是将样本集合中相似的样本（实例）分配到相同的类，不相似的样本分配到不同的类。 1 预备知识1.1 相似度或距离假设有 $n$ 个样本，每个样本由 $m$ 个属性的特征向量组成，样本合集可以用矩阵 $X$ 表示：  X &#x3D; [x_{ij}]_{m\times n} &#x3D; \begin{bmatrix} x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1n} \\">
+<meta property="og:type" content="article">
+<meta property="og:title" content="【机器学习】聚类方法">
+<meta property="og:url" content="http://110.42.233.207/machine-learning-clustering/index.html">
+<meta property="og:site_name" content="你刚刚打开了这个博客">
+<meta property="og:description" content="聚类（clustering）是将样本集合中相似的样本（实例）分配到相同的类，不相似的样本分配到不同的类。 1 预备知识1.1 相似度或距离假设有 $n$ 个样本，每个样本由 $m$ 个属性的特征向量组成，样本合集可以用矩阵 $X$ 表示：  X &#x3D; [x_{ij}]_{m\times n} &#x3D; \begin{bmatrix} x_{11} &amp; x_{12} &amp; \cdots &amp; x_{1n} \\">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://110.42.233.207/machine-learning-clustering/machine-learning.jpeg">
+<meta property="article:published_time" content="2022-01-18T09:23:00.000Z">
+<meta property="article:modified_time" content="2022-01-18T16:05:47.541Z">
+<meta property="article:author" content="Kevin Parker">
+<meta property="article:tag" content="machine-learning">
+<meta property="article:tag" content="clustering">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://110.42.233.207/machine-learning-clustering/machine-learning.jpeg"><link rel="shortcut icon" href="/img/favicon.png"><link rel="canonical" href="http://110.42.233.207/machine-learning-clustering/"><link rel="preconnect" href="//cdn.jsdelivr.net"/><link rel="preconnect" href="//busuanzi.ibruce.info"/><link rel="stylesheet" href="/css/index.css"><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free/css/all.min.css" media="print" onload="this.media='all'"><script>const GLOBAL_CONFIG = { 
+  root: '/',
+  algolia: undefined,
+  localSearch: undefined,
+  translate: undefined,
+  noticeOutdate: undefined,
+  highlight: {"plugin":"highlighjs","highlightCopy":true,"highlightLang":true,"highlightHeightLimit":false},
+  copy: {
+    success: '复制成功',
+    error: '复制错误',
+    noSupport: '浏览器不支持'
+  },
+  relativeDate: {
+    homepage: false,
+    post: false
+  },
+  runtime: '',
+  date_suffix: {
+    just: '刚刚',
+    min: '分钟前',
+    hour: '小时前',
+    day: '天前',
+    month: '个月前'
+  },
+  copyright: undefined,
+  lightbox: 'fancybox',
+  Snackbar: undefined,
+  source: {
+    jQuery: 'https://cdn.jsdelivr.net/npm/jquery@latest/dist/jquery.min.js',
+    justifiedGallery: {
+      js: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/js/jquery.justifiedGallery.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/justifiedGallery/dist/css/justifiedGallery.min.css'
+    },
+    fancybox: {
+      js: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.js',
+      css: 'https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@latest/dist/jquery.fancybox.min.css'
+    }
+  },
+  isPhotoFigcaption: false,
+  islazyload: false,
+  isanchor: false
+}</script><script id="config-diff">var GLOBAL_CONFIG_SITE = {
+  title: '【机器学习】聚类方法',
+  isPost: true,
+  isHome: false,
+  isHighlightShrink: false,
+  isToc: true,
+  postUpdate: '2022-01-19 00:05:47'
+}</script><noscript><style type="text/css">
+  #nav {
+    opacity: 1
+  }
+  .justified-gallery img {
+    opacity: 1
+  }
+
+  #recent-posts time,
+  #post-meta time {
+    display: inline !important
+  }
+</style></noscript><script>(win=>{
+    win.saveToLocal = {
+      set: function setWithExpiry(key, value, ttl) {
+        if (ttl === 0) return
+        const now = new Date()
+        const expiryDay = ttl * 86400000
+        const item = {
+          value: value,
+          expiry: now.getTime() + expiryDay,
+        }
+        localStorage.setItem(key, JSON.stringify(item))
+      },
+
+      get: function getWithExpiry(key) {
+        const itemStr = localStorage.getItem(key)
+
+        if (!itemStr) {
+          return undefined
+        }
+        const item = JSON.parse(itemStr)
+        const now = new Date()
+
+        if (now.getTime() > item.expiry) {
+          localStorage.removeItem(key)
+          return undefined
+        }
+        return item.value
+      }
+    }
+  
+    win.getScript = url => new Promise((resolve, reject) => {
+      const script = document.createElement('script')
+      script.src = url
+      script.async = true
+      script.onerror = reject
+      script.onload = script.onreadystatechange = function() {
+        const loadState = this.readyState
+        if (loadState && loadState !== 'loaded' && loadState !== 'complete') return
+        script.onload = script.onreadystatechange = null
+        resolve()
+      }
+      document.head.appendChild(script)
+    })
+  
+      win.activateDarkMode = function () {
+        document.documentElement.setAttribute('data-theme', 'dark')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#0d0d0d')
+        }
+      }
+      win.activateLightMode = function () {
+        document.documentElement.setAttribute('data-theme', 'light')
+        if (document.querySelector('meta[name="theme-color"]') !== null) {
+          document.querySelector('meta[name="theme-color"]').setAttribute('content', '#ffffff')
+        }
+      }
+      const t = saveToLocal.get('theme')
+    
+          if (t === 'dark') activateDarkMode()
+          else if (t === 'light') activateLightMode()
+        
+      const asideStatus = saveToLocal.get('aside-status')
+      if (asideStatus !== undefined) {
+        if (asideStatus === 'hide') {
+          document.documentElement.classList.add('hide-aside')
+        } else {
+          document.documentElement.classList.remove('hide-aside')
+        }
+      }
+    
+    const detectApple = () => {
+      if (GLOBAL_CONFIG_SITE.isHome && /iPad|iPhone|iPod|Macintosh/.test(navigator.userAgent)){
+        document.documentElement.classList.add('apple')
+      }
+    }
+    detectApple()
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/machine-learning-clustering/machine-learning.jpeg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【机器学习】聚类方法</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-18T09:23:00.000Z" title="发表于 2022-01-18 17:23:00">2022-01-18</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-18T16:05:47.541Z" title="更新于 2022-01-19 00:05:47">2022-01-19</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【机器学习】聚类方法"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><p><strong>聚类（clustering）</strong>是将样本集合中相似的样本（实例）分配到相同的类，不相似的样本分配到不同的类。</p>
+<h1 id="1-预备知识"><a href="#1-预备知识" class="headerlink" title="1 预备知识"></a>1 预备知识</h1><h2 id="1-1-相似度或距离"><a href="#1-1-相似度或距离" class="headerlink" title="1.1 相似度或距离"></a>1.1 相似度或距离</h2><p>假设有 $n$ 个样本，每个样本由 $m$ 个属性的特征向量组成，样本合集可以用矩阵 $X$ 表示：</p>
+<script type="math/tex; mode=display">
+X = [x_{ij}]_{m\times n} = \begin{bmatrix}
+x_{11} & x_{12} & \cdots & x_{1n} \\
+x_{21} & x_{22} & \cdots & x_{2n} \\
+\vdots & \vdots & & \vdots \\
+x_{m1} & x_{m2} & \cdots & x_{mn}
+\end{bmatrix}</script><p>聚类的核心概念是相似度（similarity) 或距离（distance)，有多种相似度或距离定义。因为相似度直接影响聚类的结果，所以其选择是聚类的根本问题。</p>
+<h2 id="1-2-闵可夫斯基距离"><a href="#1-2-闵可夫斯基距离" class="headerlink" title="1.2 闵可夫斯基距离"></a>1.2 闵可夫斯基距离</h2><p>给定样本集合 $X$ ， $X$ 是 $m$ 维实数向量空间 $R^m$ 中点的集合，其中 $x_i,x_j\in X$，$x_i=(x_{1i},x_{2i},\cdots,x_{mi})^T$，$x_j=(x_{1j},x_{2j},\cdots,x_{mj})^T$ 。</p>
+<p>样本 $x_i$ 与样本 $x_j$ 的闵可夫斯基距离（Minkowski distance）定义为：</p>
+<script type="math/tex; mode=display">
+d_{ij} = \left( \sum_{k=1}^m |x_{ki} - x_{kj}|^p \right)^\frac1p</script><p>其中 $p\ge 1$ 。</p>
+<p><u>闵可夫斯基距离越大相似度越小，距离越小相似度越大。</u></p>
+<ul>
+<li>当 $p=2$ 时称为欧氏距离（Euclidean distance）：</li>
+</ul>
+<script type="math/tex; mode=display">
+d_{ij} = \left( \sum_{k=1}^m |x_{ki} - x_{kj}|^2 \right)^\frac12</script><ul>
+<li>当 $p=1$ 时称为曼哈顿距离（Manhattan distance）：</li>
+</ul>
+<script type="math/tex; mode=display">
+d_{ij} = \sum_{k=1}^m |x_{ki} - x_{kj}|</script><ul>
+<li>当 $p=\infty$ 时称为切比雪夫距离（Chebyshev distance）：</li>
+</ul>
+<script type="math/tex; mode=display">
+d_{ij} = \max_k |x_{ki}-x_{kj}|</script><h2 id="1-3-马哈拉诺比斯距离"><a href="#1-3-马哈拉诺比斯距离" class="headerlink" title="1.3  马哈拉诺比斯距离"></a>1.3  马哈拉诺比斯距离</h2><p>马哈拉诺比斯距离（Mahalanobis distance)，简称马氏距离，也是另一种常用的相似度，考虑各个分量（特征）之间的相关性并与各个分量的尺度无关。</p>
+<p>给定一个样本集合 $X$ ， $X = [x_{ij}]_{m\times n}$ ，其协方差矩阵记作 $S$ 。样本 $x_i$ 与样本 $x_j$ 之间的马哈拉诺比斯距离 $d_{ij}$ 定义为：</p>
+<script type="math/tex; mode=display">
+d_{ij} = \left[ (x_i-x_j)^T S^{-1} (x_i-x_j) \right]^\frac12</script><p>其中 $x_i = (x_{1i},x_{2i},\cdots,x_{mi})^T$，$x_j = (x_{1j},x_{2j},\cdots,x_{mj})^T$ 。</p>
+<p><u>马哈拉诺比斯距离越大相似度越小，距离越小相似度越大。</u></p>
+<h2 id="1-4-相关系数"><a href="#1-4-相关系数" class="headerlink" title="1.4 相关系数"></a>1.4 相关系数</h2><p>样本之间的相似度也可以用相关系数（correlation coefficient）来表示。</p>
+<ul>
+<li><p>相关系数的绝对值越接近于1，表示样本越相似</p>
+</li>
+<li><p>越接近于0，表示样本越不相似。</p>
+</li>
+</ul>
+<p>样本 $x_i$ 与样本 $x_j$ 之间的相关系数定义为：</p>
+<script type="math/tex; mode=display">
+r_{ij} = \frac
+{\sum_{k=1}^m (x_{ki} - \bar x_i)(x_{kj} - \bar x_j)} 
+{\left[ \sum_{k=1}^m (x_{ki} - \bar x_i)^2 \sum_{k=1}^m (x_{kj} - \bar x_j)^2 \right]^\frac12}</script><p>其中：</p>
+<script type="math/tex; mode=display">
+\bar x_i = \frac1m \sum_{k=1}^m x_{ki} \space,\space \bar x_i = \frac1m \sum_{k=1}^m x_{ki}</script><h2 id="1-5-夹角余弦"><a href="#1-5-夹角余弦" class="headerlink" title="1.5 夹角余弦"></a>1.5 夹角余弦</h2><p>样本之间的相似度也可以用夹角余弦（cosine）来表示。</p>
+<ul>
+<li><p>夹角余弦越接近于1，表示样本越相似</p>
+</li>
+<li><p>越接近于0，表示样本越不相似</p>
+</li>
+</ul>
+<p>样本 $x_i$ 与样本 $x_j$ 之间的夹角余弦定义为：</p>
+<script type="math/tex; mode=display">
+s_{ij} = \frac{
+\sum_{k=1}^m x_{ki} x_{kj}
+}{\left[
+\sum_{k=1}^m x_{ki}^2 \sum_{k=1}^m x_{kj}^2
+\right]^\frac12}</script><h2 id="1-6-相似度"><a href="#1-6-相似度" class="headerlink" title="1.6 相似度"></a>1.6 相似度</h2><p>注意不同相似度度量得到的结果并不一定一致：</p>
+<ul>
+<li><p>用距离度量相似度时，距离越小样本越相似</p>
+</li>
+<li><p>用相关系数时，相关系数越大样本越相似</p>
+</li>
+</ul>
+<p>从下图可以看出，如果从距离的角度看，A和B比A和C更相似；但从相关系数的角度看，A和C比A和B更相似。</p>
+<p><img src="/machine-learning-clustering/image-20220118222905629.png" alt="image-20220118222905629" style="zoom:50%;"></p>
+<h1 id="2-类与簇"><a href="#2-类与簇" class="headerlink" title="2 类与簇"></a>2 类与簇</h1><p>通过聚类得到的类或簇，本质是样本的子集。</p>
+<ul>
+<li>如果一个聚类方法假定一个样本只能属于一个类，或类的交集为空集，那么该方法称为硬聚类（hard clustering）方法。</li>
+<li>如果一个样本可以属于多个类，或类的交集不为空集，那么该方法称为软聚类（soft clustering）方法。</li>
+</ul>
+<p>用 $G$ 表示类或簇（cluster），用 $x_i , x_j$ 表示类中的样本，用 $n_G$ 表示 $G$ 中样本的个数，用 $d_{ij}$ 表示样本 $x_i$ 与样本 $x_j$ 之间的距离。</p>
+<h2 id="2-1-类或簇的定义"><a href="#2-1-类或簇的定义" class="headerlink" title="2.1 类或簇的定义"></a>2.1 类或簇的定义</h2><p>类或簇有多种定义，下面给出几个常见的定义。</p>
+<ul>
+<li><strong>1 任意样本间的距离小于给定值</strong></li>
+</ul>
+<p>设 $T$ 为给定的正数，若集合 $G$ 中任意两个样本 $x_i,x_j$ ，有</p>
+<script type="math/tex; mode=display">
+d_{ij} \le T</script><p>则称 $G$ 为一个类或簇。</p>
+<ul>
+<li><strong>2 任意样本在给定值范围内一定有其他样本</strong></li>
+</ul>
+<p>设 $T$ 为给定的正数，若集合 $G$ 中的任意样本 $x_i$ ，一定存在 $G$ 中的另一个样本 $x_j$ ，使得</p>
+<script type="math/tex; mode=display">
+d_{ij} \le T</script><p>则称 $G$ 为一个类或簇。</p>
+<ul>
+<li><strong>3 任意样本与其他所有样本的距离的均值小于给定值</strong></li>
+</ul>
+<p>设 $T$ 为给定的正数，若集合 $G$ 中的任意样本 $x_i$ ， $G$ 中的另一个样本 $x_j$ 满足</p>
+<script type="math/tex; mode=display">
+\frac1{n_G-1} \sum_{x_j\in G} d_{ij} \le T</script><p>其中 $n_G$ 为 $G$ 中样本的个数，则称 $G$ 为一个类或簇。</p>
+<ul>
+<li><strong>4 所有样本间距的均值小于给定值（且任意样本间的距离小于给定值）</strong></li>
+</ul>
+<p>设 $T$ 和 $V$ 为给定的两个正数，若集合 $G$ 中任意两个样本 $x_i,x_j$ 的距离 $d_{ij}$ 满足</p>
+<script type="math/tex; mode=display">
+\frac1{n_G(n_G-1)} \sum_{x_i\in G} \sum_{x_j\in G} d_{ij} \le T \\
+d_{ij} \le V</script><p>则称 $G$ 为一个类或簇。</p>
+<h2 id="2-2-类或簇的特征"><a href="#2-2-类或簇的特征" class="headerlink" title="2.2 类或簇的特征"></a>2.2 类或簇的特征</h2><p>类的特征可以通过不同角度来刻画，常用的特征有下面三种。</p>
+<ul>
+<li><strong>1 类的均值 $\bar x_G$ ，又称为类的中心</strong></li>
+</ul>
+<script type="math/tex; mode=display">
+\bar x_G = \frac1{n_G} \sum_{i=1}^{n_G} x_i</script><p>其中 $n_G$ 是类 $G$ 的样本个数。</p>
+<ul>
+<li><strong>2 类的直径（diameter）$D_G$</strong> </li>
+</ul>
+<p>类的直径 $D_G$ 是类中任意两个样本之间的最大距离，即</p>
+<script type="math/tex; mode=display">
+D_G = \max_{x_i,x_j \in G} d_ij</script><ul>
+<li><strong>3 类的样本散布矩阵（scatter matrix）$A_G$ 与样本协方差矩阵（covariance matrix）$S_G$</strong> </li>
+</ul>
+<p>类的样本散布矩阵 $A_G$ 为（类比方差之和）</p>
+<script type="math/tex; mode=display">
+A_G = \sum_{i=1}^{n_G} (x_i - \bar x_G)(x_i - \bar x_G)^T</script><p>样本协方差矩阵 $S_G$ 为</p>
+<script type="math/tex; mode=display">
+\begin{split}
+S_G &= \frac1{m-1} A_G \\
+&= \frac1{m-1} \sum_{i=1}^{n_G} (x_i - \bar x_G)(x_i - \bar x_G)^T
+\end{split}</script><p>其中 $m$ 为样本维数（样本属性的个数）。</p>
+<h2 id="2-3-类与类之间的距离"><a href="#2-3-类与类之间的距离" class="headerlink" title="2.3 类与类之间的距离"></a>2.3 类与类之间的距离</h2></article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/machine-learning-clustering/">http://110.42.233.207/machine-learning-clustering/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a><a class="post-meta__tags" href="/tags/clustering/">clustering</a></div><div class="post_share"><div class="social-share" data-image="/machine-learning-clustering/machine-learning.jpeg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-Overview-of-Unsupervised-Learning/"><img class="next-cover" src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【机器学习】无监督学习概论</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/machine-learning-Decision-Tree/" title="【机器学习】决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】决策树</div></div></a></div><div><a href="/machine-learning-K-Nearest-Neighbors/" title="【机器学习】k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">【机器学习】k近邻算法</div></div></a></div><div><a href="/machine-learning-MaxEntropyModel/" title="【机器学习】最大熵模型"><img class="cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-04</div><div class="title">【机器学习】最大熵模型</div></div></a></div><div><a href="/machine-learning-LogisticRegression/" title="【机器学习】Logistic回归"><img class="cover" src="/machine-learning-LogisticRegression/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">【机器学习】Logistic回归</div></div></a></div><div><a href="/machine-learning-Naive-Bayesian-Model/" title="【机器学习】朴素贝叶斯"><img class="cover" src="/machine-learning-Naive-Bayesian-Model/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】朴素贝叶斯</div></div></a></div><div><a href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论"><img class="cover" src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-16</div><div class="title">【机器学习】无监督学习概论</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">24</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">26</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E9%A2%84%E5%A4%87%E7%9F%A5%E8%AF%86"><span class="toc-text">1 预备知识</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E7%9B%B8%E4%BC%BC%E5%BA%A6%E6%88%96%E8%B7%9D%E7%A6%BB"><span class="toc-text">1.1 相似度或距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E9%97%B5%E5%8F%AF%E5%A4%AB%E6%96%AF%E5%9F%BA%E8%B7%9D%E7%A6%BB"><span class="toc-text">1.2 闵可夫斯基距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E9%A9%AC%E5%93%88%E6%8B%89%E8%AF%BA%E6%AF%94%E6%96%AF%E8%B7%9D%E7%A6%BB"><span class="toc-text">1.3  马哈拉诺比斯距离</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E7%9B%B8%E5%85%B3%E7%B3%BB%E6%95%B0"><span class="toc-text">1.4 相关系数</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-5-%E5%A4%B9%E8%A7%92%E4%BD%99%E5%BC%A6"><span class="toc-text">1.5 夹角余弦</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-6-%E7%9B%B8%E4%BC%BC%E5%BA%A6"><span class="toc-text">1.6 相似度</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E7%B1%BB%E4%B8%8E%E7%B0%87"><span class="toc-text">2 类与簇</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E7%B1%BB%E6%88%96%E7%B0%87%E7%9A%84%E5%AE%9A%E4%B9%89"><span class="toc-text">2.1 类或簇的定义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E7%B1%BB%E6%88%96%E7%B0%87%E7%9A%84%E7%89%B9%E5%BE%81"><span class="toc-text">2.2 类或簇的特征</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E7%B1%BB%E4%B8%8E%E7%B1%BB%E4%B9%8B%E9%97%B4%E7%9A%84%E8%B7%9D%E7%A6%BB"><span class="toc-text">2.3 类与类之间的距离</span></a></li></ol></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-clustering/" title="【机器学习】聚类方法"><img src="/machine-learning-clustering/machine-learning.jpeg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】聚类方法"/></a><div class="content"><a class="title" href="/machine-learning-clustering/" title="【机器学习】聚类方法">【机器学习】聚类方法</a><time datetime="2022-01-18T09:23:00.000Z" title="发表于 2022-01-18 17:23:00">2022-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论"><img src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】无监督学习概论"/></a><div class="content"><a class="title" href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论">【机器学习】无监督学习概论</a><time datetime="2022-01-16T14:30:00.000Z" title="发表于 2022-01-16 22:30:00">2022-01-16</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-ensemble-learning/" title="【机器学习】提升算法"><img src="/machine-learning-ensemble-learning/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】提升算法"/></a><div class="content"><a class="title" href="/machine-learning-ensemble-learning/" title="【机器学习】提升算法">【机器学习】提升算法</a><time datetime="2022-01-10T13:33:00.000Z" title="发表于 2022-01-10 21:33:00">2022-01-10</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+  window.MathJax = {
+    tex: {
+      inlineMath: [ ['$','$'], ["\\(","\\)"]],
+      tags: 'ams'
+    },
+    chtml: {
+      scale: 1.2
+    },
+    options: {
+      renderActions: {
+        findScript: [10, doc => {
+          for (const node of document.querySelectorAll('script[type^="math/tex"]')) {
+            const display = !!node.type.match(/; *mode=display/)
+            const math = new doc.options.MathItem(node.textContent, doc.inputJax[0], display)
+            const text = document.createTextNode('')
+            node.parentNode.replaceChild(text, node)
+            math.start = {node: text, delim: '', n: 0}
+            math.end = {node: text, delim: '', n: 0}
+            doc.math.push(math)
+          }
+        }, ''],
+        insertScript: [200, () => {
+          document.querySelectorAll('mjx-container:not\([display]\)').forEach(node => {
+            const target = node.parentNode
+            if (target.nodeName.toLowerCase() === 'li') {
+              target.parentNode.classList.add('has-jax')
+            } else {
+              target.classList.add('has-jax')
+            }
+          });
+        }, '', false]
+      }
+    }
+  }
+  
+  const script = document.createElement('script')
+  script.src = 'https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js'
+  script.id = 'MathJax-script'
+  script.async = true
+  document.head.appendChild(script)
+} else {
+  MathJax.startup.document.state(0)
+  MathJax.texReset()
+  MathJax.typeset()
+}</script></div><script async data-pjax src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script></div></body></html>
