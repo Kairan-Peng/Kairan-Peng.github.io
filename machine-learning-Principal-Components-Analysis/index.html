@@ -7,7 +7,7 @@
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://110.42.233.207/machine-learning-Principal-Components-Analysis/machine-learning.jpg">
 <meta property="article:published_time" content="2022-01-21T13:57:20.000Z">
-<meta property="article:modified_time" content="2022-01-28T15:07:01.096Z">
+<meta property="article:modified_time" content="2022-01-29T06:43:25.340Z">
 <meta property="article:author" content="Kevin Parker">
 <meta property="article:tag" content="machine-learning">
 <meta property="article:tag" content="PCA">
@@ -59,7 +59,7 @@
   isHome: false,
   isHighlightShrink: false,
   isToc: true,
-  postUpdate: '2022-01-28 23:07:01'
+  postUpdate: '2022-01-29 14:43:25'
 }</script><noscript><style type="text/css">
   #nav {
     opacity: 1
@@ -148,7 +148,7 @@
       }
     }
     detectApple()
-    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/machine-learning-Principal-Components-Analysis/machine-learning.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【机器学习】主成分分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-21T13:57:20.000Z" title="发表于 2022-01-21 21:57:20">2022-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-28T15:07:01.096Z" title="更新于 2022-01-28 23:07:01">2022-01-28</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【机器学习】主成分分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h1><h2 id="1-1-高维度数存在的问题"><a href="#1-1-高维度数存在的问题" class="headerlink" title="1.1 高维度数存在的问题"></a>1.1 高维度数存在的问题</h2><ul>
+    })(window)</script><meta name="generator" content="Hexo 5.4.0"></head><body><div id="sidebar"><div id="menu-mask"></div><div id="sidebar-menus"><div class="avatar-img is-center"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="onerror=null;src='/img/friend_404.gif'" alt="avatar"/></div><div class="site-data"><div class="data-item is-center"><div class="data-item-link"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div></div><div class="data-item is-center"><div class="data-item-link"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div></div><hr/><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div></div></div><div class="post" id="body-wrap"><header class="post-bg" id="page-header" style="background-image: url('/machine-learning-Principal-Components-Analysis/machine-learning.jpg')"><nav id="nav"><span id="blog_name"><a id="site-name" href="/">你刚刚打开了这个博客</a></span><div id="menus"><div class="menus_items"><div class="menus_item"><a class="site-page" href="/"><i class="fa-fw fas fa-home"></i><span> 主页</span></a></div><div class="menus_item"><a class="site-page" href="javascript:void(0);"><i class="fa-fw fas fa-bookmark"></i><span> 文章</span><i class="fas fa-chevron-down expand"></i></a><ul class="menus_item_child"><li><a class="site-page child" href="/archives/"><i class="fa-fw fas fa-archive"></i><span> 时间轴</span></a></li><li><a class="site-page child" href="/tags/"><i class="fa-fw fas fa-tags"></i><span> 标签</span></a></li><li><a class="site-page child" href="/categories/"><i class="fa-fw fas fa-folder-open"></i><span> 分类</span></a></li></ul></div></div><div id="toggle-menu"><a class="site-page"><i class="fas fa-bars fa-fw"></i></a></div></div></nav><div id="post-info"><h1 class="post-title">【机器学习】主成分分析</h1><div id="post-meta"><div class="meta-firstline"><span class="post-meta-date"><i class="far fa-calendar-alt fa-fw post-meta-icon"></i><span class="post-meta-label">发表于</span><time class="post-meta-date-created" datetime="2022-01-21T13:57:20.000Z" title="发表于 2022-01-21 21:57:20">2022-01-21</time><span class="post-meta-separator">|</span><i class="fas fa-history fa-fw post-meta-icon"></i><span class="post-meta-label">更新于</span><time class="post-meta-date-updated" datetime="2022-01-29T06:43:25.340Z" title="更新于 2022-01-29 14:43:25">2022-01-29</time></span><span class="post-meta-categories"><span class="post-meta-separator">|</span><i class="fas fa-inbox fa-fw post-meta-icon"></i><a class="post-meta-categories" href="/categories/machine-learning/">machine-learning</a></span></div><div class="meta-secondline"><span class="post-meta-separator">|</span><span class="post-meta-pv-cv" id="" data-flag-title="【机器学习】主成分分析"><i class="far fa-eye fa-fw post-meta-icon"></i><span class="post-meta-label">阅读量:</span><span id="busuanzi_value_page_pv"></span></span></div></div></div></header><main class="layout" id="content-inner"><div id="post"><article class="post-content" id="article-container"><h1 id="1-前言"><a href="#1-前言" class="headerlink" title="1 前言"></a>1 前言</h1><h2 id="1-1-高维度数存在的问题"><a href="#1-1-高维度数存在的问题" class="headerlink" title="1.1 高维度数存在的问题"></a>1.1 高维度数存在的问题</h2><ul>
 <li>数据处理的时候，有时候数据的维度会很高。</li>
 <li>数据在不同维度含有的信息量是不一样的，很多维度包含的信息可以忽略不计。</li>
 <li>展示数据的时候，最多只能展示三维。</li>
@@ -191,7 +191,7 @@
 <li><p>去除噪声</p>
 </li>
 </ul>
-<h1 id="2-主成分分析"><a href="#2-主成分分析" class="headerlink" title="2 主成分分析"></a>2 主成分分析</h1><p><strong>主成分分析（principal component analysis, PCA）</strong>是一种常用的无监督学习方法。</p>
+<h1 id="2-主成分分析简介"><a href="#2-主成分分析简介" class="headerlink" title="2 主成分分析简介"></a>2 主成分分析简介</h1><p><strong>主成分分析（principal component analysis, PCA）</strong>是一种常用的无监督学习方法。</p>
 <p>这一方法利用正交变换把由线性相关变量表示的观测数据转换为少数几个由线性无关变量表示的数据，线性无关的变量称为主成分。</p>
 <p>主成分的个数通常小于原始变量的个数，所以主成分分析属于降维方法。</p>
 <p>主成分分析主要用于发现数据中的基本结构， 即数据中变量之间的关系。</p>
@@ -215,64 +215,66 @@
 <p>主成分分析旨在选取正交变换中方差最大的变量，作为第一主成分，也就是旋转变换中坐标值的平方和最大的轴。</p>
 <p> ${OA^\prime}^2 + {OB^\prime}^2 + {OB^\prime}^2$ 最大等价于样本点到 $y_1$ 轴的距离的平方和 ${AA^\prime}^2 + {BB^\prime}^2 + {CC^\prime}^2$ 最小</p>
 <p>主成分分析在旋转变换中选取离样本点的距离平方和最小的轴，作为第一主成分。第二主成分等的选取，在保证与已选坐标轴正交的条件下，类似地进行。</p>
-<h2 id="2-3-总体主成分分析"><a href="#2-3-总体主成分分析" class="headerlink" title="2.3 总体主成分分析"></a>2.3 总体主成分分析</h2><p>在数据总体（population）上进行的主成分分析称为总体主成分分析。（在有限样本上进行的主成分分析称为样本主成分分析）</p>
+<h1 id="3-总体主成分分析"><a href="#3-总体主成分分析" class="headerlink" title="3 总体主成分分析"></a>3 总体主成分分析</h1><p>在数据总体（population）上进行的主成分分析称为总体主成分分析。（在有限样本上进行的主成分分析称为样本主成分分析）</p>
 <p>总体主成分分析是样本主成分分析的基础。</p>
-<h3 id="2-3-1-定义和推导"><a href="#2-3-1-定义和推导" class="headerlink" title="2.3.1 定义和推导"></a>2.3.1 定义和推导</h3><p>假设 $\pmb{x} = (x_1,x_2,\cdots,x_m)^T$ 是 $m$ 维随机变量，其均值向量是 $\pmb{\mu}$ </p>
+<h2 id="3-1-定义和推导"><a href="#3-1-定义和推导" class="headerlink" title="3.1 定义和推导"></a>3.1 定义和推导</h2><p>假设 $\pmb{x} = (x_1,x_2,\cdots,x_m)^\text{T}$ 是 $m$ 维随机变量，其均值向量是 $\pmb{\mu}$ </p>
 <script type="math/tex; mode=display">
-\pmb{\mu} = \text{E}(\pmb{x}) = (\mu_1,\mu_2,\cdots,\mu_m)^T</script><p>协方差矩阵是 $\Sigma$ </p>
+\pmb{\mu} = \text{E}(\pmb{x}) = (\mu_1,\mu_2,\cdots,\mu_m)^\text{T}</script><p>协方差矩阵是 $\Sigma$ </p>
 <script type="math/tex; mode=display">
-\Sigma = \text{cov}(\pmb{x},\pmb{x}) = \text{E}((\pmb{x}-\pmb{\mu})(\pmb{x}-\pmb{\mu})^T)</script><p>考虑由 $m$ 维随机变量 $\pmb{x}$ 到 $m$ 维随机变量 $\pmb{y} = (y_1,y_2,\cdots,y_m)^T$ 的线性变换</p>
+\Sigma = \text{cov}(\pmb{x},\pmb{x}) = \text{E}((\pmb{x}-\pmb{\mu})(\pmb{x}-\pmb{\mu})^\text{T})</script><p>考虑由 $m$ 维随机变量 $\pmb{x}$ 到 $m$ 维随机变量 $\pmb{y} = (y_1,y_2,\cdots,y_m)^\text{T}$ 的线性变换</p>
 <script type="math/tex; mode=display">
 \label{1}\tag{1}
-y_i = \pmb\alpha_i^T \pmb{x} = \alpha_{1i}x_1 + \alpha_{2i}x_2 + \cdots + \alpha_{mi}x_m</script><p>其中</p>
+y_i = \pmb\alpha_i^\text{T} \pmb{x} = \alpha_{1i}x_1 + \alpha_{2i}x_2 + \cdots + \alpha_{mi}x_m</script><p>其中</p>
 <script type="math/tex; mode=display">
-\pmb\alpha_i^T = (\alpha_{1i},\alpha_{2i},\cdots,\alpha_{mi})\space,\space i=1,2,\cdots,m</script><p> 由随机变量性质可知</p>
+\pmb\alpha_i^\text{T} = (\alpha_{1i},\alpha_{2i},\cdots,\alpha_{mi}) ,\quad i=1,2,\cdots,m</script><p> 由随机变量性质可知</p>
 <script type="math/tex; mode=display">
-\text{E}(y_i) = \pmb\alpha_i^T \pmb\mu \space,\space i=1,2,\cdots,m \\
-\text{var}(y_i) = \pmb\alpha_i^T \Sigma \pmb\alpha_i^T \space,\space i=1,2,\cdots,m \\
-\text{cov}(y_i,y_j) = \pmb\alpha_i^T \Sigma \pmb\alpha_j^T \space,\space i=1,2,\cdots,m \space;\space j=1,2,\cdots,m</script><p>其中 $\text{var}()$ 代表求方差， $\text{cov}()$ 代表求协方差。</p>
+\begin{split}
+&\text{E}(y_i) = \pmb\alpha_i^\text{T} \pmb\mu ,\quad i=1,2,\cdots,m \\
+&\text{var}(y_i) = \pmb\alpha_i^\text{T} \Sigma \pmb\alpha_i^\text{T} ,\quad i=1,2,\cdots,m \\
+&\text{cov}(y_i,y_j) = \pmb\alpha_i^\text{T} \Sigma \pmb\alpha_j^\text{T} ,\quad i=1,2,\cdots,m \space;\space j=1,2,\cdots,m
+\end{split}</script><p>其中 $\text{var}()$ 代表求方差， $\text{cov}()$ 代表求协方差。</p>
 <hr>
 <p><strong>定义1（总体主成分）</strong> 给定一个如式 $\eqref{1}$ 所示的线性变换，如果它们满足下列条件：</p>
-<p> <strong>(1)</strong> 系数向量 $\pmb\alpha_i^T$ 是单位向量，即 $\pmb\alpha_i^T \pmb\alpha_i = 1, i=1,2,\cdots,m$ ；</p>
+<p> <strong>(1)</strong> 系数向量 $\pmb\alpha_i^\text{T}$ 是单位向量，即 $\pmb\alpha_i^\text{T} \pmb\alpha_i = 1, i=1,2,\cdots,m$ ；</p>
 <p> <strong>(2)</strong> 变量 $y_i$ 与 $y_j$ 互不相关，即 $\text{cov}(y_i,y_j)=0(i\ne j)$ ；</p>
 <p> <strong>(3)</strong> 变量 $y_1$ 是 $\pmb{x}$ 的所有线性变换中方差最大的； $y_2$ 是与 $y_1$ 不相关的 $\pmb{x}$ 的所有线性变换中方差最大的；一般地， $y_i$ 是与 $y_1,y_2,\cdots ,y_{i-1} (i= 1,2,\cdots,m)$ 都不相关的 $\pmb{x}$ 的所有线性变换中方差最大的；</p>
 <p>这时分别称 $y_1,y_2,\cdots,y_m$ 为 $\pmb{x}$ 的第一主成分、第二主成分、……、第 $m$​ 主成分。 </p>
 <hr>
 <p>定义1中的条件 (1) 表明线性变换是正交变换，  $\pmb\alpha_1,\pmb\alpha_2,\cdots,\pmb\alpha_m$ 是其一组标准正交基</p>
 <script type="math/tex; mode=display">
-\pmb\alpha_i^T \pmb\alpha_j = \begin{cases}
+\pmb\alpha_i^\text{T} \pmb\alpha_j = \begin{cases}
 1& ,i=j\\
 0& ,i\ne j
 \end{cases}</script><p>条件 (2) (3) 给出了一个求主成分的方法：</p>
-<p>第一步，在 $\pmb x$ 的所有线性变换 $\pmb\alpha_1^T \pmb x = \sum_{i=1}^m \alpha_{i1} x_i$ 中，在 $\pmb\alpha_1^T \pmb\alpha_1 = 1$ 条件下，求方差最大的，得到 $\pmb x$ 的第一主成分。</p>
-<p>第二步，在与 $\pmb\alpha_1^T \pmb x$ 不相关的 $\pmb x$ 的所有线性变换 $\pmb\alpha_2^T \pmb x = \sum_{i=1}^m \alpha_{i2} x_i$ 中，在 $\pmb\alpha_2^T \pmb\alpha_2 = 1$ 条件下，求方差最大的，得到 $\pmb x$ 的第二主成分。</p>
-<p>第 $k$ 步，在与 $\pmb\alpha_1^T \pmb x, \pmb\alpha_2^T \pmb x, \cdots, \pmb\alpha_{k-1}^T \pmb x$ 不相关的 $\pmb x$ 的所有线性变换 $\pmb\alpha_k^T \pmb x = \sum_{i=1}^m \alpha_{ik} x_i$ 中，在 $\pmb\alpha_k^T \pmb\alpha_k = 1$ 条件下，求方差最大的，得到 $\pmb x$ 的第 $k$ 主成分。</p>
-<h3 id="2-3-2-主要性质"><a href="#2-3-2-主要性质" class="headerlink" title="2.3.2 主要性质"></a>2.3.2 主要性质</h3><p><strong>定理1</strong>  设 $\pmb x$ 是 $m$ 维随机变量， $\Sigma$ 是 $\pmb x$ 的协方差矩阵， $\Sigma$ 的特征值分别是 $\lambda_1\ge \lambda_2 \ge \cdots \ge \lambda_m \ge 0$ ，特征值对应的单位特征向量分别是  $\pmb\alpha_1,\pmb\alpha_2,\cdots,\pmb\alpha_m$ ，则 $\pmb x$ 的第 $k$ 主成分是</p>
+<p>第一步，在 $\pmb x$ 的所有线性变换 $\pmb\alpha_1^\text{T} \pmb x = \sum_{i=1}^m \alpha_{i1} x_i$ 中，在 $\pmb\alpha_1^\text{T} \pmb\alpha_1 = 1$ 条件下，求方差最大的，得到 $\pmb x$ 的第一主成分。</p>
+<p>第二步，在与 $\pmb\alpha_1^\text{T} \pmb x$ 不相关的 $\pmb x$ 的所有线性变换 $\pmb\alpha_2^\text{T} \pmb x = \sum_{i=1}^m \alpha_{i2} x_i$ 中，在 $\pmb\alpha_2^\text{T} \pmb\alpha_2 = 1$ 条件下，求方差最大的，得到 $\pmb x$ 的第二主成分。</p>
+<p>第 $k$ 步，在与 $\pmb\alpha_1^\text{T} \pmb x, \pmb\alpha_2^\text{T} \pmb x, \cdots, \pmb\alpha_{k-1}^\text{T} \pmb x$ 不相关的 $\pmb x$ 的所有线性变换 $\pmb\alpha_k^\text{T} \pmb x = \sum_{i=1}^m \alpha_{ik} x_i$ 中，在 $\pmb\alpha_k^\text{T} \pmb\alpha_k = 1$ 条件下，求方差最大的，得到 $\pmb x$ 的第 $k$ 主成分。</p>
+<h2 id="3-2-主要性质"><a href="#3-2-主要性质" class="headerlink" title="3.2 主要性质"></a>3.2 主要性质</h2><p><strong>定理1</strong>  设 $\pmb x$ 是 $m$ 维随机变量， $\Sigma$ 是 $\pmb x$ 的协方差矩阵， $\Sigma$ 的特征值分别是 $\lambda_1\ge \lambda_2 \ge \cdots \ge \lambda_m \ge 0$ ，特征值对应的单位特征向量分别是  $\pmb\alpha_1,\pmb\alpha_2,\cdots,\pmb\alpha_m$ ，则 $\pmb x$ 的第 $k$ 主成分是</p>
 <script type="math/tex; mode=display">
-\label{5}\tag{5}
-y_k = \pmb\alpha_k^T \pmb{x} = \alpha_{1k}x_1 + \alpha_{2k}x_2 + \cdots + \alpha_{mk}x_m 
-\space,\space k=1,2,\cdots,m</script><p>$\pmb x$ 的第 $k$ 主成分的方差是</p>
+\label{2}\tag{2}
+y_k = \pmb\alpha_k^\text{T} \pmb{x} = \alpha_{1k}x_1 + \alpha_{2k}x_2 + \cdots + \alpha_{mk}x_m 
+,\quad k=1,2,\cdots,m</script><p>$\pmb x$ 的第 $k$ 主成分的方差是</p>
 <script type="math/tex; mode=display">
-\label{6}\tag{6}
-\text{var}(y_k) = \pmb\alpha_k^T \Sigma \pmb\alpha_k = \lambda_k 
-\space,\space k=1,2,\cdots,m</script><p>即协方差矩阵的第 $k$ 个特征值。</p>
-<h3 id="2-3-3-主成分的个数与贡献率"><a href="#2-3-3-主成分的个数与贡献率" class="headerlink" title="2.3.3 主成分的个数与贡献率"></a>2.3.3 主成分的个数与贡献率</h3><p>主成分分析的主要目的是降维，所以一般选择 $k\space (k \ll m)$ 个主成分（线性无关变量）来代替 $m$ 个原有变量（线性相关变量），使问题得以简化，并能保留原有变量的大部分信息。</p>
+\label{3}\tag{3}
+\text{var}(y_k) = \pmb\alpha_k^\text{T} \Sigma \pmb\alpha_k = \lambda_k 
+,\quad k=1,2,\cdots,m</script><p>即协方差矩阵的第 $k$ 个特征值。</p>
+<h2 id="3-3-主成分的个数与贡献率"><a href="#3-3-主成分的个数与贡献率" class="headerlink" title="3.3 主成分的个数与贡献率"></a>3.3 主成分的个数与贡献率</h2><p>主成分分析的主要目的是降维，所以一般选择 $k\space (k \ll m)$ 个主成分（线性无关变量）来代替 $m$ 个原有变量（线性相关变量），使问题得以简化，并能保留原有变量的大部分信息。</p>
 <hr>
 <p><strong>定理2</strong>  对任意正整数 $q$ ，$1\le q \le m$ ，考虑正交线性变换</p>
 <script type="math/tex; mode=display">
-\label{23}\tag{23}
-\pmb y = B^T \pmb x</script><p>其中 $\pmb y$ 是 $q$ 维向量，$B^T$ 是 $q\times m$ 矩阵，令 $\pmb y$ 的协方差矩阵为</p>
+\label{4}\tag{4}
+\pmb y = B^\text{T} \pmb x</script><p>其中 $\pmb y$ 是 $q$ 维向量，$B^\text{T}$ 是 $q\times m$ 矩阵，令 $\pmb y$ 的协方差矩阵为</p>
 <script type="math/tex; mode=display">
-\label{24}\tag{24}
-\Sigma_{\pmb y} = B^T \Sigma B</script><p>则 $\Sigma_{\pmb y}$ 的迹 $\text{tr}(\Sigma_{\pmb y})$ 在 $B=A_q$ 时取得最大值，其中矩阵 $A_q$ 由正交矩阵 $A$ 的前 $q$ 列组成。</p>
+\label{5}\tag{5}
+\Sigma_{\pmb y} = B^\text{T} \Sigma B</script><p>则 $\Sigma_{\pmb y}$ 的迹 $\text{tr}(\Sigma_{\pmb y})$ 在 $B=A_q$ 时取得最大值，其中矩阵 $A_q$ 由正交矩阵 $A$ 的前 $q$ 列组成。</p>
 <hr>
 <p><strong>定义2</strong>  第 $k$ 主成分 $y_k$ 的方差贡献率定义为 $y_k$ 的方差与所有方差之和的比，记作 $\eta_k$ </p>
 <script type="math/tex; mode=display">
-\label{30}\tag{30}
+\label{6}\tag{6}
 \eta_k = \frac{\lambda_k}{\sum_{i=1}^m \lambda_i}</script><p> $k$ 个主成分 $y_1,y_2,\cdots,y_k$ 的累计方差贡献率定义为 $k$ 个方差之和与所有方差之和的比</p>
 <script type="math/tex; mode=display">
-\label{31}\tag{31}
-\sum_{i=1}^k \eta_i = \frac{\sum_{i=1}^k}{\sum_{i=1}^m}</script><hr>
+\label{7}\tag{7}
+\sum_{i=1}^k \eta_i = \frac{\sum_{i=1}^k \lambda_i}{\sum_{i=1}^m \lambda_i}</script><hr>
 <p>通常取 $k$ 使得累计方差贡献率达到规定的百分比以上，例如 70% - 80%</p>
 <p>累计方差贡献率反映了主成分保留信息的比例，但它不能反映对某个原有变量 $x_i$ 保留信息的比例</p>
 <p>通常利用 $k$ 个主成分 $y_1,y_2,\cdots,y_k$ 对原有变量 $x_i$ 的贡献率</p>
@@ -281,22 +283,22 @@ y_k = \pmb\alpha_k^T \pmb{x} = \alpha_{1k}x_1 + \alpha_{2k}x_2 + \cdots + \alpha
 <script type="math/tex; mode=display">
 \nu_i = \rho^2(x_i,(y_1,y_2,\cdots,y_k))</script><p>计算公式如下：</p>
 <script type="math/tex; mode=display">
-\label{32}\tag{32}
+\label{8}\tag{8}
 \nu_i = \rho^2(x_i,(y_1,y_2,\cdots,y_k))
 = \sum_{j=1}^k \rho^2(x_i,y_j)
-= \sum_{j=1}^k \frac{\lambda_j \alpha_{ij}^2}{\sigma_{ii}}</script><h3 id="2-3-4-规范化变量的总体主成分"><a href="#2-3-4-规范化变量的总体主成分" class="headerlink" title="2.3.4 规范化变量的总体主成分"></a>2.3.4 规范化变量的总体主成分</h3><p>在实际问题中，不同变量可能有不同的量纲，直接求主成分有时会产生不合理的结果。</p>
+= \sum_{j=1}^k \frac{\lambda_j \alpha_{ij}^2}{\sigma_{ii}}</script><h2 id="3-4-规范化变量的总体主成分"><a href="#3-4-规范化变量的总体主成分" class="headerlink" title="3.4 规范化变量的总体主成分"></a>3.4 规范化变量的总体主成分</h2><p>在实际问题中，不同变量可能有不同的量纲，直接求主成分有时会产生不合理的结果。</p>
 <p>为了消除这个影响，常常对各个随机变量实施规范化，使其均值为0，方差为1。</p>
-<p>设 $\pmb x=(x_1,x_2,\cdots,x_m)^T$ 为 $m$ 维随机变量， $x_i$ 为第 $i$ 个随机变量，令</p>
+<p>设 $\pmb x=(x_1,x_2,\cdots,x_m)^\text{T}$ 为 $m$ 维随机变量， $x_i$ 为第 $i$ 个随机变量，令</p>
 <script type="math/tex; mode=display">
-x_i^\ast = \frac{x_i - E(x_i)}{\sqrt{\text{var}(x_i)}}, \space\space i=1,2,\cdots,m</script><p>其中， $E(x_i),\text{var}(x_i)$ 分别是随机变量 $x_i$ 的均值和方差，这时 $x_i^\ast$ 就是 $x_i$ 的规范化随机变量，</p>
+x_i^\ast = \frac{x_i - E(x_i)}{\sqrt{\text{var}(x_i)}}, \quad i=1,2,\cdots,m</script><p>其中， $E(x_i),\text{var}(x_i)$ 分别是随机变量 $x_i$ 的均值和方差，这时 $x_i^\ast$ 就是 $x_i$ 的规范化随机变量，</p>
 <p>规范化随机变量的协方差矩阵就是相关矩阵 $R$ 。</p>
-<h2 id="2-4-样本主成分分析"><a href="#2-4-样本主成分分析" class="headerlink" title="2.4 样本主成分分析"></a>2.4 样本主成分分析</h2><p>在有限样本上进行的主成分分析称为样本主成分分析。（在数据总体（population）上进行的主成分分析称为总体主成分分析）</p>
+<h1 id="4-样本主成分分析"><a href="#4-样本主成分分析" class="headerlink" title="4 样本主成分分析"></a>4 样本主成分分析</h1><p>在有限样本上进行的主成分分析称为样本主成分分析。（在数据总体（population）上进行的主成分分析称为总体主成分分析）</p>
 <p>总体主成分分析是样本主成分分析的基础。总体主成分分析，是定义在样本总体上的。</p>
 <p>在实际问题中，需要在观测数据上进行主成分分析，这就是样本主成分分析。</p>
 <p>样本主成分也和总体主成分具有相同的性质。</p>
-<h3 id="2-4-1-定义和性质"><a href="#2-4-1-定义和性质" class="headerlink" title="2.4.1 定义和性质"></a>2.4.1 定义和性质</h3><p>假设对 $m$ 维随机变量 $\pmb x=(x_1,x_2,\cdots,x_m)^T$ 进行 $n$ 次独立观测</p>
+<h2 id="4-1-定义和性质"><a href="#4-1-定义和性质" class="headerlink" title="4.1 定义和性质"></a>4.1 定义和性质</h2><p>假设对 $m$ 维随机变量 $\pmb x=(x_1,x_2,\cdots,x_m)^\text{T}$ 进行 $n$ 次独立观测</p>
 <p>$\pmb x_1,\pmb x_2,\cdots,\pmb x_n$ 表示观测样本</p>
-<p>$\pmb x_j = (x_{1j},x_{2j},\cdots,x_{mj})^T$ 表示第 $j$ 个观测样本</p>
+<p>$\pmb x_j = (x_{1j},x_{2j},\cdots,x_{mj})^\text{T}$ 表示第 $j$ 个观测样本</p>
 <p>$x_{ij}$ 表示第 $j$ 个观测样本的第 $i$ 个变量，$j=1,2,\cdots,n$</p>
 <p>观测数据用样本矩阵 $X$ 表示，记作</p>
 <script type="math/tex; mode=display">
@@ -312,10 +314,10 @@ X = \begin{bmatrix}
 <script type="math/tex; mode=display">
 \bar{\pmb x} = \frac1n \sum_{j=1}^n \pmb x_j</script><p> 样本协方差矩阵 $S$ 为 $S = [s_{ij}]_{m\times m}$</p>
 <script type="math/tex; mode=display">
-s_{ij} = \frac1{n-1} \sum_{k=1}^n (x_{ik} - \bar x_i) (x_{jk} - \bar x_j), \space i,j=1,2,\cdots,m</script><p>其中， $\bar x_i = \frac1n\sum_{k=1}^n x_ik$ 为第 $i$ 个变量的样本均值。</p>
+s_{ij} = \frac1{n-1} \sum_{k=1}^n (x_{ik} - \bar x_i) (x_{jk} - \bar x_j), \quad i,j=1,2,\cdots,m</script><p>其中， $\bar x_i = \frac1n\sum_{k=1}^n x_ik$ 为第 $i$ 个变量的样本均值。</p>
 <p>样本相关矩阵 $R$ 为 $R = [r_{ij}]_{m\times m}$</p>
 <script type="math/tex; mode=display">
-r_{ij} = \frac{s_{ij}}{\sqrt{s_{ii} s_{jj}}}, \space i,j=1,2,\cdots,m</script><p>定义 $m$ 维向量 $\pmb x=(x_1,x_2,\cdots,x_m)^T$ 到 $m$ 维向量 $\pmb y=(y_1,y_2,\cdots,y_m)^T$ 的线性变换 $\pmb y = A^T \pmb x$</p>
+r_{ij} = \frac{s_{ij}}{\sqrt{s_{ii} s_{jj}}}, \quad i,j=1,2,\cdots,m</script><p>定义 $m$ 维向量 $\pmb x=(x_1,x_2,\cdots,x_m)^\text{T}$ 到 $m$ 维向量 $\pmb y=(y_1,y_2,\cdots,y_m)^\text{T}$ 的线性变换 $\pmb y = A^\text{T} \pmb x$</p>
 <p>其中</p>
 <script type="math/tex; mode=display">
 A = \begin{bmatrix}
@@ -328,16 +330,127 @@ A = \begin{bmatrix}
 &\alpha_{m1} & \alpha_{m2} & \cdots & \alpha_{mn} &
 \end{bmatrix}
 \\
-\pmb \alpha_i = (\alpha_{1i},\alpha_{2i},\cdots,\alpha_{mi})^T ,\space i=1,2,\cdots,m</script><p>$y_i$ 的样本方差 $\text{var}(y_i)$ 为</p>
+\pmb \alpha_i = (\alpha_{1i},\alpha_{2i},\cdots,\alpha_{mi})^\text{T} ,\quad i=1,2,\cdots,m</script><p>$y_i$ 的样本方差 $\text{var}(y_i)$ 为</p>
 <script type="math/tex; mode=display">
 \begin{split}
-\text{var}(y_i) &= \frac1{n-1} \sum_{j=1}^n (\pmb \alpha_i^T \pmb x_j - \pmb \alpha_i^T \bar{\pmb x}) \\
-&= \pmb \alpha_i^T \left[ \frac1{n-1} \sum_{j=1}^n (\pmb x_j - \bar{\pmb x})(\pmb x_j - \bar{\pmb x})^T \right] \pmb \alpha_i \\
-&= \pmb \alpha_i^T S \pmb \alpha_i
-\end{split}</script><p>对任意两个线性变换 $y_i = \pmb\alpha_i^T \pmb x,y_j=\pmb\alpha_j^T \pmb x$ ，相应于容量为 $n$ 的样本 $\pmb x_1,\pmb x_2,\cdots,\pmb x_n$ ，</p>
-<p>$y_i , y_j$ 的样本协方差为 $\text{cov}(y_i,y_j) = \pmb \alpha_i^T S \pmb \alpha_j$ 。</p>
+\text{var}(y_i) &= \frac1{n-1} \sum_{j=1}^n (\pmb \alpha_i^\text{T} \pmb x_j - \pmb \alpha_i^\text{T} \bar{\pmb x}) \\
+&= \pmb \alpha_i^\text{T} \left[ \frac1{n-1} \sum_{j=1}^n (\pmb x_j - \bar{\pmb x})(\pmb x_j - \bar{\pmb x})^\text{T} \right] \pmb \alpha_i \\
+&= \pmb \alpha_i^\text{T} S \pmb \alpha_i
+\end{split}</script><p>对任意两个线性变换 $y_i = \pmb\alpha_i^\text{T} \pmb x,y_j=\pmb\alpha_j^\text{T} \pmb x$ ，相应于容量为 $n$ 的样本 $\pmb x_1,\pmb x_2,\cdots,\pmb x_n$ ，</p>
+<p>$y_i , y_j$ 的样本协方差为 $\text{cov}(y_i,y_j) = \pmb \alpha_i^\text{T} S \pmb \alpha_j$ 。</p>
+<hr>
+<p><strong>定义4（样本主成分）</strong>  给定样本矩阵 $X$ 。</p>
+<p>样本第一主成分 $y_1 = \pmb\alpha_1^\text{T} \pmb x$ 是在 $\pmb\alpha_1^\text{T} \pmb\alpha_1 = 1$ 条件下，使得 $\pmb\alpha_1^\text{T} \pmb x_j$ ( $j=1,2,\cdots,n$ ) 的样本方差 $\pmb\alpha_1^\text{T} S \pmb\alpha_1$ 最大的 $\pmb x$ 的线性变换；</p>
+<p>样本第二主成分 $y_2 = \pmb\alpha_2^\text{T} \pmb x$ 是在 $\pmb\alpha_2^\text{T} \pmb\alpha_2 = 1$ ，和 $\pmb\alpha_2^\text{T} \pmb x_j$ 与 $\pmb\alpha_1^\text{T} \pmb x_j$ ( $j=1,2,\cdots,n$ ) 的样本协方差 $\pmb\alpha_1^\text{T} S \pmb\alpha_2 = 0$ 条件下，使得 $\pmb\alpha_2^\text{T} \pmb x_j$ ( $j=1,2,\cdots,n$ ) 的样本方差 $\pmb\alpha_2^\text{T} S \pmb\alpha_2$ 最大的 $\pmb x$ 的线性变换；</p>
+<p>一般的，样本第 $i$ 主成分 $y_i = \pmb\alpha_i^\text{T} \pmb x$ 是在 $\pmb\alpha_i^\text{T} \pmb\alpha_i = 1$ ，和 $\pmb\alpha_i^\text{T} \pmb x_j$ 与 $\pmb\alpha_k^\text{T} \pmb x_j$ ( $k\lt i,j=1,2,\cdots,n$ ) 的样本协方差 $\pmb\alpha_k^\text{T} S \pmb\alpha_i = 0$ 条件下，使得 $\pmb\alpha_i^\text{T} \pmb x_j$ ( $j=1,2,\cdots,n$ ) 的样本方差 $\pmb\alpha_i^\text{T} S \pmb\alpha_i$ 最大的 $\pmb x$ 的线性变换。</p>
+<hr>
+<p>样本主成分与总体主成分具有同样的性质。</p>
+<p>在使用样本主成分时，一般假设样本数据是规范化的，即对样本矩阵作如下变换：</p>
+<script type="math/tex; mode=display">
+\label{9}\tag{9}
+x_{ij}^\ast = \frac{x_{ij}-\bar x_i}{\sqrt{s_{ii}}},\quad i=1,2,\cdots,m;\quad j=1,2,\cdots,n</script><p>其中</p>
+<script type="math/tex; mode=display">
+\bar x_i = \frac1n \sum_{j=1}^n x_{ij} ,\quad i=1,2,\cdots,m \\
+s_{ii} = \frac1{n-1} \sum_{j=1}^n (x_{ij}-\bar x_i)^2 ,\quad i=1,2,\cdots,m</script><p>为了方便，以下将规范化变量 $x_{ij}^\ast$ 每仍记作 $x_{ij}$  , 规范化的样本矩阵仍记作 $X$ 。这时，<strong>样本协方差矩阵 $S$ 就是样本相关矩阵 $R$</strong> </p>
+<script type="math/tex; mode=display">
+\label{10}\tag{10}
+R = \frac1{n-1} X X^\text{T}</script><p>样本协方差矩阵 $S$ 是总体协方差矩阵 $\Sigma$ 的无偏估计，</p>
+<p>样本相关矩阵 $R$ 是总体相关矩阵的无偏估计，</p>
+<p>$S$ 的特征值和特征向量是 $\Sigma$ 的特征值和特征向量的极大似然估计。</p>
+<h2 id="4-2-相关矩阵的特征值分解算法"><a href="#4-2-相关矩阵的特征值分解算法" class="headerlink" title="4.2 相关矩阵的特征值分解算法"></a>4.2 相关矩阵的特征值分解算法</h2><p>给定样本矩阵 $X$ ，利用数据的样本协方差矩阵或者样本相关矩阵的特征值分解进行主成分分析。具体步骤如下：</p>
+<ol>
+<li><p>对观测数据按式 $\eqref{9}$ 进行规范化处理，得到规范化数据矩阵，仍以 $X$ 表示。</p>
+</li>
+<li><p>依据规范化数据矩阵，计算样本相关矩阵 $R$ </p>
+<script type="math/tex; mode=display">
+R = [r_{ij}]_{m\times m} = \frac1{n-1} X X^\text{T}</script><p>其中</p>
+<script type="math/tex; mode=display">
+r_{ij} = \frac1{n-1} \sum_{k=1}^n x_{ik} x_{jk},\quad i,j=1,2,\cdots,m</script></li>
+<li><p>求样本相关矩阵 $R$ 的 $k$ 个特征值和对应的 $k$ 个单位特征向量</p>
+<ol>
+<li><p>求解 $R$ 的特征方程 $|R-\lambda E| = 0$ （其中 $E$ 是单位矩阵）</p>
+<p> 得到 $R$ 的 $m$ 个特征值 $\lambda_1 \ge \lambda_2 \ge \cdots \ge \lambda_m$</p>
+</li>
+<li><p>按式 $\eqref{7}$ 求方差贡献率 $\sum_{i=1}^k \eta_i$ ，达到预定值的主成分个数 $k$ </p>
+</li>
+<li><p>求前 $k$ 个特征值对应的单位特征向量 $\pmb \alpha_i = (\alpha_{1i},\alpha_{2i},\cdots,\alpha_{mi})^\text{T} ,\quad i=1,2,\cdots,k$</p>
+</li>
+</ol>
+</li>
+<li><p>求 $k$ 个样本主成分</p>
+<p> 以 $k$ 个单位特征向量为系数进行线性变换，求出 $k$ 个样本主成分</p>
+<script type="math/tex; mode=display">
+ y_i = \pmb\alpha_i^\text{T} \pmb x,\quad i=1,2,\cdots,k</script></li>
+<li><p>计算 $k$ 个主成分 $y_j$ 与原变量 $x_i$ 的相关系数 $\rho(x_i,y_j)$ ，以及 $k$ 个主成分对原变量 $x_i$ 的贡献率 $\nu_i$ </p>
+</li>
+<li><p>计算 $n$ 个样本的 $k$ 个主成分值</p>
+<p> 将规范化样本数据代入 $k$ 个主成分式 $y_i = \pmb\alpha_i^\text{T} \pmb x,\quad i=1,2,\cdots,k$</p>
+<p> 得到 $n$ 个样本的主成分值。</p>
+</li>
+</ol>
+<p>第 $j$ 个样本 $\pmb x_j = (x_{1j},x_{2j},\cdots,x_{mj})^\text{T}$ 的第 $i$ 主成分值是</p>
+<script type="math/tex; mode=display">
+y_{ij} = (\alpha_{1i},\alpha_{2i},\cdots,\alpha_{mi})(x_{1j},x_{2j},\cdots,x_{mj})^\text{T} = \sum_{k=1}^m \alpha_{ki} x_{kj} \\
+i=1,2,\cdots,m, \quad j=1,2,\cdots,n</script><h2 id="4-3-例子"><a href="#4-3-例子" class="headerlink" title="4.3 例子"></a>4.3 例子</h2><p>假设有 $n$ 个学生参加四门课程的考试，将学生们的考试成绩看作随机变量的取值，对考试成绩数据进行标准化处理，得到样本相关矩阵 $R$ ：</p>
+<p><img src="/machine-learning-Principal-Components-Analysis/image-20220129133529397.png" alt="image-20220129133529397" style="zoom:50%;"></p>
+<p>试对数据进行主成分分析。</p>
+<p>设变量 $x_1,x_2,x_3,x_4$ 分别表示语文、外语、数学、物理的成绩。 对样本相关矩阵 $R$ 进行特征值分解（ $|R-\lambda E| = 0$ ），得到相关矩阵的特征值，并按大小排序</p>
+<script type="math/tex; mode=display">
+\lambda_1 = 2.17 ,\quad \lambda_2 = 0.87 ,\quad \lambda_3 = 0.57 ,\quad \lambda_4 = 0.39</script><p>这些特征值就是各主成分的方差贡献率。假设要求主成分的累计方差贡献率大于 75% ，那么只需取前两个主成分即可，即 $k=2$ ，因为</p>
+<script type="math/tex; mode=display">
+\frac{\lambda_1 + \lambda_2}{\sum_{i=1}^4 \lambda_i} \approx 0.76</script><p>求出对应于特征值 $\lambda_1,\lambda_2$ 的单位特征向量</p>
+<p><img src="/machine-learning-Principal-Components-Analysis/image-20220129134534067.png" alt="image-20220129134534067" style="zoom:50%;"></p>
+<p>由 $y_i = \pmb\alpha_i^\text{T} \pmb x,\quad i=1,2$ 可得第一主成分 $y_1$ 、第二主成分 $y_2$ </p>
+<script type="math/tex; mode=display">
+y_1 = 0.460 x_1 + 0.476 x_2 + 0.523 x_3 + 0.537 x_4 \\
+y_2 = 0.574 x_1 + 0.486 x_2 - 0.476 x_3 - 0.456 x_4</script><p>接下来由特征值和单位特征向量求出第一、第二主成分的因子负荷量（即相关系数 $\rho(y_i,x_j)$ ），以及第一、 第二主成分对变量 $x_i$ 的贡献率 $\nu = \rho^2((y_1,y_2),x_j)$ </p>
+<p><img src="/machine-learning-Principal-Components-Analysis/image-20220129140552791.png" alt="image-20220129140552791" style="zoom:50%;"></p>
+<p>第一主成分 $y_1$ 对应的因子负荷量 $\rho(y_1,x_j),\ j=1,2,3,4$ 均为正数，表明各门课程成绩提高都可使 $y_1$ 提高</p>
+<p>也就是说，第一主成分 $y_1$ 反映了学生的整体成绩</p>
+<p>因子负荷量的数值相近，且 $\rho(y_1,x_4)$ 的数值最大，这表明物理成绩在整体成绩中占最重要位置</p>
+<p>第二主成分 $y_2$ 对应的因子负荷量 $\rho(y_2,x_j),\ j=1,2,3,4$ 有正有负，正的是语文和外语，负的是数学和物理</p>
+<p>表明文科成绩提高都可使  $y_2$ 提高，理科成绩提高都可使 $y_2$ 降低</p>
+<p>也就是说，第二主成分 $y_2$ 反映了学生的文科成绩与理科成绩的关系。</p>
+<p>将原变量 x1 , x2 , x3 , x4 （语文、外语、数学、物理）和主成分 y1 , y2 （整体成绩、文科对理科成绩）的因子负荷量在平面坐标系中表示。4个原变量聚成了两类因子负荷量相近的语文、外语为一类，数学、物理为一类，前者反映文科课程成绩，后者反映理科课程成绩。</p>
+<p><img src="/machine-learning-Principal-Components-Analysis/image-20220129141122243.png" alt="image-20220129141122243" style="zoom:50%;"></p>
+<h2 id="4-4-数据矩阵的奇异值分解算法"><a href="#4-4-数据矩阵的奇异值分解算法" class="headerlink" title="4.4 数据矩阵的奇异值分解算法"></a>4.4 数据矩阵的奇异值分解算法</h2><p>假设有 $k$ 个主成分，给定样本矩阵 $X$ ，利用数据矩阵奇异值分解进行主成分分析。</p>
+<p>对于 $m \times n$ 实矩阵 $A$ ，假设其秩为 $r , 0 \lt k \lt r$ ，则可以将矩阵 $A$ 进行截断奇异值分解</p>
+<script type="math/tex; mode=display">
+A \approx U_k \Sigma_k V_k^\text{T}</script><p>定义一个新的 $n \times m$ 矩阵 $X^\prime$ </p>
+<script type="math/tex; mode=display">
+X^\prime = \frac1{\sqrt{n-1}} X^\text{T}</script><p> $X^\prime$ 的每一列均值为 0 ，得</p>
+<script type="math/tex; mode=display">
+\begin{split}
+X^{\prime\text{T}} X^\prime 
+&= \left( \frac1{\sqrt{n-1}} X^\text{T} \right)^\text{T} \left( \frac1{\sqrt{n-1}} X^\text{T} \right)\\
+&= \frac1{n-1} X X^\text{T}
+\end{split}</script><p>由式 $\eqref{10}$ 得知 $X^{\prime\text{T}} X^\prime $ 等于 $X$ 的协方差矩阵 $S_X$ </p>
+<script type="math/tex; mode=display">
+S_X = X^{\prime\text{T}} X^\prime</script><p>主成分分析归结于求协方差矩阵 $S_X$ 的特征值和对应的单位特征向量</p>
+<p>问题转化为求矩阵 $X^{\prime\text{T}} X^\prime$ 的特征值和对应的单位特征向量</p>
+<p><strong>假设 $X^\prime$ 的截断奇异值分解为 $X^\prime = U\Sigma V^\text{T}$ ，那么 $V$ 的列向量就是 $S_X = X^{\prime \text{T}} X^\prime$ 的单位特征向量</strong></p>
+<p>因此， $V$ 的列向量就是 $X$ 的主成分</p>
+<p>于是，求 $X$ 主成分可以通过求 $X^\prime$ 的奇异值分解来实现。</p>
+<h2 id="4-4-1-算法"><a href="#4-4-1-算法" class="headerlink" title="4.4.1 算法"></a>4.4.1 算法</h2><ul>
+<li>输入： $m \times n$ 样本矩阵 $X$ ，其每一行元素的均值为零；</li>
+<li>输出：$k \times n$ 样本主成分矩阵 $Y$ ；</li>
+<li>参数：主成分个数 $k$</li>
+</ul>
+<ol>
+<li><p>构造新的 $n\times m$ 矩阵</p>
+<script type="math/tex; mode=display">
+ X^\prime = \frac1{\sqrt{n-1}} X^\text{T}</script><p> $X^\prime$ 每一列的均值为零。</p>
+</li>
+<li><p>对矩阵 $X^\prime$ 进行截断奇异值分解，得到</p>
+<script type="math/tex; mode=display">
+ X^\prime = U \Sigma V^\text{T}</script><p> 有 $k$ 个奇异值、奇异向量。矩阵 $V$ 的前 $k$ 列构成 $k$ 个样本主成分。</p>
+</li>
+<li><p>求 $k\times n$ 样本主成分矩阵</p>
+<script type="math/tex; mode=display">
+ Y = V^\text{T} X</script></li>
+</ol>
 <h1 id="相关文章"><a href="#相关文章" class="headerlink" title="相关文章"></a>相关文章</h1><p><a href="/machine-learning-Overview-of-Unsupervised-Learning">【机器学习】无监督学习概论</a></p>
-</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/machine-learning-Principal-Components-Analysis/">http://110.42.233.207/machine-learning-Principal-Components-Analysis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a><a class="post-meta__tags" href="/tags/PCA/">PCA</a></div><div class="post_share"><div class="social-share" data-image="/machine-learning-Principal-Components-Analysis/machine-learning.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-clustering/"><img class="next-cover" src="/machine-learning-clustering/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【机器学习】聚类方法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/machine-learning-Decision-Tree/" title="【机器学习】决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】决策树</div></div></a></div><div><a href="/machine-learning-K-Nearest-Neighbors/" title="【机器学习】k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">【机器学习】k近邻算法</div></div></a></div><div><a href="/machine-learning-LogisticRegression/" title="【机器学习】Logistic回归"><img class="cover" src="/machine-learning-LogisticRegression/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">【机器学习】Logistic回归</div></div></a></div><div><a href="/machine-learning-MaxEntropyModel/" title="【机器学习】最大熵模型"><img class="cover" src="/machine-learning-MaxEntropyModel/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-04</div><div class="title">【机器学习】最大熵模型</div></div></a></div><div><a href="/machine-learning-Naive-Bayesian-Model/" title="【机器学习】朴素贝叶斯"><img class="cover" src="/machine-learning-Naive-Bayesian-Model/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】朴素贝叶斯</div></div></a></div><div><a href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论"><img class="cover" src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-16</div><div class="title">【机器学习】无监督学习概论</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-text">1 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%AB%98%E7%BB%B4%E5%BA%A6%E6%95%B0%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">1.1 高维度数存在的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E9%99%8D%E7%BB%B4%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7%E5%92%8C%E7%9B%AE%E7%9A%84"><span class="toc-text">1.2 降维的必要性和目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BF%A1%E6%81%AF%E9%87%8F%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-text">1.3 信息量的含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E5%BA%94%E7%94%A8"><span class="toc-text">1.4 应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-text">2 主成分分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%9F%BA%E6%9C%AC%E6%83%B3%E6%B3%95"><span class="toc-text">2.1 基本想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%BE%8B%E5%AD%90"><span class="toc-text">2.2 例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E4%BE%8B%E4%B8%80"><span class="toc-text">2.2.1 例一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E4%BE%8B%E4%BA%8C"><span class="toc-text">2.2.2 例二</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-3-%E6%80%BB%E4%BD%93%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-text">2.3 总体主成分分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-1-%E5%AE%9A%E4%B9%89%E5%92%8C%E6%8E%A8%E5%AF%BC"><span class="toc-text">2.3.1 定义和推导</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-2-%E4%B8%BB%E8%A6%81%E6%80%A7%E8%B4%A8"><span class="toc-text">2.3.2 主要性质</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-3-%E4%B8%BB%E6%88%90%E5%88%86%E7%9A%84%E4%B8%AA%E6%95%B0%E4%B8%8E%E8%B4%A1%E7%8C%AE%E7%8E%87"><span class="toc-text">2.3.3 主成分的个数与贡献率</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-3-4-%E8%A7%84%E8%8C%83%E5%8C%96%E5%8F%98%E9%87%8F%E7%9A%84%E6%80%BB%E4%BD%93%E4%B8%BB%E6%88%90%E5%88%86"><span class="toc-text">2.3.4 规范化变量的总体主成分</span></a></li></ol></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-4-%E6%A0%B7%E6%9C%AC%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-text">2.4 样本主成分分析</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-4-1-%E5%AE%9A%E4%B9%89%E5%92%8C%E6%80%A7%E8%B4%A8"><span class="toc-text">2.4.1 定义和性质</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0"><span class="toc-text">相关文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-Principal-Components-Analysis/" title="【机器学习】主成分分析"><img src="/machine-learning-Principal-Components-Analysis/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】主成分分析"/></a><div class="content"><a class="title" href="/machine-learning-Principal-Components-Analysis/" title="【机器学习】主成分分析">【机器学习】主成分分析</a><time datetime="2022-01-21T13:57:20.000Z" title="发表于 2022-01-21 21:57:20">2022-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-clustering/" title="【机器学习】聚类方法"><img src="/machine-learning-clustering/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】聚类方法"/></a><div class="content"><a class="title" href="/machine-learning-clustering/" title="【机器学习】聚类方法">【机器学习】聚类方法</a><time datetime="2022-01-18T09:23:00.000Z" title="发表于 2022-01-18 17:23:00">2022-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论"><img src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】无监督学习概论"/></a><div class="content"><a class="title" href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论">【机器学习】无监督学习概论</a><time datetime="2022-01-16T14:30:00.000Z" title="发表于 2022-01-16 22:30:00">2022-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
+</article><div class="post-copyright"><div class="post-copyright__author"><span class="post-copyright-meta">文章作者: </span><span class="post-copyright-info"><a href="mailto:undefined">Kevin Parker</a></span></div><div class="post-copyright__type"><span class="post-copyright-meta">文章链接: </span><span class="post-copyright-info"><a href="http://110.42.233.207/machine-learning-Principal-Components-Analysis/">http://110.42.233.207/machine-learning-Principal-Components-Analysis/</a></span></div><div class="post-copyright__notice"><span class="post-copyright-meta">版权声明: </span><span class="post-copyright-info">本博客所有文章除特别声明外，均采用 <a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请注明来自 <a href="http://110.42.233.207" target="_blank">你刚刚打开了这个博客</a>！</span></div></div><div class="tag_share"><div class="post-meta__tag-list"><a class="post-meta__tags" href="/tags/machine-learning/">machine-learning</a><a class="post-meta__tags" href="/tags/PCA/">PCA</a></div><div class="post_share"><div class="social-share" data-image="/machine-learning-Principal-Components-Analysis/machine-learning.jpg" data-sites="facebook,twitter,wechat,weibo,qq"></div><link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/social-share.js/dist/css/share.min.css" media="print" onload="this.media='all'"><script src="https://cdn.jsdelivr.net/npm/social-share.js/dist/js/social-share.min.js" defer></script></div></div><nav class="pagination-post" id="pagination"><div class="next-post pull-full"><a href="/machine-learning-clustering/"><img class="next-cover" src="/machine-learning-clustering/machine-learning.jpg" onerror="onerror=null;src='/img/404.jpg'" alt="cover of next post"><div class="pagination-info"><div class="label">下一篇</div><div class="next_info">【机器学习】聚类方法</div></div></a></div></nav><div class="relatedPosts"><div class="headline"><i class="fas fa-thumbs-up fa-fw"></i><span>相关推荐</span></div><div class="relatedPosts-list"><div><a href="/machine-learning-K-Nearest-Neighbors/" title="【机器学习】k近邻算法"><img class="cover" src="/machine-learning-K-Nearest-Neighbors/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">【机器学习】k近邻算法</div></div></a></div><div><a href="/machine-learning-Decision-Tree/" title="【机器学习】决策树"><img class="cover" src="/machine-learning-Decision-Tree/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】决策树</div></div></a></div><div><a href="/machine-learning-LogisticRegression/" title="【机器学习】Logistic回归"><img class="cover" src="/machine-learning-LogisticRegression/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-12-03</div><div class="title">【机器学习】Logistic回归</div></div></a></div><div><a href="/machine-learning-Naive-Bayesian-Model/" title="【机器学习】朴素贝叶斯"><img class="cover" src="/machine-learning-Naive-Bayesian-Model/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-28</div><div class="title">【机器学习】朴素贝叶斯</div></div></a></div><div><a href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论"><img class="cover" src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2022-01-16</div><div class="title">【机器学习】无监督学习概论</div></div></a></div><div><a href="/machine-learning-Perceptron/" title="【机器学习】感知机"><img class="cover" src="/machine-learning-Perceptron/machine-learning.jpg" alt="cover"><div class="content is-center"><div class="date"><i class="far fa-calendar-alt fa-fw"></i> 2021-11-27</div><div class="title">【机器学习】感知机</div></div></a></div></div></div></div><div class="aside-content" id="aside-content"><div class="card-widget card-info"><div class="is-center"><div class="avatar-img"><img src="https://avatars.githubusercontent.com/u/91741133?v=4" onerror="this.onerror=null;this.src='/img/friend_404.gif'" alt="avatar"/></div><div class="author-info__name">Kevin Parker</div><div class="author-info__description">一只菜鸟的学习笔记</div></div><div class="card-info-data"><div class="card-info-data-item is-center"><a href="/archives/"><div class="headline">文章</div><div class="length-num">25</div></a></div><div class="card-info-data-item is-center"><a href="/tags/"><div class="headline">标签</div><div class="length-num">27</div></a></div><div class="card-info-data-item is-center"><a href="/categories/"><div class="headline">分类</div><div class="length-num">4</div></a></div></div><a class="button--animated" id="card-info-btn" target="_blank" rel="noopener" href="https://github.com/Kairan-Peng"><i class="fab fa-github"></i><span>Follow Me</span></a><div class="card-info-social-icons is-center"><a class="social-icon" href="https://github.com/Kairan-Peng" target="_blank" title="Github"><i class="fab fa-github"></i></a><a class="social-icon" href="mailto:peng.kairan@qq.com" target="_blank" title="Email"><i class="fas fa-envelope"></i></a></div></div><div class="sticky_layout"><div class="card-widget" id="card-toc"><div class="item-headline"><i class="fas fa-stream"></i><span>目录</span></div><div class="toc-content"><ol class="toc"><li class="toc-item toc-level-1"><a class="toc-link" href="#1-%E5%89%8D%E8%A8%80"><span class="toc-text">1 前言</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#1-1-%E9%AB%98%E7%BB%B4%E5%BA%A6%E6%95%B0%E5%AD%98%E5%9C%A8%E7%9A%84%E9%97%AE%E9%A2%98"><span class="toc-text">1.1 高维度数存在的问题</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-2-%E9%99%8D%E7%BB%B4%E7%9A%84%E5%BF%85%E8%A6%81%E6%80%A7%E5%92%8C%E7%9B%AE%E7%9A%84"><span class="toc-text">1.2 降维的必要性和目的</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-3-%E4%BF%A1%E6%81%AF%E9%87%8F%E7%9A%84%E5%90%AB%E4%B9%89"><span class="toc-text">1.3 信息量的含义</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#1-4-%E5%BA%94%E7%94%A8"><span class="toc-text">1.4 应用</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#2-%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90%E7%AE%80%E4%BB%8B"><span class="toc-text">2 主成分分析简介</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#2-1-%E5%9F%BA%E6%9C%AC%E6%83%B3%E6%B3%95"><span class="toc-text">2.1 基本想法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#2-2-%E4%BE%8B%E5%AD%90"><span class="toc-text">2.2 例子</span></a><ol class="toc-child"><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-1-%E4%BE%8B%E4%B8%80"><span class="toc-text">2.2.1 例一</span></a></li><li class="toc-item toc-level-3"><a class="toc-link" href="#2-2-2-%E4%BE%8B%E4%BA%8C"><span class="toc-text">2.2.2 例二</span></a></li></ol></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#3-%E6%80%BB%E4%BD%93%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-text">3 总体主成分分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#3-1-%E5%AE%9A%E4%B9%89%E5%92%8C%E6%8E%A8%E5%AF%BC"><span class="toc-text">3.1 定义和推导</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-2-%E4%B8%BB%E8%A6%81%E6%80%A7%E8%B4%A8"><span class="toc-text">3.2 主要性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-3-%E4%B8%BB%E6%88%90%E5%88%86%E7%9A%84%E4%B8%AA%E6%95%B0%E4%B8%8E%E8%B4%A1%E7%8C%AE%E7%8E%87"><span class="toc-text">3.3 主成分的个数与贡献率</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#3-4-%E8%A7%84%E8%8C%83%E5%8C%96%E5%8F%98%E9%87%8F%E7%9A%84%E6%80%BB%E4%BD%93%E4%B8%BB%E6%88%90%E5%88%86"><span class="toc-text">3.4 规范化变量的总体主成分</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#4-%E6%A0%B7%E6%9C%AC%E4%B8%BB%E6%88%90%E5%88%86%E5%88%86%E6%9E%90"><span class="toc-text">4 样本主成分分析</span></a><ol class="toc-child"><li class="toc-item toc-level-2"><a class="toc-link" href="#4-1-%E5%AE%9A%E4%B9%89%E5%92%8C%E6%80%A7%E8%B4%A8"><span class="toc-text">4.1 定义和性质</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-2-%E7%9B%B8%E5%85%B3%E7%9F%A9%E9%98%B5%E7%9A%84%E7%89%B9%E5%BE%81%E5%80%BC%E5%88%86%E8%A7%A3%E7%AE%97%E6%B3%95"><span class="toc-text">4.2 相关矩阵的特征值分解算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-3-%E4%BE%8B%E5%AD%90"><span class="toc-text">4.3 例子</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-%E6%95%B0%E6%8D%AE%E7%9F%A9%E9%98%B5%E7%9A%84%E5%A5%87%E5%BC%82%E5%80%BC%E5%88%86%E8%A7%A3%E7%AE%97%E6%B3%95"><span class="toc-text">4.4 数据矩阵的奇异值分解算法</span></a></li><li class="toc-item toc-level-2"><a class="toc-link" href="#4-4-1-%E7%AE%97%E6%B3%95"><span class="toc-text">4.4.1 算法</span></a></li></ol></li><li class="toc-item toc-level-1"><a class="toc-link" href="#%E7%9B%B8%E5%85%B3%E6%96%87%E7%AB%A0"><span class="toc-text">相关文章</span></a></li></ol></div></div><div class="card-widget card-recent-post"><div class="item-headline"><i class="fas fa-history"></i><span>最新文章</span></div><div class="aside-list"><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-Principal-Components-Analysis/" title="【机器学习】主成分分析"><img src="/machine-learning-Principal-Components-Analysis/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】主成分分析"/></a><div class="content"><a class="title" href="/machine-learning-Principal-Components-Analysis/" title="【机器学习】主成分分析">【机器学习】主成分分析</a><time datetime="2022-01-21T13:57:20.000Z" title="发表于 2022-01-21 21:57:20">2022-01-21</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-clustering/" title="【机器学习】聚类方法"><img src="/machine-learning-clustering/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】聚类方法"/></a><div class="content"><a class="title" href="/machine-learning-clustering/" title="【机器学习】聚类方法">【机器学习】聚类方法</a><time datetime="2022-01-18T09:23:00.000Z" title="发表于 2022-01-18 17:23:00">2022-01-18</time></div></div><div class="aside-list-item"><a class="thumbnail" href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论"><img src="/machine-learning-Overview-of-Unsupervised-Learning/machine-learning.jpg" onerror="this.onerror=null;this.src='/img/404.jpg'" alt="【机器学习】无监督学习概论"/></a><div class="content"><a class="title" href="/machine-learning-Overview-of-Unsupervised-Learning/" title="【机器学习】无监督学习概论">【机器学习】无监督学习概论</a><time datetime="2022-01-16T14:30:00.000Z" title="发表于 2022-01-16 22:30:00">2022-01-16</time></div></div></div></div></div></div></main><footer id="footer"><div id="footer-wrap"><div class="copyright">&copy;2020 - 2022 By Kevin Parker</div><div class="framework-info"><span>框架 </span><a target="_blank" rel="noopener" href="https://hexo.io">Hexo</a><span class="footer-separator">|</span><span>主题 </span><a target="_blank" rel="noopener" href="https://github.com/jerryc127/hexo-theme-butterfly">Butterfly</a></div><div class="icp"><a target="_blank" rel="noopener" href="http://beian.miit.gov.cn/"><span>浙ICP备2021037349号-1</span></a></div></div></footer></div><div id="rightside"><div id="rightside-config-hide"><button id="readmode" type="button" title="阅读模式"><i class="fas fa-book-open"></i></button><button id="darkmode" type="button" title="浅色和深色模式转换"><i class="fas fa-adjust"></i></button><button id="hide-aside-btn" type="button" title="单栏和双栏切换"><i class="fas fa-arrows-alt-h"></i></button></div><div id="rightside-config-show"><button id="rightside_config" type="button" title="设置"><i class="fas fa-cog fa-spin"></i></button><button class="close" id="mobile-toc-button" type="button" title="目录"><i class="fas fa-list-ul"></i></button><button id="go-up" type="button" title="回到顶部"><i class="fas fa-arrow-up"></i></button></div></div><div><script src="/js/utils.js"></script><script src="/js/main.js"></script><div class="js-pjax"><script>if (!window.MathJax) {
   window.MathJax = {
     tex: {
       inlineMath: [ ['$','$'], ["\\(","\\)"]],
